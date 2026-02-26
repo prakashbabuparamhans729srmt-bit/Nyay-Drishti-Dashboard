@@ -4,30 +4,30 @@
 
 @layer base {
   :root {
-    --background: 220 15% 95%;
-    --foreground: 220 50% 10%;
-    --card: 0 0% 100%;
-    --card-foreground: 220 50% 10%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 50% 10%;
-    --primary: 220 70% 40%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 220 15% 90%;
-    --secondary-foreground: 220 70% 40%;
-    --muted: 220 15% 85%;
-    --muted-foreground: 220 15% 45%;
-    --accent: 190 80% 55%;
-    --accent-foreground: 220 50% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 220 15% 85%;
-    --input: 220 15% 85%;
-    --ring: 220 70% 40%;
+    --background: 0 0% 3%; /* #070707 */
+    --foreground: 0 0% 100%; /* #FFFFFF */
+    --card: 200 15% 9%; /* #14181B */
+    --card-foreground: 0 0% 100%;
+    --popover: 200 15% 9%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 173 94% 49%; /* #07F1D6 */
+    --primary-foreground: 173 10% 5%;
+    --secondary: 207 20% 11%; /* #161C21 */
+    --secondary-foreground: 173 94% 49%;
+    --muted: 207 20% 15%;
+    --muted-foreground: 207 10% 60%;
+    --accent: 173 94% 49%;
+    --accent-foreground: 173 10% 5%;
+    --destructive: 358 93% 54%; /* #F71F26 */
+    --destructive-foreground: 0 0% 100%;
+    --border: 207 20% 15%;
+    --input: 207 20% 15%;
+    --ring: 173 94% 49%;
     --radius: 0.75rem;
-    --chart-1: 220 70% 40%;
-    --chart-2: 190 80% 55%;
-    --chart-3: 160 60% 45%;
-    --chart-4: 30 80% 55%;
+    --chart-1: 173 94% 49%;
+    --chart-2: 200 15% 40%;
+    --chart-3: 358 93% 54%;
+    --chart-4: 45 93% 54%;
     --chart-5: 280 65% 60%;
   }
 }
@@ -37,9 +37,15 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-body;
+    @apply bg-background text-foreground font-body transition-colors duration-300;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-headline font-bold tracking-tight;
+  }
+}
+
+@layer components {
+  .icon-active {
+    @apply transition-all duration-300 hover:scale-110 hover:text-primary active:scale-95 cursor-pointer;
   }
 }

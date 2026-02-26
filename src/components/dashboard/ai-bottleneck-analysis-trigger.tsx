@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Sparkles, Loader2, ChevronRight, AlertCircle, TrendingUp } from "lucide-react";
+import { Sparkles, Loader2, ChevronRight, AlertCircle, TrendingUp, CheckCircle2 } from "lucide-react";
 import { judicialBottleneckAnalysis, JudicialBottleneckAnalysisOutput } from "@/ai/flows/judicial-bottleneck-analysis";
 import {
   Dialog,
@@ -22,7 +22,6 @@ export function AIBottleneckAnalysisTrigger() {
   const handleAnalysis = async () => {
     setLoading(true);
     try {
-      // Mocking input based on dashboard visible data
       const input = {
         courtData: [
           { courtName: "Supreme Court", pendingCases: 78342, newCasesThisYear: 8234, disposedCasesThisYear: 7891, totalSanctionedJudgePosts: 34, vacantJudgePosts: 0, disposalRate: 95 },
@@ -59,67 +58,69 @@ export function AIBottleneckAnalysisTrigger() {
 
   return (
     <>
-      <Card className="border-none shadow-lg bg-gradient-to-br from-primary to-blue-900 text-primary-foreground">
+      <Card className="border-primary/20 shadow-2xl bg-gradient-to-br from-card via-card to-primary/10 relative overflow-hidden group">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 blur-3xl group-hover:bg-primary/20 transition-all duration-500" />
         <CardHeader>
-          <CardTitle className="text-lg flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-accent animate-pulse" />
+          <CardTitle className="text-lg flex items-center gap-2 text-primary">
+            <Sparkles className="h-5 w-5 animate-pulse text-primary" />
             AI बाधा विश्लेषण टूल
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <p className="text-sm text-primary-foreground/80">
-            न्यायिक आंकड़ों का विश्लेषण करें और प्रणालीगत बाधाओं की पहचान कर सुधार के लिए सक्रिय सिफारिशें प्राप्त करें।
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            न्यायिक आंकड़ों का गहरा विश्लेषण करें और प्रणालीगत बाधाओं की पहचान कर सुधार के लिए सक्रिय AI सिफारिशें प्राप्त करें।
           </p>
           <Button 
             onClick={handleAnalysis} 
             disabled={loading}
-            className="w-full bg-accent hover:bg-accent/90 text-primary font-bold shadow-xl transition-all"
+            className="w-full bg-primary hover:bg-primary/90 text-background font-black shadow-[0_0_20px_rgba(7,241,214,0.3)] transition-all duration-300 hover:scale-[1.02]"
           >
             {loading ? (
               <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> विश्लेषण जारी है...</>
             ) : (
-              <>विश्लेषण शुरू करें <ChevronRight className="ml-2 h-4 w-4" /></>
+              <>विश्लेषण शुरू करें <ChevronRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" /></>
             )}
           </Button>
         </CardContent>
       </Card>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-background border-primary/30 text-foreground shadow-[0_0_50px_rgba(0,0,0,0.5)]">
           <DialogHeader>
-            <DialogTitle className="text-2xl flex items-center gap-2">
-              <Sparkles className="h-6 w-6 text-accent" />
-              एआई-संचालित न्यायिक विश्लेषण रिपोर्ट
+            <DialogTitle className="text-3xl font-black flex items-center gap-3 text-primary">
+              <Sparkles className="h-8 w-8 text-primary animate-pulse" />
+              न्यायिक विश्लेषण रिपोर्ट
             </DialogTitle>
-            <DialogDescription>
-              न्यायिक दक्षता बढ़ाने के लिए लक्षित सिफारिशें और प्रणालीगत अंतर्दृष्टि।
+            <DialogDescription className="text-muted-foreground text-lg">
+              एआई-संचालित अंतर्दृष्टि और सुधार के लिए लक्षित कार्य योजना।
             </DialogDescription>
           </DialogHeader>
 
           {result && (
-            <div className="space-y-8 mt-4">
-              <section className="bg-muted/30 p-4 rounded-xl border border-primary/10">
-                <h3 className="font-bold flex items-center gap-2 mb-2 text-primary">
-                  <TrendingUp className="h-5 w-5" /> सारांश
+            <div className="space-y-8 mt-6">
+              <section className="bg-card p-6 rounded-2xl border border-primary/20 relative overflow-hidden shadow-inner">
+                <div className="absolute top-0 left-0 w-1 h-full bg-primary" />
+                <h3 className="font-black text-xl flex items-center gap-2 mb-3 text-primary">
+                  <TrendingUp className="h-6 w-6" /> कार्यकारी सारांश
                 </h3>
-                <p className="text-sm leading-relaxed">{result.summary}</p>
+                <p className="text-base leading-relaxed text-muted-foreground italic">"{result.summary}"</p>
               </section>
 
               <section>
-                <h3 className="font-bold flex items-center gap-2 mb-4">
-                  <AlertCircle className="h-5 w-5 text-destructive" /> पहचाने गए मुख्य अवरोध
+                <h3 className="font-black text-xl flex items-center gap-2 mb-6">
+                  <AlertCircle className="h-6 w-6 text-destructive" /> चिह्नित मुख्य अवरोध
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {result.identifiedBottlenecks.map((b, i) => (
-                    <div key={i} className="border p-4 rounded-lg bg-white shadow-sm space-y-2">
-                      <Badge variant="outline" className="text-destructive border-destructive">{b.category}</Badge>
-                      <h4 className="font-bold text-sm">{b.description}</h4>
-                      <p className="text-xs text-muted-foreground italic">प्रभाव: {b.impact}</p>
+                    <div key={i} className="border border-muted p-5 rounded-2xl bg-card/50 hover:bg-card hover:border-primary/30 transition-all duration-300 group shadow-lg">
+                      <Badge variant="outline" className="text-destructive border-destructive/50 bg-destructive/5 mb-3">{b.category}</Badge>
+                      <h4 className="font-black text-lg text-white group-hover:text-primary transition-colors">{b.description}</h4>
+                      <p className="text-sm text-muted-foreground mt-2 leading-relaxed">प्रभाव: {b.impact}</p>
                       {b.relevantCourts && (
-                        <div className="pt-2">
-                           <span className="text-[10px] uppercase font-bold text-muted-foreground">प्रभावित न्यायालय:</span>
-                           <div className="flex flex-wrap gap-1 mt-1">
-                             {b.relevantCourts.map(c => <Badge key={c} variant="secondary" className="text-[10px]">{c}</Badge>)}
+                        <div className="pt-4 mt-4 border-t border-muted">
+                           <span className="text-[10px] uppercase font-bold text-muted-foreground tracking-widest">प्रभावित क्षेत्र:</span>
+                           <div className="flex flex-wrap gap-1.5 mt-2">
+                             {b.relevantCourts.map(c => <Badge key={c} variant="secondary" className="text-[10px] bg-secondary hover:bg-primary hover:text-background transition-colors cursor-default">{c}</Badge>)}
                            </div>
                         </div>
                       )}
@@ -128,27 +129,30 @@ export function AIBottleneckAnalysisTrigger() {
                 </div>
               </section>
 
-              <section>
-                <h3 className="font-bold flex items-center gap-2 mb-4">
-                  <CheckCircle2 className="h-5 w-5 text-green-600" /> कार्यात्मक सिफारिशें
+              <section className="pb-8">
+                <h3 className="font-black text-xl flex items-center gap-2 mb-6">
+                  <CheckCircle2 className="h-6 w-6 text-primary" /> अनुशंसित रणनीतिक कार्रवाई
                 </h3>
                 <div className="space-y-4">
                   {result.actionableRecommendations.map((r, i) => (
-                    <div key={i} className="flex gap-4 p-4 border rounded-xl bg-green-50/30 border-green-100">
-                      <div className={`shrink-0 h-10 w-10 rounded-full flex items-center justify-center font-bold shadow-sm ${
-                        r.priority === 'High' ? 'bg-red-100 text-red-600' : 
-                        r.priority === 'Medium' ? 'bg-amber-100 text-amber-600' : 'bg-green-100 text-green-600'
+                    <div key={i} className="group flex gap-5 p-6 border border-muted rounded-3xl bg-card hover:border-primary/50 transition-all duration-300 shadow-xl">
+                      <div className={`shrink-0 h-14 w-14 rounded-2xl flex items-center justify-center font-black text-xl shadow-lg transition-transform group-hover:scale-110 ${
+                        r.priority === 'High' ? 'bg-destructive/10 text-destructive border border-destructive/20' : 
+                        r.priority === 'Medium' ? 'bg-amber-400/10 text-amber-400 border border-amber-400/20' : 'bg-primary/10 text-primary border border-primary/20'
                       }`}>
                         {r.priority[0]}
                       </div>
-                      <div className="space-y-1">
-                        <div className="flex items-center gap-2">
-                          <h4 className="font-bold">{r.recommendation}</h4>
-                          <Badge variant={r.priority === 'High' ? 'destructive' : r.priority === 'Medium' ? 'default' : 'secondary'}>
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-3">
+                          <h4 className="font-black text-lg text-white group-hover:text-primary transition-colors">{r.recommendation}</h4>
+                          <Badge className={
+                            r.priority === 'High' ? 'bg-destructive text-white' : 
+                            r.priority === 'Medium' ? 'bg-amber-400 text-black' : 'bg-primary text-background'
+                          }>
                             {r.priority}
                           </Badge>
                         </div>
-                        <p className="text-sm text-muted-foreground">{r.justification}</p>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{r.justification}</p>
                       </div>
                     </div>
                   ))}

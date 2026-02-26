@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { MoreHorizontal, ExternalLink } from "lucide-react";
+import { ExternalLink, Database, Activity } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const courtData = [
@@ -63,52 +63,64 @@ const courtData = [
 
 export function CourtDetailsTable() {
   return (
-    <Card className="border-none shadow-md overflow-hidden">
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle className="text-lg">न्यायालयवार विवरण तालिका</CardTitle>
-        <Button variant="outline" size="sm" className="gap-2">
-          सभी देखें <ExternalLink className="h-4 w-4" />
+    <Card className="border-muted shadow-2xl overflow-hidden bg-card">
+      <CardHeader className="flex flex-row items-center justify-between border-b border-muted bg-secondary/20">
+        <CardTitle className="text-xl font-black text-primary flex items-center gap-3">
+          <Database className="h-6 w-6" />
+          न्यायालयवार डेटा तालिका
+        </CardTitle>
+        <Button variant="outline" size="sm" className="gap-2 border-primary/30 text-primary hover:bg-primary hover:text-background transition-all rounded-full font-bold">
+          विस्तृत रिपोर्ट <ExternalLink className="h-4 w-4" />
         </Button>
       </CardHeader>
       <CardContent className="p-0">
         <Table>
-          <TableHeader className="bg-muted/50">
-            <TableRow>
-              <TableHead className="font-bold">न्यायालय</TableHead>
-              <TableHead className="text-right font-bold">लंबित</TableHead>
-              <TableHead className="text-right font-bold">नए मामले</TableHead>
-              <TableHead className="text-right font-bold">निस्तारित</TableHead>
-              <TableHead className="text-right font-bold">दर (%)</TableHead>
-              <TableHead className="text-center font-bold">स्वीकृत पद</TableHead>
-              <TableHead className="text-center font-bold">स्थिति</TableHead>
+          <TableHeader className="bg-secondary/40">
+            <TableRow className="hover:bg-transparent border-muted">
+              <TableHead className="font-black text-white uppercase text-xs tracking-widest py-5">न्यायालय</TableHead>
+              <TableHead className="text-right font-black text-white uppercase text-xs tracking-widest">लंबित</TableHead>
+              <TableHead className="text-right font-black text-white uppercase text-xs tracking-widest">नए</TableHead>
+              <TableHead className="text-right font-black text-white uppercase text-xs tracking-widest">निस्तारित</TableHead>
+              <TableHead className="text-right font-black text-white uppercase text-xs tracking-widest">निस्तारण दर</TableHead>
+              <TableHead className="text-center font-black text-white uppercase text-xs tracking-widest">स्वीकृत पद</TableHead>
+              <TableHead className="text-center font-black text-white uppercase text-xs tracking-widest">नेटवर्क स्थिति</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {courtData.map((court) => (
-              <TableRow key={court.name} className="hover:bg-muted/30 transition-colors">
-                <TableCell className="font-medium">{court.name}</TableCell>
-                <TableCell className="text-right">{court.pending}</TableCell>
-                <TableCell className="text-right">{court.new}</TableCell>
-                <TableCell className="text-right">{court.disposed}</TableCell>
+              <TableRow key={court.name} className="hover:bg-primary/5 transition-colors border-muted group cursor-pointer">
+                <TableCell className="font-black text-white group-hover:text-primary transition-colors">{court.name}</TableCell>
+                <TableCell className="text-right font-mono font-bold text-muted-foreground group-hover:text-white">{court.pending}</TableCell>
+                <TableCell className="text-right font-mono text-muted-foreground group-hover:text-white">{court.new}</TableCell>
+                <TableCell className="text-right font-mono text-muted-foreground group-hover:text-white">{court.disposed}</TableCell>
                 <TableCell className="text-right">
-                  <div className="flex items-center justify-end gap-2">
-                    <div className="w-12 h-2 bg-muted rounded-full overflow-hidden hidden sm:block">
+                  <div className="flex items-center justify-end gap-3">
+                    <div className="w-20 h-2 bg-muted rounded-full overflow-hidden hidden sm:block border border-white/5">
                       <div 
-                        className={`h-full ${court.rate > 90 ? 'bg-green-600' : court.rate > 80 ? 'bg-amber-500' : 'bg-destructive'}`} 
+                        className={`h-full transition-all duration-1000 shadow-[0_0_10px_rgba(current)] ${
+                          court.rate > 90 ? 'bg-primary' : 
+                          court.rate > 80 ? 'bg-amber-400' : 'bg-destructive'
+                        }`} 
                         style={{ width: `${court.rate}%` }}
                       />
                     </div>
-                    {court.rate}%
+                    <span className="font-black text-sm text-white">{court.rate}%</span>
                   </div>
                 </TableCell>
                 <TableCell className="text-center">
-                  <Badge variant="outline" className="font-mono">{court.posts}</Badge>
+                  <Badge variant="outline" className="font-mono bg-secondary border-muted text-primary px-3 py-1 font-black">
+                    {court.posts}
+                  </Badge>
                 </TableCell>
                 <TableCell className="text-center">
-                  <div className="flex justify-center">
-                    <span className={`h-3 w-3 rounded-full animate-pulse ${
-                      court.status === 'success' ? 'bg-green-600' : 
-                      court.status === 'warning' ? 'bg-amber-500' : 'bg-destructive'
+                  <div className="flex justify-center items-center gap-2">
+                    <Activity className={`h-4 w-4 ${
+                       court.status === 'success' ? 'text-primary' : 
+                       court.status === 'warning' ? 'text-amber-400' : 'text-destructive'
+                    }`} />
+                    <span className={`h-2 w-2 rounded-full animate-ping ${
+                      court.status === 'success' ? 'bg-primary' : 
+                      court.status === 'warning' ? 'bg-amber-400' : 'bg-destructive'
                     }`} />
                   </div>
                 </TableCell>
