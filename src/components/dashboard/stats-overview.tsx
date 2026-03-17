@@ -2,11 +2,14 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowUpRight, ArrowDownRight, FileText, Scale, CheckCircle, Clock } from "lucide-react";
+import { useLanguage } from "@/lib/language-context";
 
 export function StatsOverview() {
+  const { t } = useLanguage();
+
   const stats = [
     {
-      title: "कुल लंबित मामले",
+      title: t('totalPending'),
       value: "4.5 Cr",
       change: "+5% वार्षिक",
       trend: "up",
@@ -16,7 +19,7 @@ export function StatsOverview() {
       glow: "shadow-[0_0_20px_rgba(7,241,214,0.15)]",
     },
     {
-      title: "इस वर्ष नए मामले",
+      title: t('newCases'),
       value: "68,342",
       change: "-2% गिरावट",
       trend: "down",
@@ -26,7 +29,7 @@ export function StatsOverview() {
       glow: "shadow-[0_0_20px_rgba(96,165,250,0.15)]",
     },
     {
-      title: "इस वर्ष निस्तारित",
+      title: t('disposedCases'),
       value: "42,891",
       change: "+8% सुधार",
       trend: "up",
@@ -36,7 +39,7 @@ export function StatsOverview() {
       glow: "shadow-[0_0_20px_rgba(52,211,153,0.15)]",
     },
     {
-      title: "औसत प्रतीक्षा अवधि",
+      title: t('waitingPeriod'),
       value: "3.2 वर्ष",
       change: "दक्षता सूचकांक",
       trend: "neutral",
