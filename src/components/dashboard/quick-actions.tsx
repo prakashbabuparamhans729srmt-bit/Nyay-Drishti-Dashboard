@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -5,22 +6,45 @@ import { PlusCircle, Users, Search, Download, LayoutDashboard, FilePlus, ArrowRi
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
 import { useLanguage } from "@/lib/language-context";
+import { useRouter } from "next/navigation";
+import { useUser } from "@/firebase";
 
 export function QuickActions() {
   const { toast } = useToast();
   const { t } = useLanguage();
+  const router = useRouter();
+  const { user } = useUser();
 
   const actions = [
-    { label: t('cases'), icon: FilePlus, primary: true, desc: "E-Filing Portal" },
-    { label: t('judges'), icon: Users, desc: "Service Records" },
-    { label: t('reports'), icon: Download, desc: "Digital Archive" },
-    { label: t('courts'), icon: LayoutDashboard, desc: "Regional Nodes" },
-    { label: t('settings'), icon: SettingsIcon, desc: "Preferences" },
+    { label: t('cases'), icon: FilePlus, primary: true, desc: "E-Filing Portal", path: "/cases" },
+    { label: t('judges'), icon: Users, desc: "Service Records", path: "/judges" },
+    { label: t('reports'), icon: Download, desc: "Digital Archive", path: "/reports" },
+    { label: t('courts'), icon: LayoutDashboard, desc: "Regional Nodes", path: "/courts" },
+    { label: t('settings'), icon: SearchIcon, desc: "Preferences", path: "/settings" },
   ];
 
-  function SettingsIcon(props: any) {
+  function SearchIcon(props: any) {
     return <Search {...props} />
   }
+
+  const handleAction = (action: any) => {
+    // Command B.4: If Guest Mode (no user), restrict action and prompt login
+    if (!user) {
+      const isGuest = localStorage.getItem("nyay-guest-mode") === "true";
+      if (isGuest) {
+        toast({ 
+          title: "लॉगिन आवश्यक (Login Required)", 
+          description: "इस कार्य के लिए कृपया अपना खाता लॉगिन करें।",
+          variant: "destructive",
+          className: "bg-destructive border-white/20 text-white font-bold rounded-2xl"
+        });
+        setTimeout(() => router.push('/login'), 2000);
+        return;
+      }
+    }
+    
+    router.push(action.path);
+  };
 
   return (
     <div className="space-y-8 py-4">
@@ -47,11 +71,7 @@ export function QuickActions() {
                 ? "bg-primary text-black hover:bg-primary/90 hover:scale-[1.05] hover:-translate-y-2 shadow-[0_20px_40px_rgba(7,241,214,0.3)]" 
                 : "bg-card hover:border-primary/50 hover:text-primary hover:bg-white/[0.03] hover:-translate-y-2 shadow-xl"
             }`}
-            onClick={() => toast({ 
-              title: action.label, 
-              description: t('activeSystem'),
-              className: "bg-card border-primary text-white font-bold rounded-2xl"
-            })}
+            onClick={() => handleAction(action)}
           >
             <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
             

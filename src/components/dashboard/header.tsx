@@ -1,12 +1,12 @@
 
 "use client";
 
-import { Scale, Home, LayoutGrid, Users, FileText, Settings, Search, Bell, User, Languages, Mic, MicOff, Sun, Moon, Laptop } from "lucide-react";
+import { Scale, Home, LayoutGrid, Users, FileText, Settings, Search, Bell, User, Languages, Mic, MicOff, Sun, Moon, Laptop, Loader2, Info, ArrowRight, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/language-context";
 import { languages, LanguageCode } from "@/lib/translations";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter, usePathname } from "next/navigation";
 import {
@@ -18,6 +18,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
 
 export function Header() {
   const { t, language, setLanguage } = useLanguage();
@@ -26,6 +28,9 @@ export function Header() {
   const pathname = usePathname();
   const [isListening, setIsListening] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchResults, setSearchResults] = useState<any>(null);
   const [theme, setTheme] = useState<'light' | 'dark' | 'system'>('dark');
 
   useEffect(() => {
@@ -66,9 +71,26 @@ export function Header() {
     recognition.onresult = (event: any) => {
       const transcript = event.results[0][0].transcript;
       setSearchQuery(transcript);
-      toast({ title: t('micActive'), description: transcript });
+      handleGlobalSearch(transcript);
     };
     recognition.start();
+  };
+
+  const handleGlobalSearch = (query: string) => {
+    if (!query.trim()) return;
+    setSearchOpen(true);
+    setIsSearching(true);
+    setSearchResults(null);
+
+    // Simulate "Deep Crawling Search Unit"
+    setTimeout(() => {
+      setSearchResults({
+        courts: [{ name: "Allahabad High Court", status: "Active" }],
+        judges: [{ name: "Justice S.K. Sharma", court: "Supreme Court" }],
+        cases: [{ id: "SC-2024-442", title: "Ram vs State of UP" }]
+      });
+      setIsSearching(false);
+    }, 1500);
   };
 
   const navItems = [
@@ -118,8 +140,9 @@ export function Header() {
               <Input
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && handleGlobalSearch(searchQuery)}
                 placeholder={t('searchPlaceholder')}
-                className="w-full bg-secondary border-muted/30 text-white placeholder:text-muted-foreground focus-visible:ring-primary pl-11 pr-11 rounded-full transition-all focus:bg-background h-10 hover:border-primary/50"
+                className="w-full bg-secondary border-muted/30 text-white placeholder:text-muted-foreground focus-visible:ring-primary pl-11 pr-11 rounded-full transition-all focus:bg-background h-10 hover:border-primary/50 shadow-inner"
               />
               <Button
                 variant="ghost"
@@ -202,7 +225,10 @@ export function Header() {
                   {t('systemSettings')} <Settings className="ml-auto h-4 w-4 opacity-50 group-hover:opacity-100 group-hover:rotate-45 transition-all" />
                 </DropdownMenuItem>
                 <DropdownMenuSeparator className="bg-white/5" />
-                <DropdownMenuItem className="text-destructive font-bold rounded-xl px-4 py-2 focus:bg-destructive/10 cursor-pointer" onClick={() => router.push('/login')}>
+                <DropdownMenuItem className="text-destructive font-bold rounded-xl px-4 py-2 focus:bg-destructive/10 cursor-pointer" onClick={() => {
+                  localStorage.removeItem("nyay-guest-mode");
+                  router.push('/login');
+                }}>
                   {t('logout')}
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -210,6 +236,68 @@ export function Header() {
           </div>
         </div>
       </div>
+
+      <Dialog open={searchOpen} onOpenChange={setSearchOpen}>
+        <DialogContent className="max-w-2xl bg-card border-primary/30 text-white rounded-[2rem] shadow-[0_0_100px_rgba(7,241,214,0.1)]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-3 text-2xl font-black text-primary">
+              <Search className="h-6 w-6" />
+              सर्च क्रॉलिंग यूनिट - परिणाम
+            </DialogTitle>
+          </DialogHeader>
+          <div className="py-6 space-y-6">
+            {isSearching ? (
+              <div className="flex flex-col items-center justify-center py-12 space-y-4">
+                <Loader2 className="h-12 w-12 text-primary animate-spin" />
+                <p className="font-black animate-pulse text-primary tracking-widest uppercase">कोने-कोने की खोज जारी है...</p>
+              </div>
+            ) : searchResults ? (
+              <ScrollArea className="h-[400px] pr-4">
+                <div className="space-y-6">
+                  <div className="space-y-3">
+                    <h4 className="text-xs font-black text-muted-foreground uppercase tracking-widest flex items-center gap-2">
+                      <LayoutGrid className="h-4 w-4 text-primary" /> न्यायालय ({searchResults.courts.length})
+                    </h4>
+                    {searchResults.courts.map((c: any, i: number) => (
+                      <div key={i} className="bg-secondary/50 p-4 rounded-2xl border border-white/5 hover:border-primary/30 cursor-pointer transition-all flex justify-between items-center group" onClick={() => {setSearchOpen(false); router.push('/courts')}}>
+                         <span className="font-bold group-hover:text-primary">{c.name}</span>
+                         <Badge className="bg-primary/20 text-primary border-primary/30">{c.status}</Badge>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="space-y-3">
+                    <h4 className="text-xs font-black text-muted-foreground uppercase tracking-widest flex items-center gap-2">
+                      <Users className="h-4 w-4 text-blue-400" /> न्यायाधीश ({searchResults.judges.length})
+                    </h4>
+                    {searchResults.judges.map((j: any, i: number) => (
+                      <div key={i} className="bg-secondary/50 p-4 rounded-2xl border border-white/5 hover:border-primary/30 cursor-pointer transition-all flex justify-between items-center group" onClick={() => {setSearchOpen(false); router.push('/judges')}}>
+                         <span className="font-bold group-hover:text-primary">{j.name}</span>
+                         <span className="text-xs text-muted-foreground">{j.court}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="space-y-3">
+                    <h4 className="text-xs font-black text-muted-foreground uppercase tracking-widest flex items-center gap-2">
+                      <FileText className="h-4 w-4 text-emerald-400" /> मामले ({searchResults.cases.length})
+                    </h4>
+                    {searchResults.cases.map((c: any, i: number) => (
+                      <div key={i} className="bg-secondary/50 p-4 rounded-2xl border border-white/5 hover:border-primary/30 cursor-pointer transition-all flex justify-between items-center group" onClick={() => {setSearchOpen(false); router.push('/cases')}}>
+                         <div className="flex flex-col">
+                           <span className="font-bold group-hover:text-primary">{c.id}</span>
+                           <span className="text-xs text-muted-foreground">{c.title}</span>
+                         </div>
+                         <ArrowRight className="h-4 w-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-primary" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </ScrollArea>
+            ) : (
+              <p className="text-center text-muted-foreground">कोई परिणाम नहीं मिला।</p>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </header>
   );
 }
