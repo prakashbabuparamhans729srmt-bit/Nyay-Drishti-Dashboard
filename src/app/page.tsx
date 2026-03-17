@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Header } from "@/components/dashboard/header";
 import { StatsOverview } from "@/components/dashboard/stats-overview";
 import { DashboardCharts } from "@/components/dashboard/dashboard-charts";
@@ -6,8 +10,33 @@ import { JudgeAnalysisPanel } from "@/components/dashboard/judge-analysis-panel"
 import { AlertsAndNotifications } from "@/components/dashboard/alerts-and-notifications";
 import { AIBottleneckAnalysisTrigger } from "@/components/dashboard/ai-bottleneck-analysis-trigger";
 import { QuickActions } from "@/components/dashboard/quick-actions";
+import { useUser } from "@/firebase";
+import { Loader2 } from "lucide-react";
 
 export default function NyayDrishtiDashboard() {
+  const { user, isUserLoading } = useUser();
+  const router = useRouter();
+  const [isGuest, setIsGuest] = useState(false);
+
+  useEffect(() => {
+    const guestStatus = localStorage.getItem("nyay-guest-mode") === "true";
+    setIsGuest(guestStatus);
+
+    if (!isUserLoading && !user && !guestStatus) {
+      router.push("/login");
+    }
+  }, [user, isUserLoading, router]);
+
+  if (isUserLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <Loader2 className="h-12 w-12 text-primary animate-spin" />
+      </div>
+    );
+  }
+
+  if (!user && !isGuest) return null;
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
