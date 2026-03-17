@@ -23,12 +23,7 @@
     --border: 207 20% 15%;
     --input: 207 20% 15%;
     --ring: 173 94% 49%;
-    --radius: 1rem;
-    --chart-1: 173 94% 49%;
-    --chart-2: 200 15% 40%;
-    --chart-3: 358 93% 54%;
-    --chart-4: 45 93% 54%;
-    --chart-5: 280 65% 60%;
+    --radius: 1.5rem;
   }
 }
 
@@ -37,18 +32,26 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-body transition-colors duration-300;
-  }
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-headline font-bold tracking-tight;
+    @apply bg-background text-foreground font-body transition-colors duration-300 antialiased;
   }
 }
 
 @layer components {
-  .icon-active {
-    @apply transition-all duration-300 hover:scale-125 hover:text-primary active:scale-95 cursor-pointer;
-  }
   .neon-glow {
-    @apply shadow-[0_0_20px_rgba(7,241,214,0.15)] hover:shadow-[0_0_30px_rgba(7,241,214,0.3)] transition-all duration-500;
+    @apply shadow-[0_0_20px_rgba(7,241,214,0.15)] hover:shadow-[0_0_40px_rgba(7,241,214,0.3)] transition-all duration-500 border-primary/20;
+  }
+  .icon-active {
+    @apply transition-all duration-300 hover:scale-125 hover:text-primary hover:rotate-6 active:scale-95 cursor-pointer;
+  }
+  .animate-glow {
+    animation: neon-pulse 2s ease-in-out infinite alternate;
+  }
+  @keyframes neon-pulse {
+    from {
+      box-shadow: 0 0 10px rgba(7,241,214,0.1);
+    }
+    to {
+      box-shadow: 0 0 30px rgba(7,241,214,0.4);
+    }
   }
 }
