@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Scale, Home, LayoutGrid, Users, FileText, Settings, Search, Bell, User, Languages, Mic, MicOff, Sun, Moon, Laptop } from "lucide-react";
@@ -7,6 +8,7 @@ import { useLanguage } from "@/lib/language-context";
 import { languages, LanguageCode } from "@/lib/translations";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { useRouter, usePathname } from "next/navigation";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,6 +22,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 export function Header() {
   const { t, language, setLanguage } = useLanguage();
   const { toast } = useToast();
+  const router = useRouter();
+  const pathname = usePathname();
   const [isListening, setIsListening] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [theme, setTheme] = useState<'light' | 'dark' | 'system'>('dark');
@@ -68,19 +72,19 @@ export function Header() {
   };
 
   const navItems = [
-    { label: t('home'), icon: Home, active: true },
-    { label: t('courts'), icon: LayoutGrid },
-    { label: t('judges'), icon: Users },
-    { label: t('cases'), icon: FileText },
-    { label: t('reports'), icon: LayoutGrid },
-    { label: t('settings'), icon: Settings },
+    { label: t('home'), icon: Home, path: '/' },
+    { label: t('courts'), icon: LayoutGrid, path: '/courts' },
+    { label: t('judges'), icon: Users, path: '/judges' },
+    { label: t('cases'), icon: FileText, path: '/cases' },
+    { label: t('reports'), icon: LayoutGrid, path: '/reports' },
+    { label: t('settings'), icon: Settings, path: '/settings' },
   ];
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/5 bg-background/80 backdrop-blur-xl text-foreground shadow-2xl">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between gap-4">
-          <div className="flex items-center gap-3 group cursor-pointer">
+          <div className="flex items-center gap-3 group cursor-pointer" onClick={() => router.push('/')}>
             <div className="bg-primary/20 p-2.5 rounded-xl transition-all duration-500 group-hover:bg-primary group-hover:rotate-[360deg] group-hover:shadow-[0_0_20px_rgba(7,241,214,0.6)]">
               <Scale className="h-6 w-6 text-primary group-hover:text-black" />
             </div>
@@ -94,13 +98,14 @@ export function Header() {
               <Button
                 key={item.label}
                 variant="ghost"
+                onClick={() => router.push(item.path)}
                 className={`flex items-center gap-2 h-16 rounded-none px-6 font-bold transition-all duration-300 hover:bg-white/5 group relative ${
-                  item.active ? "text-primary" : "text-muted-foreground hover:text-white"
+                  pathname === item.path ? "text-primary" : "text-muted-foreground hover:text-white"
                 }`}
               >
-                <item.icon className={`h-4 w-4 transition-all duration-500 group-hover:scale-125 group-hover:rotate-12 ${item.active ? 'animate-pulse' : ''}`} />
+                <item.icon className={`h-4 w-4 transition-all duration-500 group-hover:scale-125 group-hover:rotate-12 ${pathname === item.path ? 'animate-pulse' : ''}`} />
                 <span>{item.label}</span>
-                {item.active && (
+                {pathname === item.path && (
                   <span className="absolute bottom-0 left-0 w-full h-1 bg-primary shadow-[0_0_15px_rgba(7,241,214,0.8)]" />
                 )}
               </Button>
@@ -128,7 +133,6 @@ export function Header() {
           </div>
 
           <div className="flex items-center gap-2">
-            {/* Theme Switcher */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="hover:bg-primary/10 rounded-full group">
@@ -150,7 +154,6 @@ export function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Language Switcher */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="hover:bg-primary/10 rounded-full group">
@@ -192,14 +195,14 @@ export function Header() {
               <DropdownMenuContent align="end" className="w-64 bg-card border-primary/20 shadow-[0_0_40px_rgba(0,0,0,0.5)] rounded-2xl p-2">
                 <DropdownMenuLabel className="text-primary font-black px-4 py-3">{t('adminAccount')}</DropdownMenuLabel>
                 <DropdownMenuSeparator className="bg-white/5" />
-                <DropdownMenuItem className="rounded-xl px-4 py-2 focus:bg-primary/10 focus:text-primary cursor-pointer group">
+                <DropdownMenuItem onClick={() => router.push('/settings')} className="rounded-xl px-4 py-2 focus:bg-primary/10 focus:text-primary cursor-pointer group">
                   {t('profile')} <User className="ml-auto h-4 w-4 opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                 </DropdownMenuItem>
-                <DropdownMenuItem className="rounded-xl px-4 py-2 focus:bg-primary/10 focus:text-primary cursor-pointer group">
+                <DropdownMenuItem onClick={() => router.push('/settings')} className="rounded-xl px-4 py-2 focus:bg-primary/10 focus:text-primary cursor-pointer group">
                   {t('systemSettings')} <Settings className="ml-auto h-4 w-4 opacity-50 group-hover:opacity-100 group-hover:rotate-45 transition-all" />
                 </DropdownMenuItem>
                 <DropdownMenuSeparator className="bg-white/5" />
-                <DropdownMenuItem className="text-destructive font-bold rounded-xl px-4 py-2 focus:bg-destructive/10 cursor-pointer">
+                <DropdownMenuItem className="text-destructive font-bold rounded-xl px-4 py-2 focus:bg-destructive/10 cursor-pointer" onClick={() => router.push('/login')}>
                   {t('logout')}
                 </DropdownMenuItem>
               </DropdownMenuContent>
