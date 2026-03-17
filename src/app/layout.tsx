@@ -3,6 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { LanguageProvider } from "@/lib/language-context";
 import { FirebaseClientProvider } from "@/firebase/client-provider";
+import { AIAssistant } from "@/components/dashboard/ai-assistant";
 
 export const metadata: Metadata = {
   title: 'न्यायदृष्टि - न्यायिक डैशबोर्ड',
@@ -15,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="hi">
+    <html lang="hi" className="dark">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -25,6 +26,7 @@ export default function RootLayout({
         <FirebaseClientProvider>
           <LanguageProvider>
             {children}
+            <AIAssistant />
             <Toaster />
           </LanguageProvider>
         </FirebaseClientProvider>
