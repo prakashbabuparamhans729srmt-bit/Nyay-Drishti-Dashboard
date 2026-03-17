@@ -3,17 +3,24 @@
 import { Button } from "@/components/ui/button";
 import { PlusCircle, Users, Search, Download, LayoutDashboard, FilePlus, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { Badge } from "@/components/ui/badge";
+import { useLanguage } from "@/lib/language-context";
 
 export function QuickActions() {
   const { toast } = useToast();
+  const { t } = useLanguage();
 
   const actions = [
-    { label: "नया मामला दर्ज करें", icon: FilePlus, primary: true, desc: "ई-फाइलिंग पोर्टल" },
-    { label: "न्यायाधीश नियुक्ति", icon: Users, desc: "वेतन एवं सेवा रिकॉर्ड" },
-    { label: "केस स्टेटस जांचें", icon: Search, desc: "लाइव ट्रैकिंग सिस्टम" },
-    { label: "रिपोर्ट डाउनलोड", icon: Download, desc: "सांख्यिकीय पीडीएफ" },
-    { label: "ई-कोर्ट डैशबोर्ड", icon: LayoutDashboard, desc: "एक्सटर्नल लिंक" },
+    { label: t('cases'), icon: FilePlus, primary: true, desc: "E-Filing Portal" },
+    { label: t('judges'), icon: Users, desc: "Service Records" },
+    { label: t('reports'), icon: Download, desc: "Digital Archive" },
+    { label: t('courts'), icon: LayoutDashboard, desc: "Regional Nodes" },
+    { label: t('settings'), icon: SettingsIcon, desc: "Preferences" },
   ];
+
+  function SettingsIcon(props: any) {
+    return <Search {...props} />
+  }
 
   return (
     <div className="space-y-8 py-4">
@@ -21,12 +28,12 @@ export function QuickActions() {
         <div className="space-y-1">
            <h3 className="text-2xl font-black flex items-center gap-3 text-white tracking-tighter">
             <PlusCircle className="h-7 w-7 text-primary animate-pulse" />
-            त्वरित डिजिटल कार्रवाई
+            {t('quickActionsTitle')}
           </h3>
-          <p className="text-xs text-muted-foreground font-medium pl-10 uppercase tracking-widest">न्यायिक सुगमता के लिए डिजिटल उपकरण</p>
+          <p className="text-xs text-muted-foreground font-medium pl-10 uppercase tracking-widest">{t('digitalTools')}</p>
         </div>
         <Badge variant="outline" className="text-[10px] font-black text-primary border-primary/30 bg-primary/5 px-4 py-1.5 rounded-full animate-bounce">
-          सिस्टम एक्टिव
+          {t('activeSystem')}
         </Badge>
       </div>
 
@@ -42,11 +49,10 @@ export function QuickActions() {
             }`}
             onClick={() => toast({ 
               title: action.label, 
-              description: `प्रणाली वर्तमान में "${action.label}" सेवा को प्रोसेस कर रही है।`,
+              description: t('activeSystem'),
               className: "bg-card border-primary text-white font-bold rounded-2xl"
             })}
           >
-            {/* Holographic effect */}
             <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
             
             <div className={`p-5 rounded-[1.5rem] transition-all duration-700 ${
@@ -75,5 +81,3 @@ export function QuickActions() {
     </div>
   );
 }
-
-import { Badge } from "@/components/ui/badge";

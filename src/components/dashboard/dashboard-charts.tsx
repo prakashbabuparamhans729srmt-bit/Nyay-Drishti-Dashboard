@@ -3,6 +3,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Pie, PieChart, Cell, Legend } from "recharts";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { useLanguage } from "@/lib/language-context";
 
 const trendData = [
   { year: "2022", pending: 3.8 },
@@ -12,21 +13,23 @@ const trendData = [
   { year: "2026", pending: 4.5 },
 ];
 
-const typeData = [
-  { name: "दीवानी मामले", value: 45, color: "hsl(var(--chart-1))" },
-  { name: "आपराधिक मामले", value: 30, color: "hsl(var(--chart-4))" },
-  { name: "संवैधानिक मामले", value: 10, color: "hsl(var(--chart-3))" },
-  { name: "रिट याचिकाएं", value: 8, color: "hsl(var(--chart-2))" },
-  { name: "अन्य", value: 7, color: "hsl(var(--chart-5))" },
-];
-
 export function DashboardCharts() {
+  const { t } = useLanguage();
+
+  const typeData = [
+    { name: t('home') === 'मुखपृष्ठ' ? "दिवाणी प्रकरणे" : "दीवानी मामले", value: 45, color: "hsl(var(--chart-1))" },
+    { name: t('home') === 'मुखपृष्ठ' ? "फौजदारी प्रकरणे" : "आपराधिक मामले", value: 30, color: "hsl(var(--chart-4))" },
+    { name: t('home') === 'मुखपृष्ठ' ? "घटनात्मक प्रकरणे" : "संवैधानिक मामले", value: 10, color: "hsl(var(--chart-3))" },
+    { name: t('home') === 'मुखपृष्ठ' ? "रिट याचिका" : "रिट याचिकाएं", value: 8, color: "hsl(var(--chart-2))" },
+    { name: t('home') === 'मुखपृष्ठ' ? "इतर" : "अन्य", value: 7, color: "hsl(var(--chart-5))" },
+  ];
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <Card className="border-none shadow-md">
+      <Card className="border-none shadow-md bg-card/50 backdrop-blur-md">
         <CardHeader>
-          <CardTitle className="text-lg">लंबित मामलों का रुझान</CardTitle>
-          <CardDescription>पिछले 5 वर्षों का वार्षिक डेटा (करोड़ में)</CardDescription>
+          <CardTitle className="text-lg text-primary font-black">{t('yearTrend')}</CardTitle>
+          <CardDescription className="text-muted-foreground/60 italic">© NyayDrishti Data Sync</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="h-[300px] w-full">
@@ -44,9 +47,9 @@ export function DashboardCharts() {
                   content={({ active, payload }) => {
                     if (active && payload && payload.length) {
                       return (
-                        <div className="bg-white p-3 shadow-xl rounded-lg border text-sm">
+                        <div className="bg-card p-3 shadow-2xl rounded-2xl border border-primary/20 text-sm">
                           <p className="font-bold text-primary">{payload[0].payload.year}</p>
-                          <p className="text-muted-foreground">लंबित मामले: <span className="font-bold text-foreground">{payload[0].value} करोड़</span></p>
+                          <p className="text-white">लंबित मामले: <span className="font-bold text-primary">{payload[0].value} Cr</span></p>
                         </div>
                       );
                     }
@@ -60,10 +63,10 @@ export function DashboardCharts() {
         </CardContent>
       </Card>
 
-      <Card className="border-none shadow-md">
+      <Card className="border-none shadow-md bg-card/50 backdrop-blur-md">
         <CardHeader>
-          <CardTitle className="text-lg">मामलों का प्रकारवार विभाजन</CardTitle>
-          <CardDescription>वर्तमान लंबित मामलों का श्रेणी-आधारित प्रतिशत</CardDescription>
+          <CardTitle className="text-lg text-primary font-black">{t('caseType')}</CardTitle>
+          <CardDescription className="text-muted-foreground/60 italic">Classification Logic v4.0</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="h-[300px] w-full">
@@ -80,11 +83,11 @@ export function DashboardCharts() {
                   label={({name, percent}) => `${name} ${(percent * 100).toFixed(0)}%`}
                 >
                   {typeData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
+                    <Cell key={`cell-${index}`} fill={entry.color} stroke="none" />
                   ))}
                 </Pie>
                 <Tooltip />
-                <Legend layout="horizontal" verticalAlign="bottom" align="center" />
+                <Legend layout="horizontal" verticalAlign="bottom" align="center" iconType="circle" />
               </PieChart>
             </ResponsiveContainer>
           </div>

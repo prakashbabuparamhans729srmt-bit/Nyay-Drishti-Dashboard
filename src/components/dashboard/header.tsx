@@ -88,8 +88,8 @@ export function Header() {
                         language === lang.code ? "bg-primary/10 text-primary" : "focus:bg-primary/10 focus:text-primary"
                       }`}
                     >
-                      <span>{lang.native}</span>
-                      <span className="text-[10px] uppercase opacity-50">{lang.label}</span>
+                      <span className="font-bold">{lang.native}</span>
+                      <span className="text-[10px] uppercase opacity-50 tracking-widest">{lang.label}</span>
                     </DropdownMenuItem>
                   ))}
                 </ScrollArea>
