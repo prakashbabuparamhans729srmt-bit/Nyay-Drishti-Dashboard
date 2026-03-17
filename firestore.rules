@@ -1,0 +1,168 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * NYAY DRISHTI - SECURITY ARCHITECTURE DOCUMENTATION
+     * 
+     * Core Philosophy:
+     * This ruleset implements a hybrid security model combining strict User Ownership for profiles
+     * and Role-Based Access Control (RBAC) for judicial data. It is designed for the "Nyay Drishti"
+     * dashboard, ensuring that while the public or guest users can view information, only 
+     * authorized personnel can modify the judicial record.
+     * 
+     * Data Structure:
+     * - User-centric data is stored under /users/{userId}.
+     * - Judicial system entities (Courts, Judges, Cases) are stored in top-level collections 
+     *   to ensure flat, performant access patterns.
+     * 
+     * Key Security Decisions:
+     * 1. Verified Identity: All write operations require a verified Firebase Auth UID.
+     * 2. Role-Based Writes: Authorization for judicial data is determined by a 'role' field 
+     *    stored within the user's profile document.
+     * 3. Guest Access: Read access is permitted for authenticated users (including anonymous guests), 
+     *    but all "work" (writes) is strictly blocked for non-privileged roles.
+     * 4. Relational Integrity: On user profile creation, we enforce that the internal 
+     *    document ID matches the Firestore Path ID.
+     */
+
+    // --- HELPER FUNCTIONS ---
+
+    /** @description Checks if the request is from an authenticated user. */
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    /** @description Checks if the authenticated user's UID matches the provided userId. */
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    /** @description Checks ownership and ensures the document exists for updates/deletes. */
+    function isExistingOwner(userId) {
+      return isOwner(userId) && resource != null;
+    }
+
+    /** @description Fetches the user's role from their UserProfile document. */
+    function getUserRole() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+    }
+
+    /** @description Verifies if the user has one of the allowed roles for editing judicial data. */
+    function canEditJudicialData() {
+      return isSignedIn() && getUserRole() in ['Admin', 'Data Entry Operator'];
+    }
+
+    /** @description Verifies if the user is a system Administrator. */
+    function isAdmin() {
+      return isSignedIn() && getUserRole() == 'Admin';
+    }
+
+    // --- COLLECTION RULES ---
+
+    /**
+     * @description Rules for user profiles. Users manage their own settings (theme, language).
+     * @path /users/{userId}
+     * @allow (get) If the user is the owner or an admin.
+     * @deny (update) If the user tries to change their own role.
+     * @principle Enforces path-based ownership and attribute immutability.
+     */
+    match /users/{userId} {
+      allow get: if isOwner(userId) || isAdmin();
+      allow list: if isAdmin();
+      allow create: if isOwner(userId) && request.resource.data.id == userId;
+      allow update: if isExistingOwner(userId) && request.resource.data.role == resource.data.role && request.resource.data.id == resource.data.id;
+      allow delete: if isAdmin();
+    }
+
+    /**
+     * @description Judicial regions reference data.
+     * @path /courtRegions/{courtRegionId}
+     * @allow (list) Any signed-in user (including guests).
+     * @deny (create) Any user without Admin or Data Entry roles.
+     * @principle RBAC for global reference data.
+     */
+    match /courtRegions/{courtRegionId} {
+      allow get, list: if isSignedIn();
+      allow create, update: if canEditJudicialData();
+      allow delete: if isAdmin();
+    }
+
+    /**
+     * @description Court specific performance and structural data.
+     * @path /courts/{courtId}
+     * @allow (get) Any signed-in user.
+     * @deny (write) Users with 'Viewer' role or unauthenticated users.
+     * @principle Restricts structural modification to privileged roles.
+     */
+    match /courts/{courtId} {
+      allow get, list: if isSignedIn();
+      allow create, update: if canEditJudicialData();
+      allow delete: if isAdmin();
+    }
+
+    /**
+     * @description Profiles and performance metrics for individual judges.
+     * @path /judges/{judgeId}
+     * @allow (list) All registered users to facilitate search.
+     * @deny (update) If the user is not a Data Entry Operator or Admin.
+     * @principle Protects professional judicial records from unauthorized edits.
+     */
+    match /judges/{judgeId} {
+      allow get, list: if isSignedIn();
+      allow create, update: if canEditJudicialData();
+      allow delete: if isAdmin();
+    }
+
+    /**
+     * @description Individual legal cases.
+     * @path /cases/{caseId}
+     * @allow (get) Signed-in users to view case status.
+     * @deny (delete) Destructive operations restricted to Admins only.
+     * @principle Ensures integrity of active legal case records.
+     */
+    match /cases/{caseId} {
+      allow get, list: if isSignedIn();
+      allow create, update: if canEditJudicialData();
+      allow delete: if isAdmin();
+    }
+
+    /**
+     * @description Classifications for cases (Civil, Criminal, etc.).
+     * @path /caseTypes/{caseTypeId}
+     * @allow (read) All users for application UI rendering.
+     * @deny (write) Non-admin users (static reference data).
+     * @principle Restricts core system metadata to high-level administrators.
+     */
+    match /caseTypes/{caseTypeId} {
+      allow get, list: if isSignedIn();
+      allow create, update, delete: if isAdmin();
+    }
+
+    /**
+     * @description System-wide alerts and notifications.
+     * @path /systemAlerts/{alertId}
+     * @allow (list) Users to see alerts relevant to them.
+     * @deny (create) Manual creation by non-admin users.
+     * @principle Protects system communication integrity.
+     */
+    match /systemAlerts/{alertId} {
+      allow get, list: if isSignedIn();
+      allow create, update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    /**
+     * @description Historical data for trend analysis.
+     * @path /historicalPerformanceMetrics/{metricId}
+     * @allow (get) Viewers to see historical trends.
+     * @deny (write) All manual writes except by Admins or automated processes.
+     * @principle Ensures the validity of historical analytical data.
+     */
+    match /historicalPerformanceMetrics/{metricId} {
+      allow get, list: if isSignedIn();
+      allow create, update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+  }
+}

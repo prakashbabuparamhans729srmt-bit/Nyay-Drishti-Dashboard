@@ -1,0 +1,540 @@
+{
+  "entities": {
+    "Court": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Court",
+      "type": "object",
+      "description": "Represents a judicial court or tribunal within the Indian judicial system, including aggregated current year's performance data and structural information.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Court entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The official name of the court, e.g., 'सुप्रीम कोर्ट', 'इलाहाबाद उच्च न्यायालय'."
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the court, e.g., 'Supreme Court', 'High Court', 'District Court'."
+        },
+        "courtRegionId": {
+          "type": "string",
+          "description": "Reference to the CourtRegion this court belongs to. (Relationship: CourtRegion 1:N Court)"
+        },
+        "location": {
+          "type": "string",
+          "description": "Geographical location of the court, e.g., 'New Delhi', 'Prayagraj'."
+        },
+        "totalPendingCases": {
+          "type": "number",
+          "description": "Total number of cases currently pending in this court."
+        },
+        "newCasesThisYear": {
+          "type": "number",
+          "description": "Number of new cases registered in this court during the current year."
+        },
+        "casesDisposedThisYear": {
+          "type": "number",
+          "description": "Number of cases disposed of by this court during the current year."
+        },
+        "disposalRatePercentage": {
+          "type": "number",
+          "description": "The percentage of cases disposed relative to the total number of cases handled (new + pending) in the current year."
+        },
+        "sanctionedJudgePosts": {
+          "type": "number",
+          "description": "Total number of approved judge positions sanctioned for this court."
+        },
+        "filledJudgePosts": {
+          "type": "number",
+          "description": "Number of judge positions currently filled in this court."
+        },
+        "statusIndicator": {
+          "type": "string",
+          "description": "An indicator (e.g., '🟢', '🟡', '🔴') representing the overall health or performance status of the court based on metrics like pending cases and vacancies."
+        },
+        "averageWaitingTimeYears": {
+          "type": "number",
+          "description": "The average waiting period in years for cases in this court."
+        },
+        "lastDataEntryDate": {
+          "type": "string",
+          "description": "The date and time when the court's data was last manually updated through the entry form.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "type",
+        "courtRegionId",
+        "totalPendingCases",
+        "newCasesThisYear",
+        "casesDisposedThisYear",
+        "disposalRatePercentage",
+        "sanctionedJudgePosts",
+        "filledJudgePosts",
+        "statusIndicator"
+      ]
+    },
+    "Judge": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Judge",
+      "type": "object",
+      "description": "Represents an individual judicial judge, including their profile and current performance metrics.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Judge entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The full name of the judge, e.g., 'न्यायमूर्ति ए.के. सिकरी'."
+        },
+        "courtId": {
+          "type": "string",
+          "description": "Reference to the Court where the judge is currently assigned. (Relationship: Court 1:N Judge)"
+        },
+        "dateOfAppointment": {
+          "type": "string",
+          "description": "The date when the judge was appointed to their position.",
+          "format": "date"
+        },
+        "disposedCasesCountTotal": {
+          "type": "number",
+          "description": "The total number of cases disposed of by this judge throughout their career."
+        },
+        "disposedCasesCountThisYear": {
+          "type": "number",
+          "description": "The number of cases disposed of by this judge in the current year, used for performance rankings."
+        },
+        "seniorityRank": {
+          "type": "number",
+          "description": "The seniority rank of the judge within the judicial system or their current court."
+        },
+        "biography": {
+          "type": "string",
+          "description": "A brief biographical summary or professional history of the judge."
+        },
+        "isChiefJustice": {
+          "type": "boolean",
+          "description": "Indicates if the judge holds the position of Chief Justice."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "courtId",
+        "dateOfAppointment",
+        "disposedCasesCountTotal",
+        "disposedCasesCountThisYear",
+        "seniorityRank"
+      ]
+    },
+    "Case": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Case",
+      "type": "object",
+      "description": "Represents an individual legal case being processed within the judicial system.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Case entity."
+        },
+        "caseNumber": {
+          "type": "string",
+          "description": "A unique alphanumeric identifier for the case, e.g., 'SC-2026-001'."
+        },
+        "title": {
+          "type": "string",
+          "description": "A brief title or subject summary of the case."
+        },
+        "description": {
+          "type": "string",
+          "description": "A detailed description of the legal case."
+        },
+        "filingDate": {
+          "type": "string",
+          "description": "The date when the case was officially filed.",
+          "format": "date"
+        },
+        "currentStatus": {
+          "type": "string",
+          "description": "The current status of the case, e.g., 'Pending', 'Disposed', 'Hearing Scheduled'."
+        },
+        "nextHearingDate": {
+          "type": "string",
+          "description": "The date of the next scheduled hearing for the case.",
+          "format": "date"
+        },
+        "assignedJudgeId": {
+          "type": "string",
+          "description": "Reference to the Judge currently assigned to this case. (Relationship: Judge 1:N Case)"
+        },
+        "filingCourtId": {
+          "type": "string",
+          "description": "Reference to the Court where this case was filed. (Relationship: Court 1:N Case)"
+        },
+        "caseTypeId": {
+          "type": "string",
+          "description": "Reference to the CaseType that classifies this case. (Relationship: CaseType 1:N Case)"
+        },
+        "caseAgeInYears": {
+          "type": "number",
+          "description": "The calculated age of the case in years, particularly for pending cases, used in age reports."
+        },
+        "isVideoConferencingCase": {
+          "type": "boolean",
+          "description": "Indicates if the case is being handled partially or entirely via video conferencing, for e-court integration."
+        }
+      },
+      "required": [
+        "id",
+        "caseNumber",
+        "title",
+        "filingDate",
+        "currentStatus",
+        "assignedJudgeId",
+        "filingCourtId",
+        "caseTypeId"
+      ]
+    },
+    "CourtRegion": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "CourtRegion",
+      "type": "object",
+      "description": "Represents a geographical judicial region, typically associated with a High Court, for aggregating regional metrics.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the CourtRegion entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the judicial region, e.g., 'इलाहाबाद उच्च न्यायालय क्षेत्र'."
+        },
+        "description": {
+          "type": "string",
+          "description": "A geographical description or summary of the courts included in this region."
+        },
+        "totalPendingCasesRegional": {
+          "type": "number",
+          "description": "The aggregated total number of pending cases for all courts within this region."
+        },
+        "statusIndicator": {
+          "type": "string",
+          "description": "An indicator (e.g., '🟢', '🟡', '🔴') representing the overall health or performance status of the region, derived from its constituent courts."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "totalPendingCasesRegional",
+        "statusIndicator"
+      ]
+    },
+    "CaseType": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "CaseType",
+      "type": "object",
+      "description": "Represents the classification categories for legal cases (e.g., Civil, Criminal, Constitutional).",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the CaseType entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the case type, e.g., 'दीवानी मामले', 'आपराधिक मामले', 'संवैधानिक मामले'."
+        },
+        "description": {
+          "type": "string",
+          "description": "A description detailing what this case type encompasses."
+        },
+        "currentPercentageOfTotalCases": {
+          "type": "number",
+          "description": "The current percentage this case type represents out of all active cases, used for pie chart visualization."
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "SystemAlert": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "SystemAlert",
+      "type": "object",
+      "description": "Represents an alert or notification generated by the system to highlight important situations or updates.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the SystemAlert entity."
+        },
+        "severity": {
+          "type": "string",
+          "description": "The severity level of the alert, e.g., 'Critical', 'Warning', 'Information', 'Update'."
+        },
+        "message": {
+          "type": "string",
+          "description": "The descriptive message content of the alert."
+        },
+        "generationTimestamp": {
+          "type": "string",
+          "description": "The date and time when the alert was generated.",
+          "format": "date-time"
+        },
+        "relatedCourtId": {
+          "type": "string",
+          "description": "Optional reference to a Court if the alert is specific to a particular court. (Relationship: Court 0:1 SystemAlert)"
+        },
+        "relatedJudgeId": {
+          "type": "string",
+          "description": "Optional reference to a Judge if the alert is specific to a particular judge. (Relationship: Judge 0:1 SystemAlert)"
+        }
+      },
+      "required": [
+        "id",
+        "severity",
+        "message",
+        "generationTimestamp"
+      ]
+    },
+    "UserProfile": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "UserProfile",
+      "type": "object",
+      "description": "Represents a user's profile and preferences within the application (excluding authentication data).",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the UserProfile, typically linked to an external authentication system."
+        },
+        "username": {
+          "type": "string",
+          "description": "The display name of the user."
+        },
+        "email": {
+          "type": "string",
+          "description": "The user's email address, used for identification and communication.",
+          "format": "email"
+        },
+        "role": {
+          "type": "string",
+          "description": "The role of the user within the application, e.g., 'Admin', 'Data Entry Operator', 'Viewer'."
+        },
+        "preferredLanguage": {
+          "type": "string",
+          "description": "The user's preferred language for the application interface and chatbot assistance, e.g., 'hi' for Hindi, 'en' for English."
+        },
+        "themeMode": {
+          "type": "string",
+          "description": "The user's chosen theme mode for the application, e.g., 'dark', 'light', 'device-default'."
+        },
+        "lastLoginDate": {
+          "type": "string",
+          "description": "The date and time of the user's most recent login.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "username",
+        "email",
+        "role",
+        "preferredLanguage",
+        "themeMode"
+      ]
+    },
+    "HistoricalPerformanceMetric": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "HistoricalPerformanceMetric",
+      "type": "object",
+      "description": "Captures historical, time-series data for various performance metrics related to courts, regions, or judges, used for trend analysis.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the HistoricalPerformanceMetric entity."
+        },
+        "metricName": {
+          "type": "string",
+          "description": "The name of the metric being recorded, e.g., 'pendingCases', 'newCases', 'disposedCases', 'disposalRate', 'judgeVacancies'."
+        },
+        "metricValue": {
+          "type": "number",
+          "description": "The numeric value of the recorded metric for the specified period."
+        },
+        "targetEntityType": {
+          "type": "string",
+          "description": "The type of entity this metric relates to, e.g., 'Court', 'CourtRegion', 'Judge'."
+        },
+        "targetEntityId": {
+          "type": "string",
+          "description": "Reference to the specific entity (Court, CourtRegion, or Judge) this metric is associated with. (Relationship: Court/CourtRegion/Judge 1:N HistoricalPerformanceMetric)"
+        },
+        "periodYear": {
+          "type": "number",
+          "description": "The year for which this metric data point is recorded."
+        },
+        "periodMonth": {
+          "type": "number",
+          "description": "The month for which this metric data point is recorded (optional, for finer granularity)."
+        },
+        "recordedDate": {
+          "type": "string",
+          "description": "The timestamp when this historical data point was originally recorded or generated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "metricName",
+        "metricValue",
+        "targetEntityType",
+        "targetEntityId",
+        "periodYear",
+        "recordedDate"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "UserProfile",
+          "schema": {
+            "$ref": "#/backend/entities/UserProfile"
+          },
+          "description": "Stores user-specific profiles and preferences, including role, preferred language, and theme mode. Access is path-based, meaning only the authenticated user can read/write their own profile. The 'role' field is critical for DBAC.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user, corresponding to `request.auth.uid`."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/courtRegions/{courtRegionId}",
+        "definition": {
+          "entityName": "CourtRegion",
+          "schema": {
+            "$ref": "#/backend/entities/CourtRegion"
+          },
+          "description": "Contains information about geographical judicial regions. This is public reference data for viewers, but write access is restricted to Admin/Data Entry Operators.",
+          "params": [
+            {
+              "name": "courtRegionId",
+              "description": "Unique identifier for the judicial region."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/courts/{courtId}",
+        "definition": {
+          "entityName": "Court",
+          "schema": {
+            "$ref": "#/backend/entities/Court"
+          },
+          "description": "Holds detailed data for individual courts, including performance metrics. Includes denormalized 'courtRegionId' for efficient querying. Access is read-only for Viewers, read/write for Admin/Data Entry Operators.",
+          "params": [
+            {
+              "name": "courtId",
+              "description": "Unique identifier for the court."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/judges/{judgeId}",
+        "definition": {
+          "entityName": "Judge",
+          "schema": {
+            "$ref": "#/backend/entities/Judge"
+          },
+          "description": "Stores profiles and performance statistics for individual judges. Includes 'courtId' as a reference. Access is read-only for Viewers, read/write for Admin/Data Entry Operators.",
+          "params": [
+            {
+              "name": "judgeId",
+              "description": "Unique identifier for the judge."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/cases/{caseId}",
+        "definition": {
+          "entityName": "Case",
+          "schema": {
+            "$ref": "#/backend/entities/Case"
+          },
+          "description": "Represents individual legal cases with details, status, and references to assigned judge, filing court, and case type. Access is read-only for Viewers, read/write for Admin/Data Entry Operators.",
+          "params": [
+            {
+              "name": "caseId",
+              "description": "Unique identifier for the case."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/caseTypes/{caseTypeId}",
+        "definition": {
+          "entityName": "CaseType",
+          "schema": {
+            "$ref": "#/backend/entities/CaseType"
+          },
+          "description": "Defines categories for legal cases. This is global, static reference data, read-only for all authenticated users, writeable by Admin only.",
+          "params": [
+            {
+              "name": "caseTypeId",
+              "description": "Unique identifier for the case type."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/systemAlerts/{alertId}",
+        "definition": {
+          "entityName": "SystemAlert",
+          "schema": {
+            "$ref": "#/backend/entities/SystemAlert"
+          },
+          "description": "Stores system-generated alerts and notifications, which can be global or related to specific courts/judges. Access is read-only for Viewers, generated by Admin or system processes.",
+          "params": [
+            {
+              "name": "alertId",
+              "description": "Unique identifier for the system alert."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/historicalPerformanceMetrics/{metricId}",
+        "definition": {
+          "entityName": "HistoricalPerformanceMetric",
+          "schema": {
+            "$ref": "#/backend/entities/HistoricalPerformanceMetric"
+          },
+          "description": "Contains time-series data for performance metrics, linked to courts, regions, or judges. Primarily read-only for trend analysis, written by Admin or system processes.",
+          "params": [
+            {
+              "name": "metricId",
+              "description": "Unique identifier for the historical performance metric record."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The recommended Firestore structure for the \"Nyay Drishti\" dashboard prioritizes **Authorization Independence** and **Structural Segregation** by utilizing top-level collections for nearly all core data entities. This design facilitates simple, robust, and easily debuggable security rules, adhering to DBAC principles where roles are stored within the database and authorization relies on `request.auth.uid`.\n\n**Authorization Independence via Denormalization:**\nFor this application, the primary authorization mechanism is role-based, where a user's role (e.g., 'Admin', 'Data Entry Operator', 'Viewer') determines their access to entire collections. This role is stored directly in the user's `UserProfile` document (`/users/{userId}`). Because most data entities (`CourtRegion`, `Court`, `Judge`, `Case`, `CaseType`, `SystemAlert`, `HistoricalPerformanceMetric`) are placed in top-level collections, their security posture is largely independent of any conceptual 'parent' entity's attributes. For example, a `Case` document's access doesn't depend on fetching the `Court` or `Judge` document it references to determine permissions; instead, access is granted if the user's role allows reading/writing to the `cases` collection. This eliminates the need for `get()` calls in security rules to establish authorization across related entities, enabling atomic operations and simplifying rule logic. Denormalized fields like `courtRegionId` in `Court` or `targetEntityType`/`targetEntityId` in `HistoricalPerformanceMetric` serve as foreign keys for querying and data integrity, not for authorization dependencies.\n\n**QAPs (Rules are not Filters):**\nThis structure strongly supports the 'Rules are not Filters' principle. By having all documents within a collection share a homogeneous security posture (e.g., all `Court` documents are readable by 'Viewer' role users), security rules can be straightforward. For `list` operations, the rules simply check the authenticated user's role (e.g., `allow list: if getUserRole(request.auth.uid) in ['Admin', 'Viewer', 'Data Entry Operator'];`). If the role allows access, the user can query the collection. Any specific filtering (e.g., 'show cases assigned to a particular judge' or 'courts in a specific region') is then handled by the application layer using Firestore queries (e.g., `db.collection('cases').where('assignedJudgeId', '==', judgeId)`). The rules enforce *who* can access the collection, not *what* data within the collection they can see, thus preventing performance bottlenecks and security vulnerabilities associated with complex rule-based filtering. The structural segregation of entities into distinct collections, each with a clear access model, further enhances this by ensuring that a single `list` rule per collection covers all documents within it."
+  }
+}
