@@ -119,25 +119,25 @@ export function Header() {
               <Scale className="h-8 w-8 text-primary group-hover:text-black transition-colors" />
             </div>
             <div className="flex flex-col">
-              <h1 className="text-3xl font-black tracking-tighter hidden lg:block text-primary text-neon">
+              <h1 className="text-3xl font-black tracking-tighter hidden lg:block text-primary text-neon uppercase">
                 {t('dashboardTitle')}
               </h1>
-              <span className="text-[10px] uppercase font-black tracking-[0.4em] text-muted-foreground hidden lg:block opacity-50">Neural Command Unit</span>
+              <span className="text-[10px] uppercase font-black tracking-[0.4em] text-muted-foreground hidden lg:block opacity-50">A to Z Command Active</span>
             </div>
           </div>
 
-          <nav className="hidden xl:flex items-center space-x-2">
+          <nav className="hidden xl:flex items-center space-x-2 h-full">
             {navItems.map((item) => (
               <Button
                 key={item.label}
                 variant="ghost"
                 onClick={() => router.push(item.path)}
                 className={`flex items-center gap-3 h-24 rounded-none px-6 font-black transition-all duration-500 hover:bg-white/[0.03] group relative overflow-hidden ${
-                  pathname === item.path ? "text-primary" : "text-muted-foreground hover:text-white"
+                  pathname === item.path ? "text-primary bg-primary/5" : "text-muted-foreground hover:text-white"
                 }`}
               >
                 <item.icon className={`h-5 w-5 transition-all duration-700 group-hover:scale-150 group-hover:rotate-12 ${pathname === item.path ? 'animate-pulse scale-110 text-primary' : ''}`} />
-                <span className="uppercase tracking-widest text-xs">{item.label}</span>
+                <span className="uppercase tracking-widest text-xs font-bold">{item.label}</span>
                 {pathname === item.path && (
                   <span className="absolute bottom-0 left-0 w-full h-1.5 bg-primary shadow-[0_0_30px_rgba(7,241,214,1)]" />
                 )}
@@ -181,13 +181,13 @@ export function Header() {
                     <Sparkles className="h-4 w-4" /> {t('themeMode')}
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator className="bg-white/5" />
-                  <DropdownMenuItem onClick={() => handleThemeChange('light')} className="rounded-2xl px-5 py-4 cursor-pointer focus:bg-primary/10 flex gap-4 items-center font-black uppercase text-[10px] tracking-[0.2em]">
+                  <DropdownMenuItem onClick={() => handleThemeChange('light')} className="rounded-2xl px-5 py-3 cursor-pointer focus:bg-primary/10 flex gap-4 items-center font-black uppercase text-[10px] tracking-[0.2em]">
                     <Sun className="h-4 w-4 text-amber-400" /> {t('light')}
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => handleThemeChange('dark')} className="rounded-2xl px-5 py-4 cursor-pointer focus:bg-primary/10 flex gap-4 items-center font-black uppercase text-[10px] tracking-[0.2em]">
+                  <DropdownMenuItem onClick={() => handleThemeChange('dark')} className="rounded-2xl px-5 py-3 cursor-pointer focus:bg-primary/10 flex gap-4 items-center font-black uppercase text-[10px] tracking-[0.2em]">
                     <Moon className="h-4 w-4 text-primary" /> {t('dark')}
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => handleThemeChange('system')} className="rounded-2xl px-5 py-4 cursor-pointer focus:bg-primary/10 flex gap-4 items-center font-black uppercase text-[10px] tracking-[0.2em]">
+                  <DropdownMenuItem onClick={() => handleThemeChange('system')} className="rounded-2xl px-5 py-3 cursor-pointer focus:bg-primary/10 flex gap-4 items-center font-black uppercase text-[10px] tracking-[0.2em]">
                     <Laptop className="h-4 w-4" /> {t('system')}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -287,8 +287,8 @@ export function Header() {
                 <Search className="h-10 w-10 text-primary" />
               </div>
               <div>
-                <span className="block text-neon">ग्लोबल सर्च क्रॉलिंग यूनिट</span>
-                <span className="text-xs uppercase tracking-[0.5em] text-muted-foreground font-black opacity-60">Deep Scanning Neural Results</span>
+                <span className="block text-neon uppercase">ग्लोबल सर्च क्रॉलिंग यूनिट</span>
+                <span className="text-xs uppercase tracking-[0.5em] text-muted-foreground font-black opacity-60">Deep Scanning Neural Results Active</span>
               </div>
             </DialogTitle>
           </DialogHeader>
@@ -301,7 +301,7 @@ export function Header() {
                 </div>
                 <div className="text-center space-y-3">
                   <p className="font-black animate-pulse text-primary tracking-[0.5em] uppercase text-2xl text-neon">Scanning All Judicial Nodes...</p>
-                  <p className="text-[10px] uppercase font-bold text-muted-foreground tracking-[0.3em]">Accessing Court / Judge / Case API</p>
+                  <p className="text-[10px] uppercase font-bold text-muted-foreground tracking-[0.3em]">Accessing Court / Judge / Case A to Z API</p>
                 </div>
               </div>
             ) : searchResults ? (
@@ -332,7 +332,7 @@ export function Header() {
                     {searchResults.judges.map((j: any, i: number) => (
                       <div key={i} className="bg-secondary/40 p-8 rounded-[2.5rem] border border-white/5 hover:border-primary/50 cursor-pointer transition-all flex justify-between items-center group shadow-2xl relative overflow-hidden" onClick={() => {setSearchOpen(false); router.push(j.path)}}>
                          <div className="flex flex-col gap-1 relative z-10">
-                           <span className="font-black text-xl group-hover:text-primary transition-all">{j.name}</span>
+                           <span className="font-black text-xl group-hover:text-primary transition-all uppercase tracking-tight">{j.name}</span>
                            <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Assigned Node: {j.court}</span>
                          </div>
                          <div className="bg-blue-400/20 p-4 rounded-2xl group-hover:bg-primary group-hover:rotate-[360deg] transition-all duration-1000 relative z-10">
