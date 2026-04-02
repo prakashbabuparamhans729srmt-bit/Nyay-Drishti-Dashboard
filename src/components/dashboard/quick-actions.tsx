@@ -1,8 +1,7 @@
-
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { PlusCircle, Users, Search, Download, LayoutDashboard, FilePlus, ArrowRight } from "lucide-react";
+import { PlusCircle, Users, Search, Download, LayoutDashboard, FilePlus, ArrowRight, Database, ShieldCheck, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
 import { useLanguage } from "@/lib/language-context";
@@ -16,85 +15,98 @@ export function QuickActions() {
   const { user } = useUser();
 
   const actions = [
-    { label: t('cases'), icon: FilePlus, primary: true, desc: "E-Filing Portal", path: "/cases" },
-    { label: t('judges'), icon: Users, desc: "Service Records", path: "/judges" },
-    { label: t('reports'), icon: Download, desc: "Digital Archive", path: "/reports" },
-    { label: t('courts'), icon: LayoutDashboard, desc: "Regional Nodes", path: "/courts" },
-    { label: t('settings'), icon: SearchIcon, desc: "Preferences", path: "/settings" },
+    { label: t('cases'), icon: FilePlus, primary: true, desc: "E-Filing Portal", path: "/cases", color: "bg-primary" },
+    { label: t('judges'), icon: Users, desc: "Service Records", path: "/judges", color: "bg-blue-400" },
+    { label: t('reports'), icon: Download, desc: "Digital Archive", path: "/reports", color: "bg-emerald-400" },
+    { label: t('courts'), icon: LayoutDashboard, desc: "Regional Nodes", path: "/courts", color: "bg-amber-400" },
+    { label: t('settings'), icon: ShieldCheck, desc: "System Access", path: "/settings", color: "bg-purple-400" },
   ];
 
-  function SearchIcon(props: any) {
-    return <Search {...props} />
-  }
-
   const handleAction = (action: any) => {
-    // Command B.4: If Guest Mode (no user), restrict action and prompt login
     if (!user) {
       const isGuest = localStorage.getItem("nyay-guest-mode") === "true";
       if (isGuest) {
         toast({ 
           title: "लॉगिन आवश्यक (Login Required)", 
-          description: "इस कार्य के लिए कृपया अपना खाता लॉगिन करें।",
+          description: "पूर्ण सुलभता के लिए कृपया अपना खाता लॉगिन करें।",
           variant: "destructive",
-          className: "bg-destructive border-white/20 text-white font-bold rounded-2xl"
+          className: "bg-destructive border-none text-white font-black rounded-3xl shadow-[0_0_30px_rgba(247,31,38,0.3)]"
         });
         setTimeout(() => router.push('/login'), 2000);
         return;
       }
     }
-    
     router.push(action.path);
   };
 
   return (
-    <div className="space-y-8 py-4">
-      <div className="flex items-center justify-between px-2">
-        <div className="space-y-1">
-           <h3 className="text-2xl font-black flex items-center gap-3 text-white tracking-tighter">
-            <PlusCircle className="h-7 w-7 text-primary animate-pulse" />
+    <div className="space-y-10 py-6">
+      <div className="flex items-center justify-between px-4">
+        <div className="space-y-2">
+           <h3 className="text-4xl font-black flex items-center gap-4 text-white tracking-tighter drop-shadow-[0_0_10px_rgba(255,255,255,0.1)]">
+            <PlusCircle className="h-10 w-10 text-primary animate-glow-pule" />
             {t('quickActionsTitle')}
           </h3>
-          <p className="text-xs text-muted-foreground font-medium pl-10 uppercase tracking-widest">{t('digitalTools')}</p>
+          <p className="text-sm text-muted-foreground font-black pl-14 uppercase tracking-[0.4em] opacity-60">
+            {t('digitalTools')}
+          </p>
         </div>
-        <Badge variant="outline" className="text-[10px] font-black text-primary border-primary/30 bg-primary/5 px-4 py-1.5 rounded-full animate-bounce">
-          {t('activeSystem')}
-        </Badge>
+        <div className="flex items-center gap-4">
+          <Badge variant="outline" className="text-xs font-black text-primary border-primary/40 bg-primary/5 px-6 py-2.5 rounded-full animate-pulse shadow-[0_0_20px_rgba(7,241,214,0.1)]">
+            <Database className="h-4 w-4 mr-2" /> {t('activeSystem')}
+          </Badge>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
-        {actions.map((action) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+        {actions.map((action, idx) => (
           <Button
             key={action.label}
-            variant={action.primary ? "default" : "outline"}
-            className={`h-auto py-10 flex flex-col gap-6 rounded-[2rem] shadow-2xl transition-all duration-500 group relative overflow-hidden border-white/5 ${
+            variant="ghost"
+            className={`group relative h-auto py-12 flex flex-col gap-8 rounded-[3rem] border-2 transition-all duration-700 overflow-hidden ${
               action.primary 
-                ? "bg-primary text-black hover:bg-primary/90 hover:scale-[1.05] hover:-translate-y-2 shadow-[0_20px_40px_rgba(7,241,214,0.3)]" 
-                : "bg-card hover:border-primary/50 hover:text-primary hover:bg-white/[0.03] hover:-translate-y-2 shadow-xl"
+                ? "bg-primary border-primary hover:bg-primary/90 hover:scale-[1.08] hover:-translate-y-4 shadow-[0_30px_60px_rgba(7,241,214,0.4)]" 
+                : "bg-card/40 border-white/5 hover:border-primary/60 hover:bg-primary/5 hover:-translate-y-4 shadow-2xl"
             }`}
             onClick={() => handleAction(action)}
           >
-            <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+            {/* Holographic background effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
             
-            <div className={`p-5 rounded-[1.5rem] transition-all duration-700 ${
-              action.primary ? 'bg-black/10' : 'bg-primary/5 border border-primary/10 group-hover:bg-primary group-hover:text-black'
+            <div className={`relative p-6 rounded-[2rem] transition-all duration-1000 shadow-xl ${
+              action.primary ? 'bg-black/20' : 'bg-primary/10 border border-primary/20 group-hover:bg-primary group-hover:scale-110'
             }`}>
-              <action.icon className={`h-10 w-10 transition-all duration-700 ${
+              <action.icon className={`h-12 w-12 transition-all duration-1000 ${
                 action.primary 
-                  ? 'text-black group-hover:rotate-[360deg] group-hover:scale-110' 
-                  : 'text-primary group-hover:rotate-[360deg] group-hover:scale-110 group-hover:text-black'
+                  ? 'text-black group-hover:rotate-[360deg]' 
+                  : 'text-primary group-hover:text-black group-hover:rotate-[360deg]'
               }`} />
+              <div className="absolute -top-1 -right-1">
+                <Sparkles className={`h-4 w-4 animate-pulse ${action.primary ? 'text-white' : 'text-primary'}`} />
+              </div>
             </div>
 
-            <div className="space-y-2 text-center relative z-10">
-              <span className="text-xs font-black uppercase tracking-tighter px-2 block group-hover:scale-110 transition-transform">
+            <div className="space-y-3 text-center relative z-10">
+              <span className={`text-xl font-black uppercase tracking-tighter block group-hover:scale-110 transition-transform ${
+                action.primary ? 'text-black' : 'text-white group-hover:text-primary'
+              }`}>
                 {action.label}
               </span>
-              <span className={`text-[9px] uppercase font-black tracking-[0.2em] opacity-50 block ${action.primary ? 'text-black' : 'text-muted-foreground group-hover:text-primary'}`}>
+              <span className={`text-[10px] uppercase font-black tracking-[0.3em] opacity-40 block ${
+                action.primary ? 'text-black/70' : 'text-muted-foreground group-hover:text-primary/70'
+              }`}>
                 {action.desc}
               </span>
             </div>
 
-            <ArrowRight className={`absolute bottom-6 right-6 h-4 w-4 transition-all duration-500 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 ${action.primary ? 'text-black' : 'text-primary'}`} />
+            <div className={`absolute bottom-8 right-8 h-8 w-8 rounded-full flex items-center justify-center transition-all duration-700 opacity-0 -translate-x-8 group-hover:opacity-100 group-hover:translate-x-0 ${
+              action.primary ? 'bg-black/20 text-black' : 'bg-primary/20 text-primary'
+            }`}>
+              <ArrowRight className="h-5 w-5" />
+            </div>
+            
+            {/* Digital scan line effect */}
+            <div className="scan-line opacity-0 group-hover:opacity-10" />
           </Button>
         ))}
       </div>

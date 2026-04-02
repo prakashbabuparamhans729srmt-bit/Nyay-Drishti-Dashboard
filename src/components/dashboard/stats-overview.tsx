@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowUpRight, ArrowDownRight, FileText, Scale, CheckCircle, Clock } from "lucide-react";
+import { ArrowUpRight, ArrowDownRight, FileText, Scale, CheckCircle, Clock, Zap } from "lucide-react";
 import { useLanguage } from "@/lib/language-context";
 
 export function StatsOverview() {
@@ -16,7 +16,7 @@ export function StatsOverview() {
       icon: FileText,
       color: "text-primary",
       bg: "bg-primary/10",
-      glow: "shadow-[0_0_20px_rgba(7,241,214,0.15)]",
+      glow: "shadow-[0_0_30px_rgba(7,241,214,0.2)]",
     },
     {
       title: t('newCases'),
@@ -26,7 +26,7 @@ export function StatsOverview() {
       icon: Scale,
       color: "text-blue-400",
       bg: "bg-blue-400/10",
-      glow: "shadow-[0_0_20px_rgba(96,165,250,0.15)]",
+      glow: "shadow-[0_0_30px_rgba(96,165,250,0.2)]",
     },
     {
       title: t('disposedCases'),
@@ -36,7 +36,7 @@ export function StatsOverview() {
       icon: CheckCircle,
       color: "text-emerald-400",
       bg: "bg-emerald-400/10",
-      glow: "shadow-[0_0_20px_rgba(52,211,153,0.15)]",
+      glow: "shadow-[0_0_30px_rgba(52,211,153,0.2)]",
     },
     {
       title: t('waitingPeriod'),
@@ -46,44 +46,53 @@ export function StatsOverview() {
       icon: Clock,
       color: "text-amber-400",
       bg: "bg-amber-400/10",
-      glow: "shadow-[0_0_20px_rgba(251,191,36,0.15)]",
+      glow: "shadow-[0_0_30px_rgba(251,191,36,0.2)]",
     },
   ];
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      {stats.map((stat) => (
-        <Card key={stat.title} className={`overflow-hidden border-white/5 bg-card group hover:border-primary/50 transition-all duration-500 hover:scale-[1.03] hover:-translate-y-1 ${stat.glow}`}>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-            <CardTitle className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">{stat.title}</CardTitle>
-            <div className={`${stat.bg} ${stat.color} p-2.5 rounded-xl group-hover:rotate-12 group-hover:scale-110 transition-all duration-500 border border-current/10`}>
-              <stat.icon className="h-4 w-4" />
+      {stats.map((stat, idx) => (
+        <Card 
+          key={stat.title} 
+          className={`relative overflow-hidden border-white/5 bg-card/60 backdrop-blur-xl group hover:border-primary/50 transition-all duration-700 hover:scale-[1.05] hover:-translate-y-2 ${stat.glow} rounded-[2.5rem]`}
+        >
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-right from-transparent via-primary/20 to-transparent" />
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4 pt-6">
+            <CardTitle className="text-[11px] font-black uppercase tracking-[0.3em] text-muted-foreground group-hover:text-primary transition-colors duration-500">
+              {stat.title}
+            </CardTitle>
+            <div className={`${stat.bg} ${stat.color} p-3 rounded-2xl group-hover:rotate-[360deg] group-hover:scale-125 transition-all duration-1000 border border-current/20 shadow-lg`}>
+              <stat.icon className="h-5 w-5" />
             </div>
           </CardHeader>
-          <CardContent>
-            <div className="text-4xl font-black tracking-tighter text-white group-hover:text-primary transition-colors duration-500">{stat.value}</div>
-            <div className="flex items-center mt-3 bg-white/5 w-fit px-2 py-1 rounded-full border border-white/5">
+          <CardContent className="pb-8">
+            <div className="text-5xl font-black tracking-tighter text-white group-hover:text-primary transition-all duration-700 group-hover:drop-shadow-[0_0_15px_rgba(7,241,214,0.5)]">
+              {stat.value}
+            </div>
+            <div className="flex items-center mt-4 bg-white/5 w-fit px-3 py-1.5 rounded-full border border-white/5 backdrop-blur-md group-hover:bg-primary/10 transition-all">
               {stat.trend === "up" ? (
-                <ArrowUpRight className="h-3 w-3 text-destructive mr-1 animate-pulse" />
+                <ArrowUpRight className="h-4 w-4 text-destructive mr-2 animate-bounce" />
               ) : stat.trend === "down" ? (
-                <ArrowDownRight className="h-3 w-3 text-emerald-400 mr-1 animate-pulse" />
+                <ArrowDownRight className="h-4 w-4 text-emerald-400 mr-2 animate-bounce" />
               ) : (
-                <Clock className="h-3 w-3 text-muted-foreground mr-1" />
+                <Zap className="h-4 w-4 text-primary mr-2 animate-pulse" />
               )}
-              <p className={`text-[10px] font-black uppercase ${
-                stat.trend === "up" ? "text-destructive" : stat.trend === "down" ? "text-emerald-400" : "text-muted-foreground"
+              <p className={`text-xs font-black uppercase tracking-wider ${
+                stat.trend === "up" ? "text-destructive" : stat.trend === "down" ? "text-emerald-400" : "text-primary"
               }`}>
                 {stat.change}
               </p>
             </div>
           </CardContent>
-          <div className="h-1.5 w-full bg-white/5 relative">
+          <div className="h-2 w-full bg-white/5 relative mt-auto overflow-hidden">
              <div 
-               className={`h-full absolute left-0 top-0 transition-all duration-1000 group-hover:w-full group-hover:shadow-[0_0_10px_rgba(current)] ${
+               className={`h-full absolute left-0 top-0 transition-all duration-[2000ms] group-hover:w-full group-hover:brightness-150 ${
                  stat.trend === 'up' ? 'bg-destructive w-1/2' : 
                  stat.trend === 'down' ? 'bg-emerald-400 w-2/3' : 'bg-primary w-1/3'
                }`}
              />
+             <div className="scan-line" />
           </div>
         </Card>
       ))}
