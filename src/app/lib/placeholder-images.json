@@ -11,6 +11,12 @@
       "description": "Professional judicial profile placeholder",
       "imageUrl": "https://picsum.photos/seed/judge1/400/400",
       "imageHint": "judge profile"
+    },
+    {
+      "id": "court-hall",
+      "description": "Supreme Court Hall Digital visualization",
+      "imageUrl": "https://picsum.photos/seed/court2/1200/600",
+      "imageHint": "court hall"
     }
   ]
 }

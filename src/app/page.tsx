@@ -11,7 +11,7 @@ import { AlertsAndNotifications } from "@/components/dashboard/alerts-and-notifi
 import { AIBottleneckAnalysisTrigger } from "@/components/dashboard/ai-bottleneck-analysis-trigger";
 import { QuickActions } from "@/components/dashboard/quick-actions";
 import { useUser } from "@/firebase";
-import { Loader2 } from "lucide-react";
+import { Loader2, Zap } from "lucide-react";
 
 /**
  * NyayDrishtiDashboard - The primary operational command center.
@@ -49,18 +49,17 @@ export default function NyayDrishtiDashboard() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background relative overflow-hidden">
-      {/* Neural Scan Grid Overlay */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="scan-line opacity-10" />
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(7,241,214,0.08)_0%,transparent_75%)]" />
-        <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:40px_40px]" />
-      </div>
-
       <Header />
       
       <main className="flex-1 container mx-auto px-4 py-8 space-y-12 max-w-7xl relative z-10">
         {/* Statistics Hero Section */}
         <section className="animate-in fade-in slide-in-from-top-4 duration-700">
+          <div className="flex items-center gap-3 mb-8 px-2">
+            <div className="bg-primary/20 p-2 rounded-xl border border-primary/30">
+              <Zap className="h-4 w-4 text-primary animate-pulse" />
+            </div>
+            <h2 className="text-sm font-black uppercase tracking-[0.5em] text-primary/60">Live Judicial Telemetry Active</h2>
+          </div>
           <StatsOverview />
         </section>
 
@@ -89,11 +88,11 @@ export default function NyayDrishtiDashboard() {
         <div className="container mx-auto px-4 text-center">
           <div className="flex flex-col items-center gap-4">
             <div className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+              <span className="h-2 w-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_rgba(7,241,214,1)]" />
               <p className="text-[10px] font-black uppercase tracking-[0.8em] text-primary/60">
-                NyayDrishti Neural Framework v4.0.1
+                NyayDrishti Neural Framework v4.5.0
               </p>
-              <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+              <span className="h-2 w-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_rgba(7,241,214,1)]" />
             </div>
             <div className="text-sm text-muted-foreground font-medium opacity-80">
               © {new Date().getFullYear()} न्यायदृष्टि डैशबोर्ड - न्यायिक सुगमता और डेटा पारदर्शिता का सर्वोच्च केंद्र।
