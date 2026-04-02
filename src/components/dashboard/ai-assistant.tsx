@@ -61,7 +61,7 @@ export function AIAssistant() {
       const result = await judicialAssistant({
         query: input,
         language,
-        context: "High Precision Dashboard Interaction Mode - A to Z Active"
+        context: "High Precision Dashboard Interaction Mode - A to Z Active Flow"
       });
       
       const assistantMsg: Message = { role: 'assistant', content: result.response };

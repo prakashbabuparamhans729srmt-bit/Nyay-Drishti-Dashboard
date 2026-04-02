@@ -81,7 +81,7 @@ export function Header() {
     setIsSearching(true);
     setSearchResults(null);
 
-    // Simulated Deep Crawling Logic - A to Z Active
+    // Simulated Deep Crawling Logic - A to Z Active Flow
     setTimeout(() => {
       setSearchResults({
         courts: [{ name: "इलाहाबाद उच्च न्यायालय", status: "सक्रिय (Active)" }, { name: "सुप्रीम कोर्ट", status: "लाइव (Live)" }],
