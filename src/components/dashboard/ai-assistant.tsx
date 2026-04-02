@@ -1,12 +1,12 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Sparkles, X, Send, Mic, MicOff, Bot, User, Loader2, Zap, BrainCircuit, Headphones } from "lucide-react";
+import { Sparkles, X, Send, Mic, Bot, User, Loader2, Zap, BrainCircuit, Headphones } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { useLanguage } from "@/lib/language-context";
-import { judicialAssistant, JudicialAssistantOutput } from "@/ai/flows/judicial-assistant";
+import { judicialAssistant } from "@/ai/flows/judicial-assistant";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
