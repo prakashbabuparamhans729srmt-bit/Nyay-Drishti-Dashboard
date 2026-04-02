@@ -24,6 +24,12 @@
     --input: 207 20% 15%;
     --ring: 173 94% 49%;
     --radius: 1.5rem;
+
+    --chart-1: 173 94% 49%;
+    --chart-2: 200 90% 60%;
+    --chart-3: 150 80% 50%;
+    --chart-4: 40 100% 60%;
+    --chart-5: 0 90% 60%;
   }
 }
 
@@ -38,15 +44,15 @@
 
 @layer components {
   .neon-glow {
-    @apply shadow-[0_0_20px_rgba(7,241,214,0.1)] border-primary/20 hover:shadow-[0_0_40px_rgba(7,241,214,0.25)] hover:border-primary/40 transition-all duration-500 rounded-[2rem];
+    @apply shadow-[0_0_20px_rgba(7,241,214,0.1)] border-primary/20 hover:shadow-[0_0_40px_rgba(7,241,214,0.3)] hover:border-primary/50 transition-all duration-500 rounded-[2rem];
   }
   
   .icon-active {
-    @apply transition-all duration-500 hover:scale-125 hover:text-primary hover:rotate-6 active:scale-95 cursor-pointer;
+    @apply transition-all duration-700 hover:scale-125 hover:text-primary hover:rotate-12 active:scale-95 cursor-pointer drop-shadow-[0_0_8px_rgba(7,241,214,0.4)];
   }
 
   .digital-card {
-    @apply bg-card/40 backdrop-blur-2xl border border-white/5 shadow-2xl overflow-hidden;
+    @apply bg-card/40 backdrop-blur-2xl border border-white/5 shadow-2xl overflow-hidden relative;
   }
 
   .animate-glow-pule {
@@ -58,7 +64,7 @@
       box-shadow: 0 0 10px rgba(7,241,214,0.05), inset 0 0 5px rgba(7,241,214,0.02);
     }
     to {
-      box-shadow: 0 0 30px rgba(7,241,214,0.3), inset 0 0 15px rgba(7,241,214,0.05);
+      box-shadow: 0 0 35px rgba(7,241,214,0.4), inset 0 0 15px rgba(7,241,214,0.05);
     }
   }
 
@@ -69,14 +75,24 @@
     position: absolute;
     top: 0;
     left: 0;
-    animation: scan 3s linear infinite;
+    animation: scan 4s linear infinite;
     z-index: 10;
-    opacity: 0.5;
+    opacity: 0.3;
+    pointer-events: none;
   }
 
   @keyframes scan {
     0% { top: 0; opacity: 0; }
-    50% { opacity: 0.8; }
+    20% { opacity: 0.6; }
+    80% { opacity: 0.6; }
     100% { top: 100%; opacity: 0; }
+  }
+
+  .holographic-bg {
+    background: radial-gradient(circle at 50% 50%, rgba(7, 241, 214, 0.05) 0%, transparent 70%);
+  }
+
+  .text-neon {
+    text-shadow: 0 0 10px rgba(7, 241, 214, 0.5), 0 0 20px rgba(7, 241, 214, 0.2);
   }
 }

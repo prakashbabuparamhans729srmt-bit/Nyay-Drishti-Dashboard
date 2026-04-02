@@ -61,14 +61,14 @@ export function AIAssistant() {
       const result = await judicialAssistant({
         query: input,
         language,
-        context: "Dashboard view, Advanced User Interaction"
+        context: "High Precision Dashboard Interaction Mode"
       });
       
       const assistantMsg: Message = { role: 'assistant', content: result.response };
       setMessages(prev => [...prev, assistantMsg]);
     } catch (error) {
       console.error("AI Assistant failed", error);
-      toast({ title: "AI Error", description: "सहायक से संपर्क विफल।", variant: "destructive" });
+      toast({ title: "AI Assistant Offline", description: "तंत्र से संपर्क विफल रहा।", variant: "destructive" });
     } finally {
       setLoading(false);
     }
@@ -79,66 +79,82 @@ export function AIAssistant() {
       {!isOpen ? (
         <Button
           onClick={() => setIsOpen(true)}
-          className="h-20 w-20 rounded-[2rem] bg-primary shadow-[0_0_50px_rgba(7,241,214,0.6)] hover:scale-110 transition-all group border-4 border-black/20"
+          className="h-24 w-24 rounded-[3rem] bg-primary shadow-[0_0_60px_rgba(7,241,214,0.6)] hover:scale-110 transition-all group border-4 border-black/30 flex flex-col items-center justify-center gap-1"
         >
-          <BrainCircuit className="h-10 w-10 text-black group-hover:rotate-12 transition-transform" />
-          <span className="absolute -top-2 -right-2 flex h-6 w-6">
+          <BrainCircuit className="h-10 w-10 text-black group-hover:rotate-[360deg] transition-all duration-1000" />
+          <span className="text-[8px] font-black text-black/60 uppercase tracking-widest">Neural Live</span>
+          <span className="absolute -top-1 -right-1 flex h-6 w-6">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-6 w-6 bg-white border-4 border-primary"></span>
+            <span className="relative inline-flex rounded-full h-6 w-6 bg-white border-4 border-primary shadow-[0_0_10px_white]"></span>
           </span>
         </Button>
       ) : (
-        <Card className="w-[420px] sm:w-[500px] h-[750px] border-primary/40 shadow-[0_0_100px_rgba(0,0,0,0.8)] bg-card/95 backdrop-blur-3xl flex flex-col overflow-hidden neon-glow rounded-[3rem] animate-in zoom-in-90 slide-in-from-bottom-20 duration-500">
-          <CardHeader className="bg-primary/10 border-b border-primary/20 flex flex-row items-center justify-between p-6">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-primary/20 rounded-2xl border border-primary/40 animate-pulse">
-                <Bot className="h-6 w-6 text-primary" />
+        <Card className="w-[450px] sm:w-[550px] h-[800px] border-primary/40 shadow-[0_0_120px_rgba(0,0,0,0.9)] bg-card/95 backdrop-blur-3xl flex flex-col overflow-hidden neon-glow rounded-[4rem] animate-in zoom-in-90 slide-in-from-bottom-20 duration-500">
+          <CardHeader className="bg-primary/10 border-b border-primary/20 flex flex-row items-center justify-between p-8">
+            <div className="flex items-center gap-5">
+              <div className="p-4 bg-primary/20 rounded-[1.5rem] border border-primary/40 animate-glow-pule">
+                <Bot className="h-8 w-8 text-primary" />
               </div>
               <div className="flex flex-col">
-                <CardTitle className="text-primary text-2xl font-black tracking-tighter">
+                <CardTitle className="text-primary text-3xl font-black tracking-tighter text-neon">
                   {t('aiAssistantTitle')}
                 </CardTitle>
-                <Badge variant="outline" className="text-[9px] uppercase tracking-[0.3em] font-black border-primary/30 text-primary bg-primary/5 px-2">Neural Engine Live</Badge>
+                <div className="flex items-center gap-2 mt-1">
+                  <Badge variant="outline" className="text-[9px] uppercase tracking-[0.3em] font-black border-primary/30 text-primary bg-primary/5 px-3 py-0.5">Quantum Core Active</Badge>
+                  <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse shadow-[0_0_8px_rgba(7,241,214,1)]" />
+                </div>
               </div>
             </div>
-            <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="rounded-full h-12 w-12 hover:bg-destructive/20 hover:text-destructive transition-all">
-              <X className="h-6 w-6" />
+            <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="rounded-full h-14 w-14 hover:bg-destructive/20 hover:text-destructive transition-all border border-white/5">
+              <X className="h-7 w-7" />
             </Button>
           </CardHeader>
 
-          <CardContent className="flex-1 p-6 overflow-hidden relative">
-            <div className="scan-line opacity-5" />
-            <ScrollArea className="h-full pr-4">
-              <div className="space-y-6">
+          <CardContent className="flex-1 p-8 overflow-hidden relative">
+            <div className="scan-line opacity-10" />
+            <ScrollArea className="h-full pr-6">
+              <div className="space-y-8">
                 {messages.length === 0 && (
-                  <div className="text-center py-20 space-y-6">
-                    <div className="bg-primary/10 w-24 h-24 rounded-[2.5rem] flex items-center justify-center mx-auto mb-6 border-2 border-primary/20 animate-glow-pule">
-                      <Zap className="h-12 w-12 text-primary" />
+                  <div className="text-center py-28 space-y-8">
+                    <div className="bg-primary/10 w-28 h-28 rounded-[3rem] flex items-center justify-center mx-auto mb-8 border-2 border-primary/20 animate-glow-pule relative">
+                       <Zap className="h-14 w-14 text-primary" />
+                       <div className="absolute inset-0 bg-primary/5 blur-3xl rounded-full" />
                     </div>
-                    <div className="space-y-2">
-                      <p className="text-xl font-black text-white">{t('askAnything')}</p>
-                      <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold">20+ भाषाओं का समर्थन</p>
+                    <div className="space-y-3">
+                      <p className="text-2xl font-black text-white text-neon">{t('askAnything')}</p>
+                      <p className="text-[10px] text-muted-foreground uppercase tracking-[0.4em] font-black opacity-50">Global Indian Judicial Language Support</p>
                     </div>
                   </div>
                 )}
                 {messages.map((m, i) => (
-                  <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'} animate-in fade-in slide-in-from-bottom-4 duration-500`}>
-                    <div className={`max-w-[90%] p-5 rounded-[2rem] flex gap-4 shadow-2xl ${
+                  <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'} animate-in fade-in slide-in-from-bottom-4 duration-700`}>
+                    <div className={`max-w-[90%] p-6 rounded-[2.5rem] flex gap-5 shadow-2xl relative overflow-hidden ${
                       m.role === 'user' 
                         ? 'bg-primary text-black font-black' 
-                        : 'bg-secondary/40 border border-white/5 text-white'
+                        : 'bg-secondary/60 border border-white/10 text-white'
                     }`}>
-                      {m.role === 'assistant' && <div className="p-2 bg-primary/20 rounded-xl h-fit border border-primary/30"><Bot className="h-5 w-5 shrink-0 text-primary" /></div>}
-                      <p className="text-sm leading-relaxed">{m.content}</p>
-                      {m.role === 'user' && <div className="p-2 bg-black/10 rounded-xl h-fit"><User className="h-5 w-5 shrink-0" /></div>}
+                      {m.role === 'assistant' && (
+                        <div className="p-3 bg-primary/20 rounded-2xl h-fit border border-primary/30">
+                          <Bot className="h-6 w-6 shrink-0 text-primary" />
+                        </div>
+                      )}
+                      <p className="text-base leading-relaxed">{m.content}</p>
+                      {m.role === 'user' && (
+                        <div className="p-3 bg-black/10 rounded-2xl h-fit">
+                          <User className="h-6 w-6 shrink-0" />
+                        </div>
+                      )}
+                      <div className="scan-line opacity-5" />
                     </div>
                   </div>
                 ))}
                 {loading && (
                   <div className="flex justify-start animate-pulse">
-                    <div className="bg-secondary/40 p-5 rounded-[2rem] flex gap-4 border border-white/5">
-                      <div className="p-2 bg-primary/20 rounded-xl h-fit"><Loader2 className="h-5 w-5 animate-spin text-primary" /></div>
-                      <span className="text-sm text-primary font-black uppercase tracking-widest">Thinking...</span>
+                    <div className="bg-secondary/60 p-6 rounded-[2.5rem] flex gap-5 border border-white/10">
+                      <div className="p-3 bg-primary/20 rounded-2xl h-fit">
+                        <Loader2 className="h-6 w-6 animate-spin text-primary" />
+                      </div>
+                      <span className="text-sm text-primary font-black uppercase tracking-[0.5em] flex items-center">Neural Scanning...</span>
                     </div>
                   </div>
                 )}
@@ -147,29 +163,29 @@ export function AIAssistant() {
             </ScrollArea>
           </CardContent>
 
-          <CardFooter className="p-6 bg-secondary/30 border-t border-white/5">
-            <div className="flex w-full gap-3 relative">
+          <CardFooter className="p-8 bg-secondary/50 border-t border-white/10">
+            <div className="flex w-full gap-4 relative">
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={startVoiceInput}
-                className={`shrink-0 h-14 w-14 rounded-2xl transition-all border border-white/5 ${isListening ? 'bg-destructive text-white animate-pulse shadow-[0_0_20px_rgba(247,31,38,0.5)]' : 'bg-primary/10 hover:bg-primary/20 text-primary'}`}
+                className={`shrink-0 h-16 w-16 rounded-[1.5rem] transition-all border-2 ${isListening ? 'bg-destructive border-destructive text-white animate-pulse shadow-[0_0_30px_rgba(247,31,38,0.7)]' : 'bg-primary/10 border-primary/30 hover:bg-primary/20 text-primary'}`}
               >
-                {isListening ? <Headphones className="h-6 w-6" /> : <Mic className="h-6 w-6" />}
+                {isListening ? <Headphones className="h-7 w-7" /> : <Mic className="h-7 w-7" />}
               </Button>
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSend()}
                 placeholder={t('typeMessage')}
-                className="bg-background/80 border-white/5 focus-visible:ring-primary rounded-2xl h-14 text-lg font-medium shadow-inner px-6"
+                className="bg-background/90 border-white/10 focus-visible:ring-primary rounded-[1.5rem] h-16 text-xl font-medium shadow-inner px-8"
               />
               <Button
                 onClick={handleSend}
                 disabled={loading || !input.trim()}
-                className="bg-primary h-14 w-14 text-black hover:bg-primary/90 shrink-0 rounded-2xl shadow-xl transition-all hover:scale-105 active:scale-95"
+                className="bg-primary h-16 w-16 text-black hover:bg-primary/90 shrink-0 rounded-[1.5rem] shadow-[0_15px_30px_rgba(7,241,214,0.3)] transition-all hover:scale-110 active:scale-90"
               >
-                <Send className="h-6 w-6" />
+                <Send className="h-7 w-7" />
               </Button>
             </div>
           </CardFooter>
