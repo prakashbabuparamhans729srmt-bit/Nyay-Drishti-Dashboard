@@ -83,9 +83,9 @@ export function Header() {
 
     setTimeout(() => {
       setSearchResults({
-        courts: [{ name: "Allahabad High Court", status: "Active" }],
-        judges: [{ name: "Justice S.K. Sharma", court: "Supreme Court" }],
-        cases: [{ id: "SC-2024-442", title: "Ram vs State of UP" }]
+        courts: [{ name: "इलाहाबाद उच्च न्यायालय", status: "सक्रिय" }],
+        judges: [{ name: "न्यायमूर्ति एस.के. शर्मा", court: "सुप्रीम कोर्ट" }],
+        cases: [{ id: "SC-2024-442", title: "राम बनाम उत्तर प्रदेश राज्य" }]
       });
       setIsSearching(false);
     }, 1500);
