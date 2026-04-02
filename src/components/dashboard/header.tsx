@@ -81,12 +81,21 @@ export function Header() {
     setIsSearching(true);
     setSearchResults(null);
 
-    // Simulated Deep Crawling Logic - A to Z Active Flow
+    // Advanced Global Crawling Unit - Simulated Live Response
     setTimeout(() => {
       setSearchResults({
-        courts: [{ name: "इलाहाबाद उच्च न्यायालय", status: "सक्रिय (Active)" }, { name: "सुप्रीम कोर्ट", status: "लाइव (Live)" }],
-        judges: [{ name: "न्यायमूर्ति एस.के. शर्मा", court: "सुप्रीम कोर्ट" }, { name: "न्यायमूर्ति डी.वाई. चंद्रचूड़", court: "मुख्य न्यायाधीश" }],
-        cases: [{ id: "SC-2024-442", title: "राम बनाम उत्तर प्रदेश राज्य" }, { id: "HC-2024-101", title: "जनहित याचिका - डिजिटल शिक्षा" }]
+        courts: [
+          { name: "इलाहाबाद उच्च न्यायालय", status: "सक्रिय (Active)", path: "/courts" },
+          { name: "सुप्रीम कोर्ट", status: "लाइव (Live)", path: "/courts" }
+        ],
+        judges: [
+          { name: "न्यायमूर्ति एस.के. शर्मा", court: "सुप्रीम कोर्ट", path: "/judges" },
+          { name: "न्यायमूर्ति डी.वाई. चंद्रचूड़", court: "मुख्य न्यायाधीश", path: "/judges" }
+        ],
+        cases: [
+          { id: "SC-2024-442", title: "राम बनाम उत्तर प्रदेश राज्य", path: "/cases" },
+          { id: "HC-2024-101", title: "जनहित याचिका - डिजिटल शिक्षा", path: "/cases" }
+        ]
       });
       setIsSearching(false);
     }, 2000);
@@ -304,7 +313,7 @@ export function Header() {
                     </h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {searchResults.courts.map((c: any, i: number) => (
-                        <div key={i} className="bg-secondary/40 p-8 rounded-[2.5rem] border border-white/5 hover:border-primary/50 cursor-pointer transition-all flex justify-between items-center group shadow-2xl overflow-hidden relative" onClick={() => {setSearchOpen(false); router.push('/courts')}}>
+                        <div key={i} className="bg-secondary/40 p-8 rounded-[2.5rem] border border-white/5 hover:border-primary/50 cursor-pointer transition-all flex justify-between items-center group shadow-2xl overflow-hidden relative" onClick={() => {setSearchOpen(false); router.push(c.path)}}>
                            <div className="relative z-10 flex flex-col gap-1">
                              <span className="font-black text-xl group-hover:text-primary transition-all uppercase tracking-tight">{c.name}</span>
                              <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Verified Regional Unit</span>
@@ -321,7 +330,7 @@ export function Header() {
                       <Users className="h-6 w-6 text-blue-400" /> न्यायाधीश ({searchResults.judges.length})
                     </h4>
                     {searchResults.judges.map((j: any, i: number) => (
-                      <div key={i} className="bg-secondary/40 p-8 rounded-[2.5rem] border border-white/5 hover:border-primary/50 cursor-pointer transition-all flex justify-between items-center group shadow-2xl relative overflow-hidden" onClick={() => {setSearchOpen(false); router.push('/judges')}}>
+                      <div key={i} className="bg-secondary/40 p-8 rounded-[2.5rem] border border-white/5 hover:border-primary/50 cursor-pointer transition-all flex justify-between items-center group shadow-2xl relative overflow-hidden" onClick={() => {setSearchOpen(false); router.push(j.path)}}>
                          <div className="flex flex-col gap-1 relative z-10">
                            <span className="font-black text-xl group-hover:text-primary transition-all">{j.name}</span>
                            <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Assigned Node: {j.court}</span>
@@ -339,7 +348,7 @@ export function Header() {
                       <FileText className="h-6 w-6 text-emerald-400" /> मामले ({searchResults.cases.length})
                     </h4>
                     {searchResults.cases.map((c: any, i: number) => (
-                      <div key={i} className="bg-secondary/40 p-8 rounded-[2.5rem] border border-white/5 hover:border-primary/50 cursor-pointer transition-all flex justify-between items-center group shadow-2xl relative overflow-hidden" onClick={() => {setSearchOpen(false); router.push('/cases')}}>
+                      <div key={i} className="bg-secondary/40 p-8 rounded-[2.5rem] border border-white/5 hover:border-primary/50 cursor-pointer transition-all flex justify-between items-center group shadow-2xl relative overflow-hidden" onClick={() => {setSearchOpen(false); router.push(c.path)}}>
                          <div className="flex flex-col gap-2 relative z-10">
                            <span className="font-black text-2xl group-hover:text-primary transition-all tracking-tighter">{c.id}</span>
                            <span className="text-sm text-muted-foreground font-bold uppercase tracking-widest">{c.title}</span>

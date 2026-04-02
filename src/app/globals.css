@@ -95,4 +95,17 @@
   .text-neon {
     text-shadow: 0 0 10px rgba(7, 241, 214, 0.5), 0 0 20px rgba(7, 241, 214, 0.2);
   }
+
+  /* Pulse for live status */
+  .status-pulse {
+    @apply relative flex h-3 w-3;
+  }
+  .status-pulse::after {
+    @apply absolute inline-flex h-full w-full rounded-full bg-primary opacity-75 animate-ping;
+    content: "";
+  }
+  .status-pulse::before {
+    @apply relative inline-flex rounded-full h-3 w-3 bg-primary;
+    content: "";
+  }
 }
