@@ -107,4 +107,8 @@
     @apply relative inline-flex rounded-full h-3 w-3 bg-primary;
     content: "";
   }
+
+  .nav-active-bar {
+    @apply absolute bottom-0 left-0 w-full h-1.5 bg-primary shadow-[0_0_30px_rgba(7,241,214,1)];
+  }
 }
