@@ -115,15 +115,19 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex h-24 items-center justify-between gap-6">
           <div className="flex items-center gap-5 group cursor-pointer" onClick={() => router.push('/')}>
-            <div className="bg-primary/20 p-4 rounded-2xl transition-all duration-1000 group-hover:bg-primary group-hover:rotate-[360deg] group-hover:shadow-[0_0_40px_rgba(7,241,214,0.6)] border border-primary/30 relative">
-              <Scale className="h-8 w-8 text-primary group-hover:text-black transition-colors" />
+            <div className="bg-primary/20 p-4 rounded-2xl transition-all duration-1000 group-hover:bg-primary group-hover:rotate-[360deg] group-hover:shadow-[0_0_40px_rgba(7,241,214,0.6)] border border-primary/30 relative overflow-hidden">
+              <Scale className="h-8 w-8 text-primary group-hover:text-black transition-colors relative z-10" />
               <div className="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity rounded-full" />
+              <div className="scan-line opacity-0 group-hover:opacity-40" />
             </div>
             <div className="flex flex-col">
               <h1 className="text-3xl font-black tracking-tighter hidden lg:block text-primary text-neon uppercase">
                 {t('dashboardTitle')}
               </h1>
-              <span className="text-[10px] uppercase font-black tracking-[0.4em] text-muted-foreground hidden lg:block opacity-50">A to Z Command Active</span>
+              <div className="flex items-center gap-2">
+                 <span className="text-[10px] uppercase font-black tracking-[0.4em] text-muted-foreground hidden lg:block opacity-50">A to Z Command Active</span>
+                 <div className="h-1 w-1 rounded-full bg-primary animate-pulse" />
+              </div>
             </div>
           </div>
 
@@ -143,6 +147,7 @@ export function Header() {
                   <span className="absolute bottom-0 left-0 w-full h-1.5 bg-primary shadow-[0_0_30px_rgba(7,241,214,1)] nav-active-bar" />
                 )}
                 <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="scan-line opacity-0 group-hover:opacity-10" />
               </Button>
             ))}
           </nav>
@@ -167,7 +172,7 @@ export function Header() {
                 >
                   {isListening ? <Mic className="h-4 w-4" /> : <MicOff className="h-4 w-4" />}
                 </Button>
-                <div className="hidden sm:flex items-center gap-1 text-[10px] font-black text-muted-foreground/40 border border-white/5 px-2 rounded-lg">
+                <div className="hidden sm:flex items-center gap-1 text-[10px] font-black text-muted-foreground/40 border border-white/5 px-2 rounded-lg bg-secondary/60">
                   <Command className="h-3 w-3" /> K
                 </div>
               </div>
@@ -236,7 +241,7 @@ export function Header() {
               </DropdownMenu>
             </div>
 
-            <Button variant="ghost" size="icon" className="h-14 w-14 relative hover:bg-primary/20 rounded-2xl group border border-white/5 transition-all shadow-xl">
+            <Button variant="ghost" size="icon" className="h-14 w-14 relative hover:bg-primary/20 rounded-2xl group border border-white/5 transition-all shadow-xl bg-secondary/40">
               <Bell className="h-6 w-6 text-muted-foreground group-hover:text-primary group-hover:rotate-[20deg] transition-all" />
               <span className="absolute top-4 right-4 flex h-3 w-3 rounded-full bg-destructive animate-ping" />
               <span className="absolute top-4 right-4 flex h-3 w-3 rounded-full bg-destructive shadow-[0_0_15px_rgba(247,31,38,1)] border-2 border-background" />
@@ -245,8 +250,9 @@ export function Header() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="h-14 px-4 flex items-center gap-3 hover:bg-primary/20 rounded-2xl group border border-white/5 transition-all shadow-xl bg-secondary/30">
-                  <div className="h-9 w-9 bg-primary/20 rounded-full flex items-center justify-center border border-primary/30 group-hover:bg-primary group-hover:rotate-[360deg] transition-all duration-1000">
-                    <User className="h-5 w-5 text-primary group-hover:text-black" />
+                  <div className="h-9 w-9 bg-primary/20 rounded-full flex items-center justify-center border border-primary/30 group-hover:bg-primary group-hover:rotate-[360deg] transition-all duration-1000 relative overflow-hidden">
+                    <User className="h-5 w-5 text-primary group-hover:text-black relative z-10" />
+                    <div className="scan-line opacity-0 group-hover:opacity-40" />
                   </div>
                   <span className="text-sm font-black text-white hidden sm:block uppercase tracking-widest">{t('adminAccount')}</span>
                 </Button>

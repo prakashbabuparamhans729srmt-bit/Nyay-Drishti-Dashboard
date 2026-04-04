@@ -121,4 +121,15 @@
   .glass-button {
     @apply bg-white/5 backdrop-blur-md border border-white/10 hover:bg-primary/20 hover:border-primary/50 hover:text-primary transition-all duration-300;
   }
+
+  .neural-shimmer {
+    background: linear-gradient(90deg, transparent, rgba(7, 241, 214, 0.1), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
 }

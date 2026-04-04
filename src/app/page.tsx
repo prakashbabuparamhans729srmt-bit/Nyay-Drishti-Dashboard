@@ -11,7 +11,7 @@ import { AlertsAndNotifications } from "@/components/dashboard/alerts-and-notifi
 import { AIBottleneckAnalysisTrigger } from "@/components/dashboard/ai-bottleneck-analysis-trigger";
 import { QuickActions } from "@/components/dashboard/quick-actions";
 import { useUser } from "@/firebase";
-import { Loader2, Zap, BrainCircuit, ShieldCheck, Activity } from "lucide-react";
+import { Loader2, Zap, BrainCircuit, ShieldCheck, Activity, Cpu } from "lucide-react";
 
 /**
  * NyayDrishtiDashboard - The primary operational command center.
@@ -40,16 +40,24 @@ export default function NyayDrishtiDashboard() {
       <div className="min-h-screen flex items-center justify-center bg-background overflow-hidden">
         <div className="neural-wire" />
         <div className="relative flex flex-col items-center gap-8">
-          <div className="relative h-32 w-32">
-            <Loader2 className="h-32 w-32 text-primary animate-spin opacity-20" />
+          <div className="relative h-48 w-48">
+            <Loader2 className="h-48 w-48 text-primary animate-spin opacity-20" />
             <div className="absolute inset-0 flex items-center justify-center">
-              <BrainCircuit className="h-14 w-14 text-primary animate-pulse" />
+              <BrainCircuit className="h-20 w-20 text-primary animate-pulse" />
             </div>
-            <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full animate-glow-pule" />
+            <div className="absolute inset-0 bg-primary/20 blur-[60px] rounded-full animate-glow-pule" />
           </div>
-          <div className="flex flex-col items-center gap-2">
-            <p className="text-primary font-black uppercase tracking-[1em] animate-pulse text-neon">NyayDrishti</p>
-            <p className="text-[10px] text-muted-foreground uppercase tracking-[0.5em] font-bold">A to Z Neural System Booting...</p>
+          <div className="flex flex-col items-center gap-4">
+            <div className="flex items-center gap-3">
+               <Cpu className="h-5 w-5 text-primary animate-bounce" />
+               <p className="text-primary font-black uppercase tracking-[1em] animate-pulse text-neon text-xl">NyayDrishti</p>
+            </div>
+            <div className="space-y-2 text-center">
+              <p className="text-[10px] text-muted-foreground uppercase tracking-[0.5em] font-black">Neural Core Booting: 100%</p>
+              <div className="w-64 h-1 bg-secondary rounded-full overflow-hidden">
+                <div className="h-full bg-primary animate-[shimmer_2s_infinite] neural-shimmer" style={{ width: '100%' }} />
+              </div>
+            </div>
           </div>
         </div>
       </div>
