@@ -46,7 +46,7 @@ export default function NyayDrishtiDashboard() {
         }
         return prev + 2;
       });
-    }, 40);
+    }, 30);
     return () => clearInterval(interval);
   }, [user, isUserLoading, router]);
 
