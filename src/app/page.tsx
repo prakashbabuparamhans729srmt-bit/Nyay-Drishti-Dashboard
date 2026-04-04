@@ -12,11 +12,11 @@ import { AIBottleneckAnalysisTrigger } from "@/components/dashboard/ai-bottlenec
 import { QuickActions } from "@/components/dashboard/quick-actions";
 import { useUser } from "@/firebase";
 import { useLanguage } from "@/lib/language-context";
-import { Loader2, Zap, BrainCircuit, ShieldCheck, Activity, Cpu, Sparkles } from "lucide-react";
+import { Loader2, Zap, BrainCircuit, ShieldCheck, Activity, Cpu, Sparkles, Network } from "lucide-react";
 
 /**
  * NyayDrishtiDashboard - The primary operational command center.
- * Optimized for A to Z System Flow Activation.
+ * Fully Activated for A to Z System Flow.
  */
 export default function NyayDrishtiDashboard() {
   const { user, isUserLoading } = useUser();
@@ -27,11 +27,9 @@ export default function NyayDrishtiDashboard() {
 
   useEffect(() => {
     setMounted(true);
-    // Check for guest mode persistence
     const guestStatus = localStorage.getItem("nyay-guest-mode") === "true";
     setIsGuest(guestStatus);
 
-    // Redirect to login if not authenticated and not in guest mode
     if (!isUserLoading && !user && !guestStatus) {
       router.push("/login");
     }
@@ -66,11 +64,10 @@ export default function NyayDrishtiDashboard() {
     );
   }
 
-  // Prevent flicker if redirect is pending
   if (!user && !isGuest) return null;
 
   return (
-    <div className="min-h-screen flex flex-col bg-background relative overflow-hidden atoz-active-flow">
+    <div className="min-h-screen flex flex-col bg-background relative overflow-hidden atoz-active-flow data-stream-animation">
       <div className="neural-wire" />
       <Header />
       
@@ -92,9 +89,15 @@ export default function NyayDrishtiDashboard() {
                 </div>
               </div>
             </div>
-            <div className="hidden md:flex items-center gap-3 bg-secondary/30 px-6 py-2.5 rounded-2xl border border-white/5">
-              <ShieldCheck className="h-4 w-4 text-primary" />
-              <span className="text-[10px] font-black text-primary/60 uppercase tracking-widest">{t('neuralIntegration')}</span>
+            <div className="hidden md:flex items-center gap-6">
+              <div className="flex items-center gap-3 bg-secondary/30 px-6 py-2.5 rounded-2xl border border-white/5">
+                <Network className="h-4 w-4 text-primary animate-pulse" />
+                <span className="text-[10px] font-black text-primary/60 uppercase tracking-widest">Global A-Z Node Sync</span>
+              </div>
+              <div className="flex items-center gap-3 bg-secondary/30 px-6 py-2.5 rounded-2xl border border-white/5">
+                <ShieldCheck className="h-4 w-4 text-primary" />
+                <span className="text-[10px] font-black text-primary/60 uppercase tracking-widest">{t('neuralIntegration')}</span>
+              </div>
             </div>
           </div>
           <StatsOverview />
