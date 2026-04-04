@@ -125,7 +125,7 @@ export function Header() {
                 <h1 className="text-3xl font-black tracking-tighter hidden lg:block text-primary text-neon uppercase">
                   {t('dashboardTitle')}
                 </h1>
-                <Badge variant="outline" className="hidden lg:flex border-primary/40 text-[9px] font-black text-primary px-3 py-1 bg-primary/10 h-fit animate-pulse shadow-[0_0_10px_rgba(7,241,214,0.3)]">A-Z LINK</Badge>
+                <Badge variant="outline" className="hidden lg:flex border-primary/40 text-[9px] font-black text-primary px-3 py-1 bg-primary/10 h-fit animate-pulse shadow-[0_0_10px_rgba(7,241,214,0.3)] uppercase">A-Z LINK</Badge>
               </div>
               <div className="flex items-center gap-2">
                  <span className="text-[10px] uppercase font-black tracking-[0.5em] text-muted-foreground hidden lg:block opacity-60">Neural Command Center</span>
