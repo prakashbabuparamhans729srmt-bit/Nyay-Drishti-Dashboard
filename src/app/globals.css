@@ -132,4 +132,20 @@
     0% { background-position: -200% 0; }
     100% { background-position: 200% 0; }
   }
+
+  .atoz-active-flow {
+    @apply relative overflow-hidden;
+  }
+  .atoz-active-flow::after {
+    content: '';
+    @apply absolute top-0 left-0 w-full h-full pointer-events-none opacity-5;
+    background: linear-gradient(45deg, transparent 40%, theme('colors.primary.DEFAULT') 50%, transparent 60%);
+    background-size: 200% 200%;
+    animation: flowing-light 10s linear infinite;
+  }
+
+  @keyframes flowing-light {
+    0% { background-position: -200% -200%; }
+    100% { background-position: 200% 200%; }
+  }
 }

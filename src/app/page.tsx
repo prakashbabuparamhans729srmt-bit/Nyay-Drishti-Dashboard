@@ -11,14 +11,16 @@ import { AlertsAndNotifications } from "@/components/dashboard/alerts-and-notifi
 import { AIBottleneckAnalysisTrigger } from "@/components/dashboard/ai-bottleneck-analysis-trigger";
 import { QuickActions } from "@/components/dashboard/quick-actions";
 import { useUser } from "@/firebase";
-import { Loader2, Zap, BrainCircuit, ShieldCheck, Activity, Cpu } from "lucide-react";
+import { useLanguage } from "@/lib/language-context";
+import { Loader2, Zap, BrainCircuit, ShieldCheck, Activity, Cpu, Sparkles } from "lucide-react";
 
 /**
  * NyayDrishtiDashboard - The primary operational command center.
- * Handles authentication status, guest access, and orchestrates the dashboard components.
+ * Optimized for A to Z System Flow Activation.
  */
 export default function NyayDrishtiDashboard() {
   const { user, isUserLoading } = useUser();
+  const { t } = useLanguage();
   const router = useRouter();
   const [isGuest, setIsGuest] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -53,7 +55,7 @@ export default function NyayDrishtiDashboard() {
                <p className="text-primary font-black uppercase tracking-[1em] animate-pulse text-neon text-xl">NyayDrishti</p>
             </div>
             <div className="space-y-2 text-center">
-              <p className="text-[10px] text-muted-foreground uppercase tracking-[0.5em] font-black">Neural Core Booting: 100%</p>
+              <p className="text-[10px] text-muted-foreground uppercase tracking-[0.5em] font-black">{t('systemBooting')}</p>
               <div className="w-64 h-1 bg-secondary rounded-full overflow-hidden">
                 <div className="h-full bg-primary animate-[shimmer_2s_infinite] neural-shimmer" style={{ width: '100%' }} />
               </div>
@@ -68,7 +70,7 @@ export default function NyayDrishtiDashboard() {
   if (!user && !isGuest) return null;
 
   return (
-    <div className="min-h-screen flex flex-col bg-background relative overflow-hidden">
+    <div className="min-h-screen flex flex-col bg-background relative overflow-hidden atoz-active-flow">
       <div className="neural-wire" />
       <Header />
       
@@ -84,12 +86,15 @@ export default function NyayDrishtiDashboard() {
               </div>
               <div className="flex flex-col">
                 <h2 className="text-sm font-black uppercase tracking-[0.5em] text-primary/80">Live Judicial Telemetry</h2>
-                <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Real-time Data Stream: Active</span>
+                <div className="flex items-center gap-2">
+                   <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">{t('flowActive')}</span>
+                   <span className="h-1.5 w-1.5 rounded-full bg-primary animate-ping" />
+                </div>
               </div>
             </div>
             <div className="hidden md:flex items-center gap-3 bg-secondary/30 px-6 py-2.5 rounded-2xl border border-white/5">
               <ShieldCheck className="h-4 w-4 text-primary" />
-              <span className="text-[10px] font-black text-primary/60 uppercase tracking-widest">A to Z Secured Portal</span>
+              <span className="text-[10px] font-black text-primary/60 uppercase tracking-widest">{t('neuralIntegration')}</span>
             </div>
           </div>
           <StatsOverview />
@@ -125,7 +130,7 @@ export default function NyayDrishtiDashboard() {
               <div className="flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_rgba(7,241,214,1)]" />
                 <p className="text-[10px] font-black uppercase tracking-[0.8em] text-primary/60">
-                  NyayDrishti Neural Framework v4.5.0
+                  NyayDrishti Neural Framework v4.5.0 - A to Z Active
                 </p>
                 <span className="h-2 w-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_rgba(7,241,214,1)]" />
               </div>
@@ -135,11 +140,11 @@ export default function NyayDrishtiDashboard() {
               © {new Date().getFullYear()} न्यायदृष्टि डैशबोर्ड - भारत के हर नागरिक के लिए सुलभ, पारदर्शी और त्वरित न्याय का डिजिटल द्वार।
             </div>
             <div className="flex gap-8 text-[10px] font-black uppercase tracking-widest text-primary/40">
-              <span>Security Protocols: Active</span>
+              <span className="flex items-center gap-2"><Sparkles className="h-3 w-3" /> Security Protocols: Active</span>
               <span>•</span>
-              <span>A to Z Integration: Enabled</span>
+              <span className="flex items-center gap-2"><Cpu className="h-3 w-3" /> A to Z Integration: Enabled</span>
               <span>•</span>
-              <span>Live Node: New Delhi Central</span>
+              <span className="flex items-center gap-2"><Zap className="h-3 w-3" /> Live Node: New Delhi Central</span>
             </div>
           </div>
         </div>

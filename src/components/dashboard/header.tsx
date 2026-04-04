@@ -1,6 +1,6 @@
 "use client";
 
-import { Scale, Home, LayoutGrid, Users, FileText, Settings, Search, Bell, User, Languages, Mic, MicOff, Sun, Moon, Laptop, Loader2, Info, ArrowRight, X, Sparkles, Database, Command } from "lucide-react";
+import { Scale, Home, LayoutGrid, Users, FileText, Settings, Search, Bell, User, Languages, Mic, MicOff, Sun, Moon, Laptop, Loader2, Info, ArrowRight, X, Sparkles, Database, Command, Cpu } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/language-context";
@@ -121,12 +121,15 @@ export function Header() {
               <div className="scan-line opacity-0 group-hover:opacity-40" />
             </div>
             <div className="flex flex-col">
-              <h1 className="text-3xl font-black tracking-tighter hidden lg:block text-primary text-neon uppercase">
-                {t('dashboardTitle')}
-              </h1>
+              <div className="flex items-center gap-2">
+                <h1 className="text-3xl font-black tracking-tighter hidden lg:block text-primary text-neon uppercase">
+                  {t('dashboardTitle')}
+                </h1>
+                <Badge variant="outline" className="hidden lg:flex border-primary/30 text-[8px] font-black text-primary px-2 bg-primary/5 h-fit animate-pulse">A-Z LINK</Badge>
+              </div>
               <div className="flex items-center gap-2">
                  <span className="text-[10px] uppercase font-black tracking-[0.4em] text-muted-foreground hidden lg:block opacity-50">A to Z Command Active</span>
-                 <div className="h-1 w-1 rounded-full bg-primary animate-pulse" />
+                 <div className="h-1 w-1 rounded-full bg-primary animate-pulse shadow-[0_0_5px_rgba(7,241,214,1)]" />
               </div>
             </div>
           </div>
