@@ -1,3 +1,4 @@
+
 /**
  * @fileOverview Comprehensive translation dictionary for 20 Indian languages including Auth strings and AI Assistant keys.
  * Updated for Full A to Z Neural Flow Activation.
@@ -103,7 +104,7 @@ export const translations: Record<LanguageCode, Record<string, string>> = {
   kn: { dashboardTitle: "ನ್ಯಾಯದೃಷ್ಟಿ", loginTitle: "ಸ್ವಾಗತ", aiAssistantTitle: "ನ್ಯಾಯದೃಷ್ಟಿ AI ಸಹಾಯಕ", typeMessage: "ಸಂದೇಶವನ್ನು ಟೈಪ್ ಮಾಡಿ..." },
   ml: { dashboardTitle: "ന്യായദൃഷ്ടി", loginTitle: "സ്വാഗതം", aiAssistantTitle: "ന്യായദൃഷ്ടി AI അസിസ്റ്റന്റ്", typeMessage: "സന്ദേശം ടൈപ്പ് ചെയ്യുക..." },
   as: { dashboardTitle: "্যায়দৃষ্টি", loginTitle: "স্বাগতম", aiAssistantTitle: "্যায়দৃষ্টি AI সহায়ক", typeMessage: "বাৰ্তা টাইপ কৰক..." },
-  or: { dashboardTitle: "ନ୍ୟାୟଦୃଷ୍ଟି", loginTitle: "ସ୍ୱାଗତ", aiAssistantTitle: "ନ୍ୟାୟଦୃଷ୍ଟି AI ସହାୟକ", typeMessage: "ବାର୍ତ୍ତା ଟାଇପ୍ କରନ୍ତୁ..." },
+  or: { dashboardTitle: "ନ୍ୟାୟଦୃଷ୍ଟି", loginTitle: "ସ୍ୱାଗତ", aiAssistantTitle: "ନ୍ୟାୟଦୃଷ୍ଟି AI ସହାୟಕ", typeMessage: "ବାର୍ତ୍ତା ଟାଇପ୍ କରନ୍ତୁ..." },
   ne: { dashboardTitle: "न्यायदृष्टि", loginTitle: "स्वागत छ", aiAssistantTitle: "न्यायदृष्टि AI सहायक", typeMessage: "सन्देश टाइप गर्नुहोस्..." },
   ko: { dashboardTitle: "न्यायदृष्टी", loginTitle: "येवकार", aiAssistantTitle: "न्यायदृष्टी AI सहाय्यक", typeMessage: "संदेश बरोवचो..." },
   mni: { dashboardTitle: "ন্যায়দৃষ্টি", loginTitle: "তরাম্না ওকচরি", aiAssistantTitle: "ন্যায়দৃষ্টি AI এসিস্টেন্ত", typeMessage: "পাউজেল इবিয়ু..." },
