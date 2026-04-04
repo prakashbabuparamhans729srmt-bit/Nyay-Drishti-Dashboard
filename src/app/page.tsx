@@ -11,7 +11,7 @@ import { AlertsAndNotifications } from "@/components/dashboard/alerts-and-notifi
 import { AIBottleneckAnalysisTrigger } from "@/components/dashboard/ai-bottleneck-analysis-trigger";
 import { QuickActions } from "@/components/dashboard/quick-actions";
 import { useUser } from "@/firebase";
-import { Loader2, Zap } from "lucide-react";
+import { Loader2, Zap, BrainCircuit } from "lucide-react";
 
 /**
  * NyayDrishtiDashboard - The primary operational command center.
@@ -21,8 +21,10 @@ export default function NyayDrishtiDashboard() {
   const { user, isUserLoading } = useUser();
   const router = useRouter();
   const [isGuest, setIsGuest] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     // Check for guest mode persistence
     const guestStatus = localStorage.getItem("nyay-guest-mode") === "true";
     setIsGuest(guestStatus);
@@ -33,12 +35,16 @@ export default function NyayDrishtiDashboard() {
     }
   }, [user, isUserLoading, router]);
 
-  if (isUserLoading) {
+  if (isUserLoading || !mounted) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="relative">
-          <Loader2 className="h-16 w-16 text-primary animate-spin" />
-          <div className="absolute inset-0 bg-primary/10 blur-3xl rounded-full" />
+        <div className="relative flex flex-col items-center gap-6">
+          <div className="relative h-24 w-24">
+            <Loader2 className="h-24 w-24 text-primary animate-spin" />
+            <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full" />
+            <BrainCircuit className="absolute inset-0 m-auto h-10 w-10 text-primary animate-pulse" />
+          </div>
+          <p className="text-primary font-black uppercase tracking-[0.5em] animate-pulse">Initializing NyayDrishti Flow...</p>
         </div>
       </div>
     );
@@ -52,6 +58,8 @@ export default function NyayDrishtiDashboard() {
       <Header />
       
       <main className="flex-1 container mx-auto px-4 py-8 space-y-12 max-w-7xl relative z-10">
+        <div className="scan-line opacity-5" />
+        
         {/* Statistics Hero Section */}
         <section className="animate-in fade-in slide-in-from-top-4 duration-700">
           <div className="flex items-center gap-3 mb-8 px-2">
@@ -59,6 +67,7 @@ export default function NyayDrishtiDashboard() {
               <Zap className="h-4 w-4 text-primary animate-pulse" />
             </div>
             <h2 className="text-sm font-black uppercase tracking-[0.5em] text-primary/60">Live Judicial Telemetry Active</h2>
+            <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/30 to-transparent ml-4" />
           </div>
           <StatsOverview />
         </section>
@@ -84,7 +93,8 @@ export default function NyayDrishtiDashboard() {
       </main>
 
       {/* Cybernetic Footer */}
-      <footer className="py-12 border-t border-white/5 bg-secondary/30 backdrop-blur-xl mt-auto">
+      <footer className="py-12 border-t border-white/5 bg-secondary/30 backdrop-blur-xl mt-auto relative">
+        <div className="scan-line opacity-10 top-auto bottom-0" />
         <div className="container mx-auto px-4 text-center">
           <div className="flex flex-col items-center gap-4">
             <div className="flex items-center gap-2">
