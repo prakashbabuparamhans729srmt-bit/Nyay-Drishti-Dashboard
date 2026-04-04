@@ -159,4 +159,14 @@
     0% { background-position: 0% 0%; }
     100% { background-position: 0% 200%; }
   }
+
+  .neural-background-mesh {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(7, 241, 214, 0.05) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(7, 241, 214, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(circle at center, black, transparent 80%);
+    pointer-events: none;
+  }
 }

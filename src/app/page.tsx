@@ -12,7 +12,7 @@ import { AIBottleneckAnalysisTrigger } from "@/components/dashboard/ai-bottlenec
 import { QuickActions } from "@/components/dashboard/quick-actions";
 import { useUser } from "@/firebase";
 import { useLanguage } from "@/lib/language-context";
-import { Loader2, Zap, BrainCircuit, ShieldCheck, Activity, Cpu, Sparkles, Network } from "lucide-react";
+import { Loader2, Zap, BrainCircuit, ShieldCheck, Activity, Cpu, Sparkles, Network, Terminal } from "lucide-react";
 
 /**
  * NyayDrishtiDashboard - The primary operational command center.
@@ -37,26 +37,31 @@ export default function NyayDrishtiDashboard() {
 
   if (isUserLoading || !mounted) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background overflow-hidden">
+      <div className="min-h-screen flex items-center justify-center bg-background overflow-hidden relative">
         <div className="neural-wire" />
-        <div className="relative flex flex-col items-center gap-8">
+        <div className="neural-background-mesh" />
+        <div className="relative flex flex-col items-center gap-8 z-10">
           <div className="relative h-48 w-48">
             <Loader2 className="h-48 w-48 text-primary animate-spin opacity-20" />
             <div className="absolute inset-0 flex items-center justify-center">
-              <BrainCircuit className="h-20 w-20 text-primary animate-pulse" />
+              <BrainCircuit className="h-24 w-24 text-primary animate-pulse" />
             </div>
-            <div className="absolute inset-0 bg-primary/20 blur-[60px] rounded-full animate-glow-pule" />
+            <div className="absolute inset-0 bg-primary/20 blur-[80px] rounded-full animate-glow-pule" />
           </div>
-          <div className="flex flex-col items-center gap-4">
-            <div className="flex items-center gap-3">
-               <Cpu className="h-5 w-5 text-primary animate-bounce" />
-               <p className="text-primary font-black uppercase tracking-[1em] animate-pulse text-neon text-xl">NyayDrishti</p>
+          <div className="flex flex-col items-center gap-6">
+            <div className="flex items-center gap-4">
+               <Cpu className="h-6 w-6 text-primary animate-bounce shadow-[0_0_15px_rgba(7,241,214,0.8)]" />
+               <h1 className="text-primary font-black uppercase tracking-[1em] animate-pulse text-neon text-3xl">NyayDrishti</h1>
             </div>
-            <div className="space-y-2 text-center">
-              <p className="text-[10px] text-muted-foreground uppercase tracking-[0.5em] font-black">{t('systemBooting')}</p>
-              <div className="w-64 h-1 bg-secondary rounded-full overflow-hidden">
+            <div className="space-y-4 text-center">
+              <div className="flex items-center gap-2 justify-center">
+                <Terminal className="h-3 w-3 text-primary/60" />
+                <p className="text-[10px] text-muted-foreground uppercase tracking-[0.5em] font-black">{t('systemBooting')}</p>
+              </div>
+              <div className="w-80 h-1.5 bg-secondary rounded-full overflow-hidden border border-white/5">
                 <div className="h-full bg-primary animate-[shimmer_2s_infinite] neural-shimmer" style={{ width: '100%' }} />
               </div>
+              <p className="text-[8px] text-primary/40 uppercase tracking-widest font-black">Secure Kernel Initializing... Node 01-A</p>
             </div>
           </div>
         </div>
@@ -69,34 +74,38 @@ export default function NyayDrishtiDashboard() {
   return (
     <div className="min-h-screen flex flex-col bg-background relative overflow-hidden atoz-active-flow data-stream-animation">
       <div className="neural-wire" />
+      <div className="neural-background-mesh" />
       <Header />
       
-      <main className="flex-1 container mx-auto px-4 py-8 space-y-12 max-w-7xl relative z-10">
+      <main className="flex-1 container mx-auto px-4 py-8 space-y-16 max-w-7xl relative z-10">
         <div className="scan-line opacity-5" />
         
         {/* Statistics Hero Section */}
         <section className="animate-in fade-in slide-in-from-top-4 duration-1000">
-          <div className="flex items-center justify-between mb-8 px-2">
-            <div className="flex items-center gap-4">
-              <div className="bg-primary/20 p-3 rounded-2xl border border-primary/30 shadow-[0_0_15px_rgba(7,241,214,0.2)]">
-                <Activity className="h-5 w-5 text-primary animate-pulse" />
+          <div className="flex items-center justify-between mb-10 px-4">
+            <div className="flex items-center gap-5">
+              <div className="bg-primary/20 p-4 rounded-2xl border border-primary/30 shadow-[0_0_20px_rgba(7,241,214,0.3)] group hover:scale-110 transition-transform cursor-pointer">
+                <Activity className="h-6 w-6 text-primary animate-pulse" />
               </div>
               <div className="flex flex-col">
-                <h2 className="text-sm font-black uppercase tracking-[0.5em] text-primary/80">Live Judicial Telemetry</h2>
-                <div className="flex items-center gap-2">
-                   <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">{t('flowActive')}</span>
-                   <span className="h-1.5 w-1.5 rounded-full bg-primary animate-ping" />
+                <h2 className="text-sm font-black uppercase tracking-[0.6em] text-primary/90 text-neon">Live Judicial Telemetry</h2>
+                <div className="flex items-center gap-3">
+                   <span className="text-[10px] text-muted-foreground font-black uppercase tracking-widest opacity-60">{t('flowActive')}</span>
+                   <div className="flex items-center gap-1.5">
+                     <span className="h-2 w-2 rounded-full bg-primary animate-ping" />
+                     <span className="h-2 w-2 rounded-full bg-primary shadow-[0_0_8px_rgba(7,241,214,1)]" />
+                   </div>
                 </div>
               </div>
             </div>
-            <div className="hidden md:flex items-center gap-6">
-              <div className="flex items-center gap-3 bg-secondary/30 px-6 py-2.5 rounded-2xl border border-white/5">
+            <div className="hidden xl:flex items-center gap-8">
+              <div className="flex items-center gap-3 bg-secondary/40 px-8 py-3 rounded-2xl border border-white/5 shadow-inner group hover:border-primary/40 transition-all cursor-default">
                 <Network className="h-4 w-4 text-primary animate-pulse" />
-                <span className="text-[10px] font-black text-primary/60 uppercase tracking-widest">Global A-Z Node Sync</span>
+                <span className="text-[10px] font-black text-primary/70 uppercase tracking-widest">Global A-Z Node Sync</span>
               </div>
-              <div className="flex items-center gap-3 bg-secondary/30 px-6 py-2.5 rounded-2xl border border-white/5">
+              <div className="flex items-center gap-3 bg-secondary/40 px-8 py-3 rounded-2xl border border-white/5 shadow-inner group hover:border-primary/40 transition-all cursor-default">
                 <ShieldCheck className="h-4 w-4 text-primary" />
-                <span className="text-[10px] font-black text-primary/60 uppercase tracking-widest">{t('neuralIntegration')}</span>
+                <span className="text-[10px] font-black text-primary/70 uppercase tracking-widest">{t('neuralIntegration')}</span>
               </div>
             </div>
           </div>
@@ -104,13 +113,13 @@ export default function NyayDrishtiDashboard() {
         </section>
 
         {/* Central Intelligence Grid */}
-        <section className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-          <div className="lg:col-span-2 space-y-10 animate-in fade-in slide-in-from-left-4 duration-1000 delay-200">
+        <section className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="lg:col-span-2 space-y-12 animate-in fade-in slide-in-from-left-4 duration-1000 delay-200">
             <DashboardCharts />
             <CourtDetailsTable />
           </div>
           
-          <div className="space-y-10 animate-in fade-in slide-in-from-right-4 duration-1000 delay-300">
+          <div className="space-y-12 animate-in fade-in slide-in-from-right-4 duration-1000 delay-300">
             <AlertsAndNotifications />
             <JudgeAnalysisPanel />
             <AIBottleneckAnalysisTrigger />
@@ -124,30 +133,30 @@ export default function NyayDrishtiDashboard() {
       </main>
 
       {/* Cybernetic Footer */}
-      <footer className="py-12 border-t border-white/5 bg-secondary/30 backdrop-blur-xl mt-auto relative overflow-hidden">
+      <footer className="py-16 border-t border-white/5 bg-secondary/40 backdrop-blur-2xl mt-auto relative overflow-hidden">
         <div className="scan-line opacity-10 top-auto bottom-0" />
         <div className="container mx-auto px-4 text-center">
-          <div className="flex flex-col items-center gap-6">
-            <div className="flex items-center gap-4">
-              <div className="h-[1px] w-12 bg-primary/30" />
-              <div className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_rgba(7,241,214,1)]" />
-                <p className="text-[10px] font-black uppercase tracking-[0.8em] text-primary/60">
+          <div className="flex flex-col items-center gap-8">
+            <div className="flex items-center gap-6">
+              <div className="h-[1px] w-20 bg-primary/20" />
+              <div className="flex items-center gap-3">
+                <div className="h-2.5 w-2.5 rounded-full bg-primary animate-pulse shadow-[0_0_10px_rgba(7,241,214,1)]" />
+                <p className="text-[10px] font-black uppercase tracking-[1em] text-primary/60 text-neon">
                   NyayDrishti Neural Framework v4.5.0 - A to Z Active
                 </p>
-                <span className="h-2 w-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_rgba(7,241,214,1)]" />
+                <div className="h-2.5 w-2.5 rounded-full bg-primary animate-pulse shadow-[0_0_10px_rgba(7,241,214,1)]" />
               </div>
-              <div className="h-[1px] w-12 bg-primary/30" />
+              <div className="h-[1px] w-20 bg-primary/20" />
             </div>
-            <div className="text-sm text-muted-foreground font-medium opacity-80 max-w-2xl mx-auto leading-relaxed italic">
+            <div className="text-sm text-muted-foreground font-bold opacity-70 max-w-3xl mx-auto leading-relaxed italic tracking-wide">
               © {new Date().getFullYear()} न्यायदृष्टि डैशबोर्ड - भारत के हर नागरिक के लिए सुलभ, पारदर्शी और त्वरित न्याय का डिजिटल द्वार।
             </div>
-            <div className="flex gap-8 text-[10px] font-black uppercase tracking-widest text-primary/40">
-              <span className="flex items-center gap-2"><Sparkles className="h-3 w-3" /> Security Protocols: Active</span>
-              <span>•</span>
-              <span className="flex items-center gap-2"><Cpu className="h-3 w-3" /> A to Z Integration: Enabled</span>
-              <span>•</span>
-              <span className="flex items-center gap-2"><Zap className="h-3 w-3" /> Live Node: New Delhi Central</span>
+            <div className="flex flex-wrap justify-center gap-10 text-[10px] font-black uppercase tracking-[0.3em] text-primary/40">
+              <span className="flex items-center gap-3 hover:text-primary transition-colors cursor-default"><Sparkles className="h-3.5 w-3.5" /> Security Protocols: Active</span>
+              <span className="opacity-20">•</span>
+              <span className="flex items-center gap-3 hover:text-primary transition-colors cursor-default"><Cpu className="h-3.5 w-3.5" /> A to Z Integration: Enabled</span>
+              <span className="opacity-20">•</span>
+              <span className="flex items-center gap-3 hover:text-primary transition-colors cursor-default"><Zap className="h-3.5 w-3.5" /> Live Node: New Delhi Central</span>
             </div>
           </div>
         </div>
