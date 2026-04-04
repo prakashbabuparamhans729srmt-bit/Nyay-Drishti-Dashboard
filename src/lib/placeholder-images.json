@@ -1,3 +1,40 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-bg",
+      "description": "High tech digital court background",
+      "imageUrl": "https://picsum.photos/seed/nyay1/1920/1080",
+      "imageHint": "digital judiciary"
+    },
+    {
+      "id": "judge-1",
+      "description": "Justice A.K. Sikri profile",
+      "imageUrl": "https://picsum.photos/seed/judge1/400/400",
+      "imageHint": "indian judge"
+    },
+    {
+      "id": "judge-2",
+      "description": "Justice S. Ravindra Bhat profile",
+      "imageUrl": "https://picsum.photos/seed/judge2/400/400",
+      "imageHint": "professional judge"
+    },
+    {
+      "id": "judge-3",
+      "description": "Justice B.V. Nagaratna profile",
+      "imageUrl": "https://picsum.photos/seed/judge3/400/400",
+      "imageHint": "female judge"
+    },
+    {
+      "id": "court-hall",
+      "description": "Supreme Court Hall Digital visualization",
+      "imageUrl": "https://picsum.photos/seed/court2/1200/600",
+      "imageHint": "court hall"
+    },
+    {
+      "id": "ai-neural-core",
+      "description": "Neural network visualization for AI assistant",
+      "imageUrl": "https://picsum.photos/seed/neural/800/800",
+      "imageHint": "neural network"
+    }
+  ]
 }
