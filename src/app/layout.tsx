@@ -25,7 +25,7 @@ export default function RootLayout({
       <body className="font-body antialiased bg-background text-foreground relative overflow-x-hidden">
         <FirebaseClientProvider>
           <LanguageProvider>
-            {/* Global Background Effects */}
+            {/* Global Background Effects - A to Z Active Flow */}
             <div className="fixed inset-0 pointer-events-none z-0">
               <div className="scan-line opacity-10" />
               <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(7,241,214,0.05)_0%,transparent_75%)]" />
