@@ -1,10 +1,11 @@
+
 "use client";
 
-import { Scale, Home, LayoutGrid, Users, FileText, Settings, Search, Bell, User, Languages, Mic, MicOff, Sun, Moon, Laptop, Loader2, Info, ArrowRight, X, Sparkles, Database, Command, Cpu, Zap, Activity, Network } from "lucide-react";
+import { Scale, Home, LayoutGrid, Users, FileText, Settings, Search, Bell, User, Languages, Mic, MicOff, Sun, Moon, Laptop, ArrowRight, Sparkles, Command, Cpu, Zap, Activity, Network } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/language-context";
-import { languages, LanguageCode } from "@/lib/translations";
+import { languages } from "@/lib/translations";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter, usePathname } from "next/navigation";

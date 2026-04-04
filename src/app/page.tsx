@@ -14,6 +14,7 @@ import { QuickActions } from "@/components/dashboard/quick-actions";
 import { useUser } from "@/firebase";
 import { useLanguage } from "@/lib/language-context";
 import { Loader2, Zap, BrainCircuit, ShieldCheck, Activity, Cpu, Sparkles, Network, Terminal, ShieldAlert } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 /**
  * NyayDrishtiDashboard - The primary operational command center.
