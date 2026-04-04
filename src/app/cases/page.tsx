@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import { Header } from "@/components/dashboard/header";
-import { FileText, Search, ArrowLeft, Database, Loader2, Info, CheckCircle, AlertCircle, Sparkles } from "lucide-react";
+import { FileText, Search, ArrowLeft, Database, Loader2, Info, CheckCircle, AlertCircle, Sparkles, Cpu, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
@@ -33,109 +33,154 @@ export default function CasesPage() {
         judge: "न्यायमूर्ति एस. के. शर्मा",
         lastHearing: "15 मार्च 2024",
         nextHearing: "22 अप्रैल 2024",
-        description: "संपत्ति विवाद से संबंधित संवैधानिक याचिका।",
+        description: "संपत्ति विवाद से संबंधित संवैधानिक याचिका। न्यायदृष्टि क्रॉल इंजन द्वारा प्राप्त डेटा।",
       });
       setSearching(false);
     }, 2000);
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col bg-background relative overflow-hidden atoz-active-flow data-stream-animation">
+      <div className="neural-wire" />
+      <div className="neural-background-mesh" />
       <Header />
-      <main className="flex-1 container mx-auto px-4 py-8 space-y-8 max-w-7xl">
+      <main className="flex-1 container mx-auto px-4 py-8 space-y-8 max-w-7xl relative z-10">
+        <div className="scan-line opacity-5" />
+        
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="icon" onClick={() => router.back()} className="rounded-full hover:bg-primary/10">
               <ArrowLeft className="h-6 w-6 text-primary" />
             </Button>
-            <h1 className="text-4xl font-black tracking-tighter text-white flex items-center gap-3">
-              <FileText className="h-8 w-8 text-primary" />
-              {t('cases')} ट्रैकिंग यूनिट
-            </h1>
+            <div className="flex flex-col">
+              <h1 className="text-4xl font-black tracking-tighter text-white flex items-center gap-3">
+                <FileText className="h-8 w-8 text-primary animate-pulse" />
+                {t('cases')} ट्रैकिंग यूनिट
+              </h1>
+              <span className="text-[10px] text-primary/60 font-black uppercase tracking-[0.5em] ml-11">A to Z Node: Case Registry Crawl</span>
+            </div>
           </div>
         </div>
 
-        <section className="max-w-3xl mx-auto space-y-6">
-          <Card className="bg-card border-primary/30 shadow-[0_0_50px_rgba(7,241,214,0.1)] rounded-[2.5rem] p-8 text-center relative overflow-hidden neon-glow">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl" />
-            <h2 className="text-2xl font-black text-white mb-6 flex items-center justify-center gap-3">
-              <Sparkles className="h-6 w-6 text-primary animate-pulse" />
-              एडवांस सर्च क्रॉलिंग इंजन
-            </h2>
-            <div className="flex gap-4">
-              <div className="relative flex-1 group">
-                <Database className="absolute left-4 top-4 h-5 w-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
+        <section className="max-w-3xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+          <Card className="bg-card border-primary/30 shadow-[0_0_50px_rgba(7,241,214,0.15)] rounded-[3rem] p-12 text-center relative overflow-hidden neon-glow group">
+            <div className="absolute top-0 right-0 w-48 h-48 bg-primary/10 rounded-full blur-[80px] -mr-24 -mt-24 group-hover:bg-primary/20 transition-all duration-500" />
+            <div className="scan-line opacity-10 group-hover:opacity-30" />
+            
+            <div className="flex flex-col items-center gap-4 mb-8">
+              <div className="bg-primary/20 p-5 rounded-3xl border border-primary/40 shadow-xl group-hover:rotate-[360deg] transition-all duration-1000">
+                <Sparkles className="h-10 w-10 text-primary animate-pulse" />
+              </div>
+              <h2 className="text-3xl font-black text-white italic uppercase tracking-tighter text-neon">
+                एडवांस सर्च क्रॉलिंग इंजन (A-Z)
+              </h2>
+              <p className="text-sm text-muted-foreground/60 font-bold uppercase tracking-widest">Accessing Central Judicial Database Nodes...</p>
+            </div>
+
+            <div className="flex gap-4 relative z-10">
+              <div className="relative flex-1 group/input">
+                <Database className="absolute left-5 top-5 h-6 w-6 text-muted-foreground group-focus-within/input:text-primary group-focus-within/input:scale-110 transition-all mt-0.5" />
                 <Input 
                   value={caseNo}
                   onChange={(e) => setCaseNo(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && handleDeepSearch()}
                   placeholder="केस नंबर दर्ज करें (उदा. SC-2024-442)" 
-                  className="h-14 bg-secondary/50 border-muted/30 pl-12 rounded-2xl focus:border-primary/50 text-lg"
+                  className="h-20 bg-secondary/70 border-white/10 pl-16 rounded-[2rem] focus:border-primary/50 text-2xl font-medium shadow-inner placeholder:text-muted-foreground/30"
                 />
               </div>
               <Button 
                 onClick={handleDeepSearch}
                 disabled={searching}
-                className="h-14 px-8 bg-primary text-black font-black text-lg rounded-2xl shadow-xl hover:scale-105 transition-all"
+                className="h-20 px-12 bg-primary text-black font-black text-xl rounded-[2rem] shadow-[0_15px_30px_rgba(7,241,214,0.4)] hover:scale-105 active:scale-95 transition-all border-2 border-black/10"
               >
-                {searching ? <Loader2 className="animate-spin" /> : "खोजें"}
+                {searching ? <Loader2 className="animate-spin h-8 w-8" /> : "खोजें (CRAWL)"}
               </Button>
             </div>
-            <p className="text-xs text-muted-foreground mt-4 italic uppercase tracking-widest">न्यायदृष्टि एआई द्वारा संचालित - देश के हर कोने की खोज</p>
+            
+            <div className="flex items-center justify-center gap-8 mt-10">
+               <div className="flex items-center gap-2 opacity-40">
+                 <Cpu className="h-4 w-4 text-primary" />
+                 <span className="text-[9px] uppercase font-black tracking-widest">Neural Link Active</span>
+               </div>
+               <div className="flex items-center gap-2 opacity-40">
+                 <Zap className="h-4 w-4 text-primary" />
+                 <span className="text-[9px] uppercase font-black tracking-widest">Peak Performance</span>
+               </div>
+            </div>
           </Card>
 
           {searching && (
-            <div className="flex flex-col items-center justify-center py-12 space-y-4">
-              <Loader2 className="h-12 w-12 text-primary animate-spin" />
-              <p className="text-primary font-black animate-pulse">डेटाबेस को स्कैन किया जा रहा है...</p>
+            <div className="flex flex-col items-center justify-center py-20 space-y-6">
+              <div className="relative h-24 w-24">
+                <Loader2 className="h-24 w-24 text-primary animate-spin opacity-30" />
+                <Database className="absolute inset-0 m-auto h-10 w-10 text-primary animate-pulse" />
+              </div>
+              <div className="text-center space-y-2">
+                <p className="text-primary font-black uppercase tracking-[0.5em] animate-pulse text-xl text-neon">डेटाबेस को स्कैन किया जा रहा है...</p>
+                <p className="text-[9px] text-muted-foreground font-bold uppercase tracking-widest opacity-60 italic">Crawl Node 01-A-Z actively fetching data from high-security judicial nodes.</p>
+              </div>
             </div>
           )}
 
           {result && (
-            <Card className="bg-card border-white/5 rounded-[2rem] overflow-hidden shadow-2xl animate-in fade-in slide-in-from-bottom-5">
-              <CardHeader className="bg-secondary/30 border-b border-white/5 flex flex-row items-center justify-between p-6">
-                <CardTitle className="text-xl font-black flex items-center gap-3 text-primary">
-                  <Info className="h-6 w-6" /> केस विवरण: {result.caseId}
+            <Card className="bg-card border-white/5 rounded-[3rem] overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.6)] animate-in fade-in slide-in-from-bottom-10 duration-1000 relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none" />
+              <CardHeader className="bg-secondary/40 border-b border-white/10 flex flex-row items-center justify-between p-10">
+                <CardTitle className="text-3xl font-black flex items-center gap-4 text-primary tracking-tighter">
+                  <div className="p-3 bg-primary/20 rounded-2xl border border-primary/30">
+                    <Info className="h-8 w-8 text-primary" />
+                  </div>
+                  केस विवरण: {result.caseId}
                 </CardTitle>
-                <Badge className="bg-amber-400 text-black font-black uppercase tracking-wider">{result.status}</Badge>
+                <Badge className="bg-amber-400 text-black font-black uppercase tracking-[0.2em] px-6 py-2.5 rounded-full shadow-lg border-2 border-amber-500/50">{result.status}</Badge>
               </CardHeader>
-              <CardContent className="p-8 space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="space-y-4">
-                    <div className="space-y-1">
-                      <label className="text-xs font-black text-muted-foreground uppercase tracking-widest">शीर्षक</label>
-                      <p className="text-xl font-bold">{result.title}</p>
+              <CardContent className="p-12 space-y-10 relative z-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                  <div className="space-y-8">
+                    <div className="space-y-2 group/field">
+                      <label className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.4em] ml-1 group-hover/field:text-primary transition-colors">शीर्षक / TITLE</label>
+                      <p className="text-2xl font-bold bg-secondary/30 p-4 rounded-2xl border border-white/5 group-hover/field:border-primary/20 transition-all">{result.title}</p>
                     </div>
-                    <div className="space-y-1">
-                      <label className="text-xs font-black text-muted-foreground uppercase tracking-widest">न्यायालय</label>
-                      <p className="text-xl font-bold">{result.court}</p>
+                    <div className="space-y-2 group/field">
+                      <label className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.4em] ml-1 group-hover/field:text-primary transition-colors">न्यायालय / COURT</label>
+                      <p className="text-2xl font-bold bg-secondary/30 p-4 rounded-2xl border border-white/5 group-hover/field:border-primary/20 transition-all">{result.court}</p>
                     </div>
-                    <div className="space-y-1">
-                      <label className="text-xs font-black text-muted-foreground uppercase tracking-widest">असाइन न्यायाधीश</label>
-                      <p className="text-xl font-bold">{result.judge}</p>
+                    <div className="space-y-2 group/field">
+                      <label className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.4em] ml-1 group-hover/field:text-primary transition-colors">न्यायाधीश / ASSIGNED JUDGE</label>
+                      <p className="text-2xl font-bold bg-secondary/30 p-4 rounded-2xl border border-white/5 group-hover/field:border-primary/20 transition-all">{result.judge}</p>
                     </div>
                   </div>
-                  <div className="space-y-4 bg-secondary/20 p-6 rounded-3xl border border-white/5">
-                    <div className="flex items-center gap-3 text-emerald-400">
-                      <CheckCircle className="h-5 w-5" />
-                      <div className="space-y-1">
-                        <label className="text-[10px] font-black uppercase opacity-60">पिछली सुनवाई</label>
-                        <p className="font-bold">{result.lastHearing}</p>
+                  <div className="space-y-8 bg-secondary/30 p-10 rounded-[2.5rem] border border-white/5 shadow-inner relative overflow-hidden group/hearing">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-[60px]" />
+                    <div className="space-y-6">
+                      <div className="flex items-center gap-5 text-emerald-400 group/item">
+                        <div className="p-4 bg-emerald-400/10 rounded-2xl border border-emerald-400/20 group-hover/item:scale-110 transition-transform">
+                          <CheckCircle className="h-8 w-8" />
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-black uppercase opacity-60 tracking-widest">पिछली सुनवाई / LAST HEARING</label>
+                          <p className="text-2xl font-black">{result.lastHearing}</p>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex items-center gap-3 text-primary">
-                      <AlertCircle className="h-5 w-5" />
-                      <div className="space-y-1">
-                        <label className="text-[10px] font-black uppercase opacity-60">अगली सुनवाई</label>
-                        <p className="font-bold">{result.nextHearing}</p>
+                      <div className="h-px w-full bg-white/5" />
+                      <div className="flex items-center gap-5 text-primary group/item">
+                        <div className="p-4 bg-primary/10 rounded-2xl border border-primary/20 group-hover/item:scale-110 transition-transform">
+                          <AlertCircle className="h-8 w-8" />
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-black uppercase opacity-60 tracking-widest">अगली सुनवाई / NEXT HEARING</label>
+                          <p className="text-2xl font-black">{result.nextHearing}</p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="pt-6 border-t border-white/5">
-                  <label className="text-xs font-black text-muted-foreground uppercase tracking-widest mb-2 block">विवरण</label>
-                  <p className="text-muted-foreground italic leading-relaxed">{result.description}</p>
+                <div className="pt-10 border-t border-white/10 group/desc">
+                  <label className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.4em] mb-4 block group-hover/desc:text-primary transition-colors">मामले का विवरण / CASE DESCRIPTION</label>
+                  <p className="text-muted-foreground italic leading-relaxed text-lg bg-secondary/20 p-8 rounded-3xl border border-white/5">"{result.description}"</p>
                 </div>
               </CardContent>
+              <div className="scan-line opacity-5" />
             </Card>
           )}
         </section>
