@@ -106,7 +106,7 @@ export const translations: Record<LanguageCode, Record<string, string>> = {
   or: { dashboardTitle: "ନ୍ୟାୟଦୃଷ୍ଟି", loginTitle: "ସ୍ୱାଗତ", aiAssistantTitle: "ନ୍ୟାୟଦୃଷ୍ଟି AI ସହାୟକ", typeMessage: "ବାର୍ତ୍ତା ଟାଇପ୍ କରନ୍ତୁ..." },
   ne: { dashboardTitle: "न्यायदृष्टि", loginTitle: "स्वागत छ", aiAssistantTitle: "न्यायदृष्टि AI सहायक", typeMessage: "सन्देश टाइप गर्नुहोस्..." },
   ko: { dashboardTitle: "न्यायदृष्टी", loginTitle: "येवकार", aiAssistantTitle: "न्यायदृष्टी AI सहाय्यक", typeMessage: "संदेश बरोवचो..." },
-  mni: { dashboardTitle: "ন্যায়দৃষ্টি", loginTitle: "তরাম্না ওকচরি", aiAssistantTitle: "ন্যায়দৃষ্টি AI এসিস্টেন্ত", typeMessage: "পাউজেল ইবিয়ু..." },
+  mni: { dashboardTitle: "ন্যায়দৃষ্টি", loginTitle: "তরাম্না ওকচরি", aiAssistantTitle: "ন্যায়দৃষ্টি AI এসিস্টেন্ত", typeMessage: "পাউজেল इবিয়ু..." },
   brx: { dashboardTitle: "न्यायदृष्टि", loginTitle: "बरायबाय", aiAssistantTitle: "न्यायदृष्टि AI सहायक", typeMessage: "खौरां टाइप खालाम..." },
   doi: { dashboardTitle: "न्यायदृष्टि", loginTitle: "स्वागत ऐ", aiAssistantTitle: "न्यायदृष्टि AI सहायक", typeMessage: "सुनेहा लिखो..." },
   sd: { dashboardTitle: "نيايدرشتي", loginTitle: "ڀلي ڪري آيا", aiAssistantTitle: "نيايدرشتي AI اسسٽنٽ", typeMessage: "پيغام لکو..." },
