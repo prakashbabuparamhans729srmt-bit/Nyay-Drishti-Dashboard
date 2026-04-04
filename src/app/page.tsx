@@ -13,7 +13,7 @@ import { AIBottleneckAnalysisTrigger } from "@/components/dashboard/ai-bottlenec
 import { QuickActions } from "@/components/dashboard/quick-actions";
 import { useUser } from "@/firebase";
 import { useLanguage } from "@/lib/language-context";
-import { Loader2, Zap, BrainCircuit, ShieldCheck, Activity, Cpu, Sparkles, Network, Terminal, ShieldAlert, Globe, Radio } from "lucide-react";
+import { Loader2, Zap, BrainCircuit, ShieldCheck, Activity, Cpu, Sparkles, Network, Terminal, ShieldAlert, Globe, Radio, Database } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 /**
@@ -27,6 +27,7 @@ export default function NyayDrishtiDashboard() {
   const [isGuest, setIsGuest] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [bootProgress, setBootProgress] = useState(0);
+  const [systemStatus, setSystemStatus] = useState("Initializing...");
 
   useEffect(() => {
     setMounted(true);
@@ -37,16 +38,20 @@ export default function NyayDrishtiDashboard() {
       router.push("/login");
     }
 
-    // Simulation of A to Z Neural Booting
+    // Advanced A to Z Neural Booting Sequence
     const interval = setInterval(() => {
       setBootProgress(prev => {
         if (prev >= 100) {
           clearInterval(interval);
+          setSystemStatus("A to Z Node: FULLY ACTIVE");
           return 100;
         }
+        if (prev < 30) setSystemStatus("Neural Core Loading...");
+        else if (prev < 60) setSystemStatus("A to Z Link Establishing...");
+        else if (prev < 90) setSystemStatus("Synchronizing Judicial Nodes...");
         return prev + 2;
       });
-    }, 30);
+    }, 40);
     return () => clearInterval(interval);
   }, [user, isUserLoading, router]);
 
@@ -72,7 +77,7 @@ export default function NyayDrishtiDashboard() {
             <div className="space-y-6 text-center">
               <div className="flex items-center gap-3 justify-center">
                 <Terminal className="h-5 w-5 text-primary" />
-                <p className="text-[14px] text-white/90 uppercase tracking-[0.8em] font-black italic">{t('systemBooting')}</p>
+                <p className="text-[14px] text-white/90 uppercase tracking-[0.8em] font-black italic">{systemStatus}</p>
               </div>
               <div className="w-[500px] h-3 bg-secondary/50 rounded-full overflow-hidden border-2 border-primary/30 p-1 shadow-[0_0_20px_rgba(7,241,214,0.2)]">
                 <div 
@@ -81,7 +86,7 @@ export default function NyayDrishtiDashboard() {
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <p className="text-[10px] text-primary font-black uppercase tracking-[0.6em]">Neural Core: {bootProgress}% Initialized... Node 01-A (A to Z Link Active)</p>
+                <p className="text-[10px] text-primary font-black uppercase tracking-[0.6em]">A to Z System Flow: {bootProgress}% Initialized</p>
                 <div className="flex justify-center gap-4 opacity-40">
                    <span className="text-[8px] uppercase font-bold tracking-widest">Protocol: SECURE</span>
                    <span className="text-[8px] uppercase font-bold tracking-widest">Link: STABLE</span>

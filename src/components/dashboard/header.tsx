@@ -39,6 +39,16 @@ export function Header() {
       setTheme(savedTheme);
       applyTheme(savedTheme);
     }
+    
+    // Global Keyboard Shortcut for A to Z Search (Cmd+K)
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
   const applyTheme = (mode: 'light' | 'dark' | 'system') => {
@@ -82,7 +92,7 @@ export function Header() {
     setIsSearching(true);
     setSearchResults(null);
 
-    // Advanced Global Crawling Unit - Simulated Live Response
+    // Advanced Global Crawling Unit - A to Z Neural Search simulated
     setTimeout(() => {
       setSearchResults({
         courts: [
@@ -99,7 +109,7 @@ export function Header() {
         ]
       });
       setIsSearching(false);
-    }, 2000);
+    }, 1500);
   };
 
   const navItems = [
@@ -126,10 +136,10 @@ export function Header() {
                 <h1 className="text-4xl font-black tracking-tighter hidden lg:block text-primary text-neon uppercase italic">
                   {t('dashboardTitle')}
                 </h1>
-                <Badge variant="outline" className="hidden lg:flex border-primary/60 text-[10px] font-black text-primary px-4 py-1.5 bg-primary/10 h-fit animate-pulse shadow-[0_0_15px_rgba(7,241,214,0.4)] uppercase tracking-[0.2em]">A to Z LINK</Badge>
+                <Badge variant="outline" className="hidden lg:flex border-primary/60 text-[10px] font-black text-primary px-4 py-1.5 bg-primary/10 h-fit animate-pulse shadow-[0_0_15px_rgba(7,241,214,0.4)] uppercase tracking-[0.2em]">A to Z ACTIVE</Badge>
               </div>
               <div className="flex items-center gap-3 mt-0.5">
-                 <span className="text-[11px] uppercase font-black tracking-[0.6em] text-muted-foreground hidden lg:block opacity-70">Neural Command Center</span>
+                 <span className="text-[11px] uppercase font-black tracking-[0.6em] text-muted-foreground hidden lg:block opacity-70">Neural Command Center (Node: 01)</span>
                  <div className="flex items-center gap-2">
                    <span className="h-2 w-2 rounded-full bg-primary animate-ping" />
                    <span className="h-2 w-2 rounded-full bg-primary shadow-[0_0_10px_rgba(7,241,214,1)]" />
@@ -198,7 +208,7 @@ export function Header() {
                 <DropdownMenuContent align="end" className="bg-card/95 border-primary/50 rounded-[3rem] p-6 shadow-[0_0_80px_rgba(0,0,0,0.9)] backdrop-blur-3xl overflow-hidden border-2">
                    <div className="absolute top-0 left-0 w-full h-1.5 bg-primary" />
                   <DropdownMenuLabel className="text-primary font-black px-6 py-5 text-[11px] uppercase tracking-[0.5em] flex items-center gap-4">
-                    <Sparkles className="h-5 w-5" /> {t('themeMode')}
+                    <Sparkles className="h-5 w-5" /> {t('themeMode')} (A-Z Sync)
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator className="bg-white/10" />
                   <DropdownMenuItem onClick={() => handleThemeChange('light')} className="rounded-2xl px-8 py-5 cursor-pointer focus:bg-primary/30 flex gap-6 items-center font-black uppercase text-[12px] tracking-[0.3em] group">
@@ -222,8 +232,8 @@ export function Header() {
                 <DropdownMenuContent align="end" className="w-[450px] bg-card/95 border-primary/50 shadow-[0_0_100px_rgba(0,0,0,0.9)] rounded-[4rem] p-6 backdrop-blur-[50px] overflow-hidden border-2">
                   <div className="absolute top-0 left-0 w-full h-1.5 bg-primary" />
                   <DropdownMenuLabel className="text-primary font-black px-8 py-10 flex flex-col gap-3">
-                    <span className="text-xl uppercase tracking-[0.6em] italic text-neon">Neural Dictionary</span>
-                    <span className="text-[12px] opacity-80 font-bold uppercase tracking-widest">भाषा चयन / Language Unit</span>
+                    <span className="text-xl uppercase tracking-[0.6em] italic text-neon">Neural Dictionary (A-Z)</span>
+                    <span className="text-[12px] opacity-80 font-bold uppercase tracking-widest">भाषा चयन / Language Selection Unit</span>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator className="bg-white/10" />
                   <ScrollArea className="h-[600px] px-3 py-4">
@@ -269,7 +279,7 @@ export function Header() {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-[380px] bg-card/95 border-primary/50 shadow-[0_0_120px_rgba(0,0,0,0.95)] rounded-[4rem] p-6 backdrop-blur-[60px] overflow-hidden border-2">
                 <div className="absolute top-0 left-0 w-full h-1.5 bg-primary" />
-                <DropdownMenuLabel className="text-primary font-black px-10 py-10 text-[12px] uppercase tracking-[0.6em] italic">User Node Controller</DropdownMenuLabel>
+                <DropdownMenuLabel className="text-primary font-black px-10 py-10 text-[12px] uppercase tracking-[0.6em] italic">A to Z User Controller</DropdownMenuLabel>
                 <DropdownMenuSeparator className="bg-white/10" />
                 <DropdownMenuItem onClick={() => router.push('/settings')} className="rounded-[3rem] px-10 py-7 focus:bg-primary/15 focus:text-primary cursor-pointer group mb-4 flex items-center gap-7 transition-all border border-transparent hover:border-white/10 shadow-lg">
                   <div className="p-4 bg-secondary/80 rounded-[2rem] group-hover:bg-primary/30 transition-colors border-2 border-white/5 shadow-inner"><User className="h-7 w-7" /></div>
@@ -283,7 +293,7 @@ export function Header() {
                   <div className="p-4 bg-secondary/80 rounded-[2rem] group-hover:bg-primary/30 transition-colors border-2 border-white/5 shadow-inner"><Settings className="h-7 w-7" /></div>
                   <div className="flex flex-col gap-1">
                     <span className="font-black text-[15px] uppercase tracking-[0.2em]">{t('systemSettings')}</span>
-                    <span className="text-[10px] opacity-60 uppercase tracking-widest">Mainframe Logic Unit</span>
+                    <span className="text-[10px] opacity-60 uppercase tracking-widest">A to Z Mainframe Logic</span>
                   </div>
                   <ArrowRight className="ml-auto h-6 w-6 opacity-0 group-hover:opacity-100 group-hover:translate-x-4 transition-all" />
                 </DropdownMenuItem>
@@ -311,8 +321,8 @@ export function Header() {
                 <Search className="h-16 w-16 text-primary" />
               </div>
               <div className="flex flex-col gap-2">
-                <span className="block text-neon uppercase tracking-tight italic">ग्लोबल सर्च क्रॉलिंग यूनिट</span>
-                <span className="text-[13px] uppercase tracking-[0.8em] text-muted-foreground font-black opacity-80">Deep Scanning Neural Results Active (A to Z Node)</span>
+                <span className="block text-neon uppercase tracking-tight italic">ग्लोबल सर्च क्रॉलिंग यूनिट (A-Z)</span>
+                <span className="text-[13px] uppercase tracking-[0.8em] text-muted-foreground font-black opacity-80">Deep Scanning Neural Results Active (Node Sync: 100%)</span>
               </div>
             </DialogTitle>
           </DialogHeader>
@@ -326,7 +336,7 @@ export function Header() {
                 </div>
                 <div className="text-center space-y-6">
                   <p className="font-black animate-pulse text-primary tracking-[1em] uppercase text-4xl text-neon">Scanning All Neural Nodes...</p>
-                  <p className="text-[13px] uppercase font-bold text-muted-foreground tracking-[0.6em] opacity-80">Accessing Court / Judge / Case A to Z API Gateway Hub</p>
+                  <p className="text-[13px] uppercase font-bold text-muted-foreground tracking-[0.6em] opacity-80">Accessing A to Z API Gateway Hub</p>
                 </div>
               </div>
             ) : searchResults ? (
@@ -341,7 +351,7 @@ export function Header() {
                         <div key={i} className="bg-secondary/40 p-12 rounded-[4.5rem] border-2 border-white/10 hover:border-primary/80 cursor-pointer transition-all flex justify-between items-center group shadow-[0_30px_60px_rgba(0,0,0,0.6)] overflow-hidden relative" onClick={() => {setSearchOpen(false); router.push(c.path)}}>
                            <div className="relative z-10 flex flex-col gap-3">
                              <span className="font-black text-3xl group-hover:text-primary transition-all uppercase tracking-tight text-neon">{c.name}</span>
-                             <span className="text-[13px] uppercase tracking-[0.4em] text-muted-foreground font-black opacity-60">Verified Regional Node Unit: Node-01</span>
+                             <span className="text-[13px] uppercase tracking-[0.4em] text-muted-foreground font-black opacity-60">Verified Regional Node Unit: Node-01 (A-Z)</span>
                            </div>
                            <Badge className="bg-primary/25 text-primary border-2 border-primary/60 px-8 py-3.5 font-black uppercase tracking-[0.4em] text-[12px] relative z-10 shadow-[0_0_20px_rgba(7,241,214,0.4)]">{c.status}</Badge>
                            <div className="scan-line opacity-0 group-hover:opacity-40" />
@@ -380,7 +390,7 @@ export function Header() {
                            <span className="font-black text-4xl group-hover:text-primary transition-all tracking-tighter text-neon italic">{c.id}</span>
                            <span className="text-xl text-white font-black uppercase tracking-[0.3em]">{c.title}</span>
                          </div>
-                         <Badge className="bg-emerald-400/25 text-emerald-400 border-2 border-emerald-400/60 px-10 py-5 font-black uppercase tracking-[0.5em] text-[13px] relative z-10 shadow-[0_0_20px_rgba(52,211,153,0.4)]">Neural Scan: Complete</Badge>
+                         <Badge className="bg-emerald-400/25 text-emerald-400 border-2 border-emerald-400/60 px-10 py-5 font-black uppercase tracking-[0.5em] text-[13px] relative z-10 shadow-[0_0_20px_rgba(52,211,153,0.4)]">A to Z Scan: Complete</Badge>
                          <div className="scan-line opacity-0 group-hover:opacity-40" />
                          <div className="absolute inset-0 bg-primary/5 neural-shimmer opacity-0 group-hover:opacity-100" />
                       </div>
@@ -389,7 +399,7 @@ export function Header() {
                 </div>
               </ScrollArea>
             ) : (
-              <div className="text-center py-48 text-muted-foreground font-black uppercase tracking-[1em] text-3xl opacity-50 animate-pulse italic">प्रतीक्षा करें... डेटा खोजा जा रहा है (A to Z SYNC)</div>
+              <div className="text-center py-48 text-muted-foreground font-black uppercase tracking-[1em] text-3xl opacity-50 animate-pulse italic">A to Z SYNC: Scanning Nodes...</div>
             )}
           </div>
         </DialogContent>

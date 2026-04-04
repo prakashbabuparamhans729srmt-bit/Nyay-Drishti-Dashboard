@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { Scale, Mail, Lock, ArrowRight, UserCheck, Sparkles, BrainCircuit } from "lucide-react";
+import { Scale, Mail, Lock, UserCheck, Sparkles, BrainCircuit, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
@@ -18,16 +18,24 @@ export default function LoginPage() {
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleAuth = (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+    
+    // Using the A to Z Neural Login flow
     if (isSignUp) {
       initiateEmailSignUp(auth, email, password);
     } else {
       initiateEmailSignIn(auth, email, password);
     }
-    // Simulation of A to Z Neural Entry
-    router.push("/");
+    
+    // Simulate node connection delay
+    setTimeout(() => {
+      setLoading(false);
+      router.push("/");
+    }, 1500);
   };
 
   const handleGuestMode = () => {
@@ -56,7 +64,7 @@ export default function LoginPage() {
               {t('loginTitle')}
             </CardTitle>
             <CardDescription className="text-muted-foreground font-bold uppercase tracking-widest text-[10px] opacity-60">
-              Accessing Node: Central Neural Command
+              Accessing Node: Central Neural Command (A-Z)
             </CardDescription>
           </div>
         </CardHeader>
@@ -99,10 +107,15 @@ export default function LoginPage() {
 
             <Button 
               type="submit" 
+              disabled={loading}
               className="w-full h-16 bg-primary text-black font-black text-xl rounded-[2rem] shadow-[0_15px_30px_rgba(7,241,214,0.3)] hover:scale-[1.02] transition-all border-2 border-black/10 flex items-center gap-4 group/btn"
             >
-              {isSignUp ? t('signUpButton') : t('signInButton')}
-              <BrainCircuit className="h-6 w-6 group-hover/btn:rotate-90 transition-transform" />
+              {loading ? <Loader2 className="animate-spin h-6 w-6" /> : (
+                <>
+                  {isSignUp ? t('signUpButton') : t('signInButton')}
+                  <BrainCircuit className="h-6 w-6 group-hover/btn:rotate-90 transition-transform" />
+                </>
+              )}
             </Button>
           </form>
 
@@ -128,7 +141,7 @@ export default function LoginPage() {
         <CardFooter className="justify-center pt-6 pb-10 border-t border-white/5 mt-6">
           <div className="flex items-center gap-3 text-[10px] uppercase font-black tracking-[0.5em] text-white/20">
             <Sparkles className="h-4 w-4 animate-pulse" />
-            SECURED BY NYAYDRISHTI NEURAL V4
+            SECURED BY NYAYDRISHTI NEURAL V4 (A-Z FLOW)
           </div>
         </CardFooter>
       </Card>

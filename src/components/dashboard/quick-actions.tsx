@@ -1,7 +1,8 @@
+
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { PlusCircle, Users, Search, Download, LayoutDashboard, FilePlus, ArrowRight, Database, ShieldCheck, Sparkles } from "lucide-react";
+import { PlusCircle, Users, Download, LayoutDashboard, FilePlus, ArrowRight, Database, ShieldCheck, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
 import { useLanguage } from "@/lib/language-context";
@@ -15,23 +16,22 @@ export function QuickActions() {
   const { user } = useUser();
 
   const actions = [
-    { label: t('cases'), icon: FilePlus, primary: true, desc: "E-Filing Portal Live", path: "/cases", color: "bg-primary" },
-    { label: t('judges'), icon: Users, desc: "Global Service Records", path: "/judges", color: "bg-blue-400" },
-    { label: t('reports'), icon: Download, desc: "AI Digital Archive", path: "/reports", color: "bg-emerald-400" },
-    { label: t('courts'), icon: LayoutDashboard, desc: "Regional Node Scan", path: "/courts", color: "bg-amber-400" },
-    { label: t('settings'), icon: ShieldCheck, desc: "Master System Logic", path: "/settings", color: "bg-purple-400" },
+    { label: t('cases'), icon: FilePlus, primary: true, desc: "A to Z Case Portal", path: "/cases", color: "bg-primary" },
+    { label: t('judges'), icon: Users, desc: "Neural Profile Archive", path: "/judges", color: "bg-blue-400" },
+    { label: t('reports'), icon: Download, desc: "Analytical Core Scan", path: "/reports", color: "bg-emerald-400" },
+    { label: t('courts'), icon: LayoutDashboard, desc: "Regional Node Live", path: "/courts", color: "bg-amber-400" },
+    { label: t('settings'), icon: ShieldCheck, desc: "Mainframe Logic Unit", path: "/settings", color: "bg-purple-400" },
   ];
 
   const handleAction = (action: any) => {
     const isGuest = localStorage.getItem("nyay-guest-mode") === "true";
-    if (!user && isGuest) {
+    if (!user && isGuest && (action.path === "/settings" || action.path === "/cases")) {
       toast({ 
-        title: "लॉगिन आवश्यक (Authentication Required)", 
-        description: "इस डिजिटल टूल का उपयोग करने के लिए कृपया अपना सुरक्षित खाता लॉगिन करें।",
+        title: "प्रमाणीकरण आवश्यक (Auth Required)", 
+        description: "इस सुरक्षित नोड तक पहुँचने के लिए कृपया लॉगिन करें।",
         variant: "destructive",
         className: "bg-destructive border-none text-white font-black rounded-[2.5rem] shadow-[0_0_50px_rgba(247,31,38,0.5)] p-8"
       });
-      setTimeout(() => router.push('/login'), 2500);
       return;
     }
     router.push(action.path);
@@ -43,15 +43,15 @@ export function QuickActions() {
         <div className="space-y-3">
            <h3 className="text-5xl font-black flex items-center gap-6 text-white tracking-tighter drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">
             <PlusCircle className="h-12 w-12 text-primary animate-glow-pule" />
-            {t('quickActionsTitle')}
+            {t('quickActionsTitle')} (A-Z)
           </h3>
           <p className="text-sm text-muted-foreground font-black pl-16 uppercase tracking-[0.5em] opacity-60">
-            {t('digitalTools')} - A to Z Active Flow
+            {t('digitalTools')} - A to Z Active System Flow
           </p>
         </div>
         <div className="flex items-center gap-6">
           <Badge variant="outline" className="text-sm font-black text-primary border-primary/40 bg-primary/10 px-8 py-3.5 rounded-full animate-pulse shadow-[0_0_30px_rgba(7,241,214,0.2)] border-2">
-            <Database className="h-5 w-5 mr-3" /> {t('activeSystem')} - LIVE
+            <Database className="h-5 w-5 mr-3" /> A to Z SYSTEM - ACTIVE
           </Badge>
         </div>
       </div>
