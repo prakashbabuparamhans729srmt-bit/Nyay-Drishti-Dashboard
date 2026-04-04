@@ -38,18 +38,16 @@ export default function NyayDrishtiDashboard() {
     }
 
     // Simulation of A to Z Neural Booting
-    if (isUserLoading || !user) {
-      const interval = setInterval(() => {
-        setBootProgress(prev => {
-          if (prev >= 100) {
-            clearInterval(interval);
-            return 100;
-          }
-          return prev + 2;
-        });
-      }, 50);
-      return () => clearInterval(interval);
-    }
+    const interval = setInterval(() => {
+      setBootProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          return 100;
+        }
+        return prev + 2;
+      });
+    }, 50);
+    return () => clearInterval(interval);
   }, [user, isUserLoading, router]);
 
   if (isUserLoading || !mounted || (bootProgress < 100 && !user && !isGuest)) {

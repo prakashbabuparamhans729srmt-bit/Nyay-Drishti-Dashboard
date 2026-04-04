@@ -1,26 +1,32 @@
+
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Trophy, Star, Award, TrendingUp } from "lucide-react";
+import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 const topJudges = [
-  { name: "न्यायमूर्ति ए.के. सिकरी", court: "दिल्ली उच्च", disposed: 2345, medal: "gold" },
-  { name: "न्यायमूर्ति एस. रवींद्र भट", court: "सुप्रीम कोर्ट", disposed: 2189, medal: "silver" },
-  { name: "न्यायमूर्ति बी.वी. नागरत्ना", court: "कर्नाटक उच्च", disposed: 1978, medal: "bronze" },
+  { name: "न्यायमूर्ति ए.के. सिकरी", court: "दिल्ली उच्च", disposed: 2345, medal: "gold", imageId: "judge-1" },
+  { name: "न्यायमूर्ति एस. रवींद्र भट", court: "सुप्रीम कोर्ट", disposed: 2189, medal: "silver", imageId: "judge-2" },
+  { name: "न्यायमूर्ति बी.वी. नागरत्ना", court: "कर्नाटक उच्च", disposed: 1978, medal: "bronze", imageId: "judge-3" },
   { name: "न्यायमूर्ति दीपक मिश्रा", court: "मद्रास उच्च", disposed: 1856 },
   { name: "न्यायमूर्ति उदय उमेश ललित", court: "बॉम्बे उच्च", disposed: 1723 },
 ];
 
 export function JudgeAnalysisPanel() {
+  const getJudgeImage = (id?: string) => {
+    return PlaceHolderImages.find(img => img.id === id)?.imageUrl;
+  };
+
   return (
-    <Card className="border-white/5 shadow-2xl bg-card group neon-glow">
+    <Card className="border-white/5 shadow-2xl bg-card group neon-glow overflow-hidden">
       <CardHeader className="border-b border-white/5 bg-secondary/40 px-6 py-5">
         <CardTitle className="text-lg flex items-center justify-between text-primary">
           <div className="flex items-center gap-3">
             <Trophy className="h-5 w-5 text-primary group-hover:rotate-12 group-hover:scale-125 transition-all duration-500" />
-            शीर्ष प्रदर्शन विश्लेषण
+            शीर्ष प्रदर्शन विश्लेषण (A-Z)
           </div>
           <Award className="h-5 w-5 text-muted-foreground animate-bounce cursor-help" title="मान्यता प्राप्त" />
         </CardTitle>
@@ -30,7 +36,8 @@ export function JudgeAnalysisPanel() {
           <div key={judge.name} className="flex items-center justify-between p-4 rounded-2xl bg-white/[0.02] hover:bg-white/[0.05] border border-transparent hover:border-primary/20 transition-all duration-500 group/judge cursor-pointer relative overflow-hidden">
             <div className="flex items-center gap-4 relative z-10">
               <div className="relative">
-                <Avatar className="h-14 w-14 border-2 border-white/10 group-hover/judge:border-primary group-hover/judge:rotate-3 transition-all duration-500 shadow-xl">
+                <Avatar className="h-14 w-14 border-2 border-white/10 group-hover/judge:border-primary group-hover/judge:rotate-3 transition-all duration-500 shadow-xl overflow-hidden">
+                  <AvatarImage src={getJudgeImage(judge.imageId)} alt={judge.name} className="object-cover" />
                   <AvatarFallback className="bg-background text-primary font-black text-xl">
                     {judge.name.split(' ').pop()?.[0]}
                   </AvatarFallback>
@@ -60,6 +67,7 @@ export function JudgeAnalysisPanel() {
             </div>
             {/* Background interactive element */}
             <div className="absolute top-0 right-0 w-24 h-full bg-primary/5 -skew-x-12 translate-x-32 group-hover/judge:translate-x-16 transition-transform duration-700" />
+            <div className="scan-line opacity-0 group-hover/judge:opacity-10" />
           </div>
         ))}
       </CardContent>

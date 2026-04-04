@@ -8,10 +8,22 @@
       "imageHint": "digital judiciary"
     },
     {
-      "id": "judge-profile",
-      "description": "Professional judicial profile placeholder",
+      "id": "judge-1",
+      "description": "Justice A.K. Sikri profile",
       "imageUrl": "https://picsum.photos/seed/judge1/400/400",
-      "imageHint": "judge profile"
+      "imageHint": "indian judge"
+    },
+    {
+      "id": "judge-2",
+      "description": "Justice S. Ravindra Bhat profile",
+      "imageUrl": "https://picsum.photos/seed/judge2/400/400",
+      "imageHint": "professional judge"
+    },
+    {
+      "id": "judge-3",
+      "description": "Justice B.V. Nagaratna profile",
+      "imageUrl": "https://picsum.photos/seed/judge3/400/400",
+      "imageHint": "female judge"
     },
     {
       "id": "court-hall",
