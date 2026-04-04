@@ -1,6 +1,6 @@
 "use client";
 
-import { Scale, Home, LayoutGrid, Users, FileText, Settings, Search, Bell, User, Languages, Mic, MicOff, Sun, Moon, Laptop, Loader2, Info, ArrowRight, X, Sparkles, Database } from "lucide-react";
+import { Scale, Home, LayoutGrid, Users, FileText, Settings, Search, Bell, User, Languages, Mic, MicOff, Sun, Moon, Laptop, Loader2, Info, ArrowRight, X, Sparkles, Database, Command } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/language-context";
@@ -115,8 +115,9 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex h-24 items-center justify-between gap-6">
           <div className="flex items-center gap-5 group cursor-pointer" onClick={() => router.push('/')}>
-            <div className="bg-primary/20 p-4 rounded-2xl transition-all duration-1000 group-hover:bg-primary group-hover:rotate-[360deg] group-hover:shadow-[0_0_40px_rgba(7,241,214,0.6)] border border-primary/30">
+            <div className="bg-primary/20 p-4 rounded-2xl transition-all duration-1000 group-hover:bg-primary group-hover:rotate-[360deg] group-hover:shadow-[0_0_40px_rgba(7,241,214,0.6)] border border-primary/30 relative">
               <Scale className="h-8 w-8 text-primary group-hover:text-black transition-colors" />
+              <div className="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity rounded-full" />
             </div>
             <div className="flex flex-col">
               <h1 className="text-3xl font-black tracking-tighter hidden lg:block text-primary text-neon uppercase">
@@ -126,7 +127,7 @@ export function Header() {
             </div>
           </div>
 
-          <nav className="hidden xl:flex items-center space-x-2 h-full">
+          <nav className="hidden xl:flex items-center h-full">
             {navItems.map((item) => (
               <Button
                 key={item.label}
@@ -139,7 +140,7 @@ export function Header() {
                 <item.icon className={`h-5 w-5 transition-all duration-700 group-hover:scale-150 group-hover:rotate-12 ${pathname === item.path ? 'animate-pulse scale-110 text-primary' : ''}`} />
                 <span className="uppercase tracking-widest text-xs font-bold">{item.label}</span>
                 {pathname === item.path && (
-                  <span className="absolute bottom-0 left-0 w-full h-1.5 bg-primary shadow-[0_0_30px_rgba(7,241,214,1)]" />
+                  <span className="absolute bottom-0 left-0 w-full h-1.5 bg-primary shadow-[0_0_30px_rgba(7,241,214,1)] nav-active-bar" />
                 )}
                 <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity" />
               </Button>
@@ -157,19 +158,24 @@ export function Header() {
                 placeholder={t('searchPlaceholder')}
                 className="w-full bg-secondary/40 border-white/5 text-white placeholder:text-muted-foreground focus-visible:ring-primary/40 pl-14 pr-14 rounded-2xl transition-all focus:bg-background/80 h-14 hover:border-primary/50 shadow-inner text-lg font-medium"
               />
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={startVoiceSearch}
-                className={`absolute right-2 top-2 h-10 w-10 rounded-xl transition-all ${isListening ? 'bg-destructive/20 text-destructive animate-pulse' : 'text-muted-foreground hover:text-primary hover:bg-primary/10'}`}
-              >
-                {isListening ? <Mic className="h-6 w-6" /> : <MicOff className="h-6 w-6" />}
-              </Button>
+              <div className="absolute right-4 top-4 flex gap-2">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={startVoiceSearch}
+                  className={`h-6 w-6 rounded-lg transition-all ${isListening ? 'bg-destructive/20 text-destructive animate-pulse' : 'text-muted-foreground hover:text-primary'}`}
+                >
+                  {isListening ? <Mic className="h-4 w-4" /> : <MicOff className="h-4 w-4" />}
+                </Button>
+                <div className="hidden sm:flex items-center gap-1 text-[10px] font-black text-muted-foreground/40 border border-white/5 px-2 rounded-lg">
+                  <Command className="h-3 w-3" /> K
+                </div>
+              </div>
             </div>
           </div>
 
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 bg-secondary/40 p-1.5 rounded-2xl border border-white/5">
+            <div className="flex items-center gap-2 bg-secondary/40 p-1.5 rounded-2xl border border-white/5 shadow-inner">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="icon" className="h-12 w-12 hover:bg-primary/20 rounded-xl transition-all group border border-transparent hover:border-primary/20">

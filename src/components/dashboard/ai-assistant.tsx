@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Sparkles, X, Send, Mic, Bot, User, Loader2, Zap, BrainCircuit, Headphones } from "lucide-react";
+import { Sparkles, X, Send, Mic, Bot, User, Loader2, Zap, BrainCircuit, Headphones, History } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
@@ -79,10 +79,11 @@ export function AIAssistant() {
       {!isOpen ? (
         <Button
           onClick={() => setIsOpen(true)}
-          className="h-24 w-24 rounded-[3rem] bg-primary shadow-[0_0_60px_rgba(7,241,214,0.6)] hover:scale-110 transition-all group border-4 border-black/30 flex flex-col items-center justify-center gap-1"
+          className="h-24 w-24 rounded-[3rem] bg-primary shadow-[0_0_60px_rgba(7,241,214,0.6)] hover:scale-110 transition-all group border-4 border-black/30 flex flex-col items-center justify-center gap-1 overflow-hidden"
         >
-          <BrainCircuit className="h-10 w-10 text-black group-hover:rotate-[360deg] transition-all duration-1000" />
-          <span className="text-[8px] font-black text-black/60 uppercase tracking-widest">A to Z Live</span>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+          <BrainCircuit className="h-10 w-10 text-black group-hover:rotate-[360deg] transition-all duration-1000 relative z-10" />
+          <span className="text-[8px] font-black text-black/60 uppercase tracking-widest relative z-10">Neural Live</span>
           <span className="absolute -top-1 -right-1 flex h-6 w-6">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
             <span className="relative inline-flex rounded-full h-6 w-6 bg-white border-4 border-primary shadow-[0_0_10px_white]"></span>
@@ -100,14 +101,19 @@ export function AIAssistant() {
                   {t('aiAssistantTitle')}
                 </CardTitle>
                 <div className="flex items-center gap-2 mt-1">
-                  <Badge variant="outline" className="text-[9px] uppercase tracking-[0.3em] font-black border-primary/30 text-primary bg-primary/5 px-3 py-0.5">Neural Core Chalu</Badge>
+                  <Badge variant="outline" className="text-[9px] uppercase tracking-[0.3em] font-black border-primary/30 text-primary bg-primary/5 px-3 py-0.5">Neural Core: Online</Badge>
                   <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse shadow-[0_0_8px_rgba(7,241,214,1)]" />
                 </div>
               </div>
             </div>
-            <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="rounded-full h-14 w-14 hover:bg-destructive/20 hover:text-destructive transition-all border border-white/5">
-              <X className="h-7 w-7" />
-            </Button>
+            <div className="flex gap-2">
+              <Button variant="ghost" size="icon" className="h-12 w-12 rounded-xl hover:bg-white/5 border border-white/5">
+                <History className="h-5 w-5 opacity-40" />
+              </Button>
+              <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="rounded-full h-12 w-12 hover:bg-destructive/20 hover:text-destructive transition-all border border-white/5">
+                <X className="h-6 w-6" />
+              </Button>
+            </div>
           </CardHeader>
 
           <CardContent className="flex-1 p-8 overflow-hidden relative">
@@ -122,7 +128,7 @@ export function AIAssistant() {
                     </div>
                     <div className="space-y-3">
                       <p className="text-2xl font-black text-white text-neon uppercase tracking-tighter">{t('askAnything')}</p>
-                      <p className="text-[10px] text-muted-foreground uppercase tracking-[0.4em] font-black opacity-50">Global Indian Judicial Multi-Language Intelligence</p>
+                      <p className="text-[10px] text-muted-foreground uppercase tracking-[0.4em] font-black opacity-50">Advanced Indian Judicial Neural Intelligence</p>
                     </div>
                   </div>
                 )}
