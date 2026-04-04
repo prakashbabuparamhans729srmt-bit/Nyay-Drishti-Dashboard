@@ -169,4 +169,13 @@
     mask-image: radial-gradient(circle at center, black, transparent 80%);
     pointer-events: none;
   }
+
+  .glow-border {
+    @apply relative border border-primary/20;
+  }
+  .glow-border::after {
+    content: '';
+    @apply absolute inset-0 rounded-[inherit] opacity-0 group-hover:opacity-100 transition-opacity duration-500;
+    box-shadow: 0 0 15px theme('colors.primary.DEFAULT');
+  }
 }
