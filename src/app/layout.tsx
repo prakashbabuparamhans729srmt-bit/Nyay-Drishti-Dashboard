@@ -7,7 +7,7 @@ import { AIAssistant } from "@/components/dashboard/ai-assistant";
 
 export const metadata: Metadata = {
   title: 'न्यायदृष्टि - न्यायिक डैशबोर्ड',
-  description: 'Proactive Judicial System Monitoring and Analysis Dashboard',
+  description: 'Proactive Judicial System Monitoring and Analysis Dashboard - A to Z Neural Flow Activated',
 };
 
 export default function RootLayout({
@@ -22,14 +22,15 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;700&family=Noto+Sans+Bengali:wght@400;700&family=Noto+Sans+Tamil:wght@400;700&family=Noto+Sans+Telugu:wght@400;700&family=Noto+Sans+Gujarati:wght@400;700&family=Noto+Sans+Kannada:wght@400;700&family=Noto+Sans+Malayalam:wght@400;700&family=Noto+Sans+Oriya:wght@400;700&family=Noto+Sans+Gurmukhi:wght@400;700&display=swap" rel="stylesheet" />
       </head>
-      <body className="font-body antialiased bg-background text-foreground relative overflow-x-hidden">
+      <body className="font-body antialiased bg-background text-foreground relative overflow-x-hidden selection:bg-primary selection:text-black">
         <FirebaseClientProvider>
           <LanguageProvider>
             {/* Global Background Effects - A to Z Active Flow */}
             <div className="fixed inset-0 pointer-events-none z-0">
               <div className="scan-line opacity-10" />
-              <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(7,241,214,0.05)_0%,transparent_75%)]" />
-              <div className="absolute inset-0 opacity-[0.02] bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:50px_50px]" />
+              <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(7,241,214,0.08)_0%,transparent_75%)]" />
+              <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:40px_40px]" />
+              <div className="absolute inset-0 neural-wire opacity-[0.05]" />
             </div>
             
             <div className="relative z-10 flex flex-col min-h-screen">

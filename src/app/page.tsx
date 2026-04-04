@@ -61,7 +61,7 @@ export default function NyayDrishtiDashboard() {
               <div className="w-80 h-1.5 bg-secondary rounded-full overflow-hidden border border-white/5">
                 <div className="h-full bg-primary animate-[shimmer_2s_infinite] neural-shimmer" style={{ width: '100%' }} />
               </div>
-              <p className="text-[8px] text-primary/40 uppercase tracking-widest font-black">Secure Kernel Initializing... Node 01-A</p>
+              <p className="text-[8px] text-primary/40 uppercase tracking-widest font-black">Secure Kernel Initializing... Node 01-A (A to Z Link Active)</p>
             </div>
           </div>
         </div>
@@ -88,7 +88,7 @@ export default function NyayDrishtiDashboard() {
                 <Activity className="h-6 w-6 text-primary animate-pulse" />
               </div>
               <div className="flex flex-col">
-                <h2 className="text-sm font-black uppercase tracking-[0.6em] text-primary/90 text-neon">Live Judicial Telemetry</h2>
+                <h2 className="text-sm font-black uppercase tracking-[0.6em] text-primary/90 text-neon">Live Judicial Telemetry (A-Z)</h2>
                 <div className="flex items-center gap-3">
                    <span className="text-[10px] text-muted-foreground font-black uppercase tracking-widest opacity-60">{t('flowActive')}</span>
                    <div className="flex items-center gap-1.5">
