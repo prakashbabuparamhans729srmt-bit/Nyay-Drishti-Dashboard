@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Sparkles, X, Send, Mic, Bot, User, Loader2, Zap, BrainCircuit, Headphones, History, Network, Cpu, ShieldCheck } from "lucide-react";
+import { Sparkles, X, Send, Mic, Bot, User, Loader2, Zap, BrainCircuit, Headphones, History, Network, Cpu, ShieldCheck, MicOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
@@ -196,7 +196,7 @@ export function AIAssistant() {
               <Button
                 variant="ghost"
                 size="icon"
-                onClick={startVoiceSearch}
+                onClick={startVoiceInput}
                 className={`shrink-0 h-20 w-20 rounded-[2rem] transition-all border-2 ${isListening ? 'bg-destructive border-destructive text-white animate-pulse shadow-[0_0_50px_rgba(247,31,38,0.8)]' : 'bg-primary/10 border-primary/40 hover:bg-primary/20 text-primary shadow-inner'}`}
               >
                 {isListening ? <Mic className="h-9 w-9" /> : <MicOff className="h-9 w-9" />}
