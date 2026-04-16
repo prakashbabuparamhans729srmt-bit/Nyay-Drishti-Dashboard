@@ -12,7 +12,7 @@ import { AIBottleneckAnalysisTrigger } from "@/components/dashboard/ai-bottlenec
 import { QuickActions } from "@/components/dashboard/quick-actions";
 import { useUser } from "@/firebase";
 import { useLanguage } from "@/lib/language-context";
-import { Loader2, Zap, BrainCircuit, ShieldCheck, Activity, Cpu, Sparkles, Network, Terminal, ShieldAlert, Globe, Radio, Database, Link } from "lucide-react";
+import { Loader2, Zap, BrainCircuit, ShieldCheck, Activity, Cpu, Terminal, ShieldAlert, Globe, Radio, Network } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 /**
@@ -90,11 +90,6 @@ export default function NyayDrishtiDashboard() {
               </div>
               <div className="flex flex-col gap-3">
                 <p className="text-[12px] text-primary font-black uppercase tracking-[0.6em]">A to Z System Flow: {bootProgress}% Initialized</p>
-                <div className="flex justify-center gap-6 opacity-60">
-                   <span className="text-[9px] uppercase font-bold tracking-widest">Protocol: SECURE</span>
-                   <span className="text-[9px] uppercase font-bold tracking-widest">Link: STABLE</span>
-                   <span className="text-[9px] uppercase font-bold tracking-widest">Sync: ACTIVE</span>
-                </div>
               </div>
             </div>
           </div>
@@ -133,10 +128,6 @@ export default function NyayDrishtiDashboard() {
                 </div>
                 <div className="flex items-center gap-8 mt-3">
                    <span className="text-[14px] text-muted-foreground font-black uppercase tracking-[0.4em] opacity-90">{t('flowActive')}</span>
-                   <div className="flex items-center gap-3">
-                     <span className="h-4 w-4 rounded-full bg-primary animate-ping" />
-                     <span className="h-4 w-4 rounded-full bg-primary shadow-[0_0_20px_rgba(7,241,214,1)]" />
-                   </div>
                    <Badge variant="outline" className="border-primary/50 text-[11px] font-black uppercase text-primary px-5 py-1 bg-primary/15 shadow-xl">NODE: CENTRAL GATEWAY</Badge>
                    <div className="flex items-center gap-3 opacity-60 hover:opacity-100 transition-opacity cursor-help">
                       <Globe className="h-5 w-5 text-primary" />
@@ -217,15 +208,6 @@ export default function NyayDrishtiDashboard() {
             </div>
             <div className="text-2xl text-muted-foreground font-black opacity-90 max-w-6xl mx-auto leading-relaxed italic tracking-wide">
               © {new Date().getFullYear()} न्यायदृष्टि डैशबोर्ड - भारत के हर नागरिक के लिए सुलभ, पारदर्शी और त्वरित न्याय का डिजिटल द्वार। 
-              <br />
-              <span className="text-[14px] uppercase not-italic opacity-60 mt-8 block tracking-[1em] font-black">Advancing Digital Judiciary via End-to-End Neural Flow Integration</span>
-            </div>
-            <div className="flex flex-wrap justify-center gap-20 text-[15px] font-black uppercase tracking-[0.6em] text-primary/70">
-              <span className="flex items-center gap-6 hover:text-primary transition-all cursor-default group hover:scale-110"><Sparkles className="h-6 w-6 group-hover:rotate-12 transition-transform" /> Security: Verified</span>
-              <span className="opacity-30 text-3xl">•</span>
-              <span className="flex items-center gap-6 hover:text-primary transition-all cursor-default group hover:scale-110"><Cpu className="h-6 w-6 group-hover:animate-spin-slow" /> Integration: A to Z Active</span>
-              <span className="opacity-30 text-3xl">•</span>
-              <span className="flex items-center gap-6 hover:text-primary transition-all cursor-default group hover:scale-110"><Zap className="h-6 w-6 group-hover:scale-125 transition-transform" /> Mainframe: Neural Core 01</span>
             </div>
           </div>
         </div>
