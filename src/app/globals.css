@@ -178,4 +178,17 @@
     @apply absolute inset-0 rounded-[inherit] opacity-0 group-hover:opacity-100 transition-opacity duration-500;
     box-shadow: 0 0 15px theme('colors.primary.DEFAULT');
   }
+
+  .neural-overlay {
+    @apply fixed inset-0 z-[100] pointer-events-none;
+    background: linear-gradient(0deg, transparent, rgba(7, 241, 214, 0.02), transparent);
+    background-size: 100% 4px;
+    animation: line-flicker 0.1s infinite;
+  }
+
+  @keyframes line-flicker {
+    0% { opacity: 0.1; }
+    50% { opacity: 0.15; }
+    100% { opacity: 0.1; }
+  }
 }

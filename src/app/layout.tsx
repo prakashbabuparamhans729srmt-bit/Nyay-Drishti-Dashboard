@@ -1,4 +1,3 @@
-
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
@@ -29,9 +28,10 @@ export default function RootLayout({
             {/* Global Background Effects - A to Z Active Flow */}
             <div className="fixed inset-0 pointer-events-none z-0">
               <div className="scan-line opacity-10" />
-              <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(7,241,214,0.08)_0%,transparent_75%)]" />
-              <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:40px_40px]" />
-              <div className="absolute inset-0 neural-wire opacity-[0.05]" />
+              <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(7,241,214,0.1)_0%,transparent_75%)]" />
+              <div className="absolute inset-0 opacity-[0.05] bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:40px_40px]" />
+              <div className="absolute inset-0 neural-wire opacity-[0.08]" />
+              <div className="neural-overlay" />
             </div>
             
             <div className="relative z-10 flex flex-col min-h-screen">
