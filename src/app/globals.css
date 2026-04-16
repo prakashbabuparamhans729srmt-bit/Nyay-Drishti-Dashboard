@@ -200,4 +200,19 @@
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
   }
+
+  .neural-flicker {
+    animation: flicker 0.5s infinite;
+  }
+
+  @keyframes flicker {
+    0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+      opacity: 0.99;
+      text-shadow: -1px -1px 0 rgba(7,241,214,0.4), 1px 1px 0 rgba(0,0,0,0.4);
+    }
+    20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+      opacity: 0.4;
+      text-shadow: none;
+    }
+  }
 }

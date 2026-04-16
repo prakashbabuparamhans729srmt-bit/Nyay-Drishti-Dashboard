@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { LanguageProvider } from "@/lib/language-context";
 import { FirebaseClientProvider } from "@/firebase/client-provider";
 import { AIAssistant } from "@/components/dashboard/ai-assistant";
+import { Activity, Cpu, Zap } from "lucide-react";
 
 export const metadata: Metadata = {
   title: 'न्यायदृष्टि - न्यायिक डैशबोर्ड',
@@ -32,6 +33,19 @@ export default function RootLayout({
               <div className="absolute inset-0 opacity-[0.05] bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:40px_40px]" />
               <div className="absolute inset-0 neural-wire opacity-[0.08]" />
               <div className="neural-overlay" />
+            </div>
+
+            {/* A to Z Flow Global Indicator */}
+            <div className="fixed top-28 right-4 z-[100] pointer-events-none flex flex-col gap-2 opacity-40 hover:opacity-100 transition-opacity">
+              <div className="bg-black/80 border border-primary/30 rounded-full px-4 py-1.5 flex items-center gap-3 backdrop-blur-md shadow-[0_0_20px_rgba(7,241,214,0.2)]">
+                <span className="h-2 w-2 rounded-full bg-primary animate-ping" />
+                <span className="text-[10px] font-black uppercase tracking-widest text-primary">A TO Z FLOW ACTIVE</span>
+              </div>
+              <div className="flex justify-end gap-2 pr-2">
+                <Cpu className="h-3 w-3 text-primary/50 animate-pulse" />
+                <Zap className="h-3 w-3 text-primary/50 animate-pulse delay-100" />
+                <Activity className="h-3 w-3 text-primary/50 animate-pulse delay-200" />
+              </div>
             </div>
             
             <div className="relative z-10 flex flex-col min-h-screen">

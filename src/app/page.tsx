@@ -12,7 +12,7 @@ import { AIBottleneckAnalysisTrigger } from "@/components/dashboard/ai-bottlenec
 import { QuickActions } from "@/components/dashboard/quick-actions";
 import { useUser } from "@/firebase";
 import { useLanguage } from "@/lib/language-context";
-import { Loader2, Zap, BrainCircuit, ShieldCheck, Activity, Cpu, Sparkles, Network, Terminal, ShieldAlert, Globe, Radio, Database } from "lucide-react";
+import { Loader2, Zap, BrainCircuit, ShieldCheck, Activity, Cpu, Sparkles, Network, Terminal, ShieldAlert, Globe, Radio, Database, Link } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 /**
@@ -45,14 +45,16 @@ export default function NyayDrishtiDashboard() {
           setSystemStatus("A to Z Node: FULLY ACTIVE");
           return 100;
         }
-        if (prev < 20) setSystemStatus("Neural Core Loading...");
-        else if (prev < 40) setSystemStatus("A to Z Link Establishing...");
-        else if (prev < 60) setSystemStatus("Synchronizing Judicial Nodes...");
-        else if (prev < 80) setSystemStatus("Decrypting Judicial Gateway...");
-        else if (prev < 95) setSystemStatus("Flow Calibration: 100%");
-        return prev + 2;
+        if (prev < 15) setSystemStatus("Neural Core Loading...");
+        else if (prev < 30) setSystemStatus("A to Z Link Establishing...");
+        else if (prev < 45) setSystemStatus("Synchronizing Judicial Nodes...");
+        else if (prev < 60) setSystemStatus("Decrypting Judicial Gateway...");
+        else if (prev < 75) setSystemStatus("Scanning Regional Mainframes...");
+        else if (prev < 90) setSystemStatus("Flow Calibration: 100% Complete");
+        else if (prev < 100) setSystemStatus("System Online. Welcome to NyayDrishti.");
+        return prev + 1;
       });
-    }, 30);
+    }, 25);
     return () => clearInterval(interval);
   }, [user, isUserLoading, router]);
 
