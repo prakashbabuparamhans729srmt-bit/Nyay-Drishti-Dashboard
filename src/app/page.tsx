@@ -180,7 +180,7 @@ export default function NyayDrishtiDashboard() {
         </section>
 
         {/* Actionable Toolkit */}
-        <section className="animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-500 bg-secondary/30 rounded-[6rem] p-20 border-2 border-white/5 relative overflow-hidden shadow-[inset_0_2px_60px_rgba(0,0,0,0.9)]">
+        <section className="animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-500 bg-secondary/30 rounded-[6rem] p-20 border-2 border-white/5 relative overflow-hidden shadow-[inset_0_2px_60px_rgba(0,0,0,0.95)]">
           <div className="absolute inset-0 holographic-bg opacity-50" />
           <div className="absolute top-0 left-0 w-full h-2 bg-primary/25" />
           <div className="relative z-10">
