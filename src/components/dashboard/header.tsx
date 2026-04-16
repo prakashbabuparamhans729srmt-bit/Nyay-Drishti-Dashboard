@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Scale, Home, LayoutGrid, Users, FileText, Settings, Search, Bell, User, Languages, Mic, MicOff, Sun, Moon, Laptop, ArrowRight, Sparkles, Command, Cpu, Zap, Activity, Network } from "lucide-react";

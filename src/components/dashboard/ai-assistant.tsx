@@ -196,10 +196,10 @@ export function AIAssistant() {
               <Button
                 variant="ghost"
                 size="icon"
-                onClick={startVoiceInput}
+                onClick={startVoiceSearch}
                 className={`shrink-0 h-20 w-20 rounded-[2rem] transition-all border-2 ${isListening ? 'bg-destructive border-destructive text-white animate-pulse shadow-[0_0_50px_rgba(247,31,38,0.8)]' : 'bg-primary/10 border-primary/40 hover:bg-primary/20 text-primary shadow-inner'}`}
               >
-                {isListening ? <Headphones className="h-9 w-9" /> : <Mic className="h-9 w-9" />}
+                {isListening ? <Mic className="h-9 w-9" /> : <MicOff className="h-9 w-9" />}
               </Button>
               <Input
                 value={input}
