@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { LanguageProvider } from "@/lib/language-context";
 import { FirebaseClientProvider } from "@/firebase/client-provider";
 import { AIAssistant } from "@/components/dashboard/ai-assistant";
-import { Activity, Cpu, Zap } from "lucide-react";
+import { Activity, Cpu, Zap, Radio, Database } from "lucide-react";
 
 export const metadata: Metadata = {
   title: 'न्यायदृष्टि - न्यायिक डैशबोर्ड',
@@ -35,16 +35,31 @@ export default function RootLayout({
               <div className="neural-overlay" />
             </div>
 
-            {/* A to Z Flow Global Indicator */}
-            <div className="fixed top-28 right-4 z-[100] pointer-events-none flex flex-col gap-2 opacity-40 hover:opacity-100 transition-opacity">
-              <div className="bg-black/80 border border-primary/30 rounded-full px-4 py-1.5 flex items-center gap-3 backdrop-blur-md shadow-[0_0_20px_rgba(7,241,214,0.2)]">
-                <span className="h-2 w-2 rounded-full bg-primary animate-ping" />
-                <span className="text-[10px] font-black uppercase tracking-widest text-primary">A TO Z FLOW ACTIVE</span>
+            {/* A to Z Flow Global Indicator - Fully Activated */}
+            <div className="fixed top-28 right-4 z-[100] pointer-events-none flex flex-col gap-3 opacity-60 hover:opacity-100 transition-all duration-500">
+              <div className="bg-black/90 border-2 border-primary/50 rounded-2xl px-5 py-2.5 flex items-center gap-4 backdrop-blur-xl shadow-[0_0_30px_rgba(7,241,214,0.4)] group">
+                <div className="relative">
+                  <div className="h-3 w-3 rounded-full bg-primary animate-ping" />
+                  <div className="absolute inset-0 h-3 w-3 rounded-full bg-primary shadow-[0_0_10px_rgba(7,241,214,1)]" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[11px] font-black uppercase tracking-[0.2em] text-primary">A TO Z FLOW ACTIVE</span>
+                  <span className="text-[8px] font-bold text-white/40 tracking-widest uppercase">System Core Sync: 100%</span>
+                </div>
               </div>
-              <div className="flex justify-end gap-2 pr-2">
-                <Cpu className="h-3 w-3 text-primary/50 animate-pulse" />
-                <Zap className="h-3 w-3 text-primary/50 animate-pulse delay-100" />
-                <Activity className="h-3 w-3 text-primary/50 animate-pulse delay-200" />
+              <div className="flex justify-end gap-3 pr-2">
+                <div className="bg-secondary/80 p-1.5 rounded-lg border border-white/5 backdrop-blur-md">
+                   <Cpu className="h-3.5 w-3.5 text-primary animate-pulse" />
+                </div>
+                <div className="bg-secondary/80 p-1.5 rounded-lg border border-white/5 backdrop-blur-md">
+                   <Zap className="h-3.5 w-3.5 text-primary animate-pulse delay-75" />
+                </div>
+                <div className="bg-secondary/80 p-1.5 rounded-lg border border-white/5 backdrop-blur-md">
+                   <Radio className="h-3.5 w-3.5 text-primary animate-pulse delay-150" />
+                </div>
+                <div className="bg-secondary/80 p-1.5 rounded-lg border border-white/5 backdrop-blur-md">
+                   <Database className="h-3.5 w-3.5 text-primary animate-pulse delay-300" />
+                </div>
               </div>
             </div>
             

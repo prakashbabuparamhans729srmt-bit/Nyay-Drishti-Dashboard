@@ -12,7 +12,7 @@ import { AIBottleneckAnalysisTrigger } from "@/components/dashboard/ai-bottlenec
 import { QuickActions } from "@/components/dashboard/quick-actions";
 import { useUser } from "@/firebase";
 import { useLanguage } from "@/lib/language-context";
-import { Loader2, Zap, BrainCircuit, ShieldCheck, Activity, Cpu, Terminal, ShieldAlert, Globe, Radio, Network } from "lucide-react";
+import { Loader2, Zap, BrainCircuit, ShieldCheck, Activity, Cpu, Terminal, ShieldAlert, Globe, Radio, Network, Database } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 /**
@@ -109,7 +109,7 @@ export default function NyayDrishtiDashboard() {
       <main className="flex-1 container mx-auto px-4 py-8 space-y-20 max-w-7xl relative z-10">
         <div className="scan-line opacity-5" />
         
-        {/* Statistics Hero Section */}
+        {/* Statistics Hero Section - A to Z Flow Fully Active */}
         <section className="animate-in fade-in slide-in-from-top-4 duration-1000">
           <div className="flex items-center justify-between mb-12 px-10 py-8 bg-secondary/40 rounded-[4rem] border-2 border-white/5 backdrop-blur-3xl shadow-[0_30px_100px_rgba(0,0,0,0.8)] relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-primary/10 pointer-events-none" />
@@ -208,6 +208,17 @@ export default function NyayDrishtiDashboard() {
             </div>
             <div className="text-2xl text-muted-foreground font-black opacity-90 max-w-6xl mx-auto leading-relaxed italic tracking-wide">
               © {new Date().getFullYear()} न्यायदृष्टि डैशबोर्ड - भारत के हर नागरिक के लिए सुलभ, पारदर्शी और त्वरित न्याय का डिजिटल द्वार। 
+            </div>
+            <div className="flex items-center gap-6 opacity-40">
+               <div className="flex items-center gap-2">
+                 <Database className="h-4 w-4 text-primary" />
+                 <span className="text-[10px] uppercase font-black tracking-widest">Mainframe Stable</span>
+               </div>
+               <div className="h-1 w-12 bg-white/10 rounded-full" />
+               <div className="flex items-center gap-2">
+                 <Radio className="h-4 w-4 text-primary" />
+                 <span className="text-[10px] uppercase font-black tracking-widest">Uplink Active</span>
+               </div>
             </div>
           </div>
         </div>

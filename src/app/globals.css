@@ -215,4 +215,8 @@
       text-shadow: none;
     }
   }
+
+  .peak-flow-active {
+    @apply shadow-[0_0_60px_rgba(7,241,214,0.4)] border-primary scale-[1.02] transition-all duration-700;
+  }
 }

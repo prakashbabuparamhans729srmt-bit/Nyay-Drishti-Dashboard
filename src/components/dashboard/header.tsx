@@ -1,6 +1,6 @@
 "use client";
 
-import { Scale, Home, LayoutGrid, Users, FileText, Settings, Search, Bell, User, Languages, Mic, MicOff, Sun, Moon, Laptop, ArrowRight, Sparkles, Command, Cpu, Zap, Activity, Network } from "lucide-react";
+import { Scale, Home, LayoutGrid, Users, FileText, Settings, Search, Bell, User, Languages, Mic, MicOff, Sun, Moon, Laptop, ArrowRight, Sparkles, Command, Cpu, Zap, Activity, Network, Radio, Database } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/language-context";
@@ -138,8 +138,8 @@ export function Header() {
               <div className="flex items-center gap-3 mt-0.5">
                  <span className="text-[11px] uppercase font-black tracking-[0.6em] text-muted-foreground hidden lg:block opacity-70">Neural Command Center (Node: 01)</span>
                  <div className="flex items-center gap-2">
-                   <span className="h-2 w-2 rounded-full bg-primary animate-ping" />
-                   <span className="h-2 w-2 rounded-full bg-primary shadow-[0_0_10px_rgba(7,241,214,1)]" />
+                   <Radio className="h-3 w-3 text-primary animate-ping" />
+                   <div className="h-2 w-2 rounded-full bg-primary shadow-[0_0_10px_rgba(7,241,214,1)]" />
                  </div>
               </div>
             </div>
@@ -194,6 +194,14 @@ export function Header() {
           </div>
 
           <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4 bg-secondary/50 px-5 py-2.5 rounded-2xl border border-white/5 hidden sm:flex">
+               <div className="flex flex-col items-end">
+                 <span className="text-[9px] font-black uppercase text-primary tracking-widest">Network Peak</span>
+                 <span className="text-[8px] font-bold text-white/40">Flow Enabled</span>
+               </div>
+               <Activity className="h-5 w-5 text-primary animate-pulse" />
+            </div>
+
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="h-14 w-14 hover:bg-primary/20 rounded-2xl transition-all group border border-transparent hover:border-primary/40 relative z-10">
