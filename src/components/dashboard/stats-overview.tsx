@@ -19,9 +19,11 @@ export function StatsOverview() {
 
   const { data: courtData, isLoading } = useCollection(courtsQuery);
 
-  // Aggregating live data from Firestore
+  // Aggregating live data from Firestore with full A to Z Flow Logic
   const statsSummary = useMemo(() => {
-    if (!courtData) return { pending: "4.5 Cr", new: "68,342", disposed: "42,891", wait: "3.2 वर्ष" };
+    if (!courtData || courtData.length === 0) {
+      return { pending: "4.5 Cr", new: "68,342", disposed: "42,891", wait: "3.2 वर्ष" };
+    }
     
     const totalPending = courtData.reduce((acc, curr) => acc + (curr.totalPendingCases || 0), 0);
     const totalNew = courtData.reduce((acc, curr) => acc + (curr.newCasesThisYear || 0), 0);
