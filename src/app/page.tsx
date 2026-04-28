@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -17,7 +18,7 @@ import { Badge } from "@/components/ui/badge";
 
 /**
  * NyayDrishtiDashboard - The primary operational command center.
- * Fully Activated for A to Z System Flow.
+ * Fully Activated for A to Z System Flow and Firebase Integrated.
  */
 export default function NyayDrishtiDashboard() {
   const { user, isUserLoading } = useUser();
