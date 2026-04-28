@@ -1,16 +1,47 @@
+
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowUpRight, ArrowDownRight, FileText, Scale, CheckCircle, Clock, Zap } from "lucide-react";
+import { ArrowUpRight, ArrowDownRight, FileText, Scale, CheckCircle, Clock, Zap, Loader2 } from "lucide-react";
 import { useLanguage } from "@/lib/language-context";
+import { useCollection, useFirestore, useMemoFirebase } from "@/firebase";
+import { collection } from "firebase/firestore";
+import { useMemo } from "react";
 
 export function StatsOverview() {
   const { t } = useLanguage();
+  const db = useFirestore();
+
+  const courtsQuery = useMemoFirebase(() => {
+    if (!db) return null;
+    return collection(db, "courts");
+  }, [db]);
+
+  const { data: courtData, isLoading } = useCollection(courtsQuery);
+
+  // Aggregating live data from Firestore
+  const statsSummary = useMemo(() => {
+    if (!courtData) return { pending: "4.5 Cr", new: "68,342", disposed: "42,891", wait: "3.2 वर्ष" };
+    
+    const totalPending = courtData.reduce((acc, curr) => acc + (curr.totalPendingCases || 0), 0);
+    const totalNew = courtData.reduce((acc, curr) => acc + (curr.newCasesThisYear || 0), 0);
+    const totalDisposed = courtData.reduce((acc, curr) => acc + (curr.disposedCasesThisYear || 0), 0);
+    const avgWait = courtData.length > 0 
+      ? (courtData.reduce((acc, curr) => acc + (curr.averageWaitingTimeYears || 0), 0) / courtData.length).toFixed(1)
+      : "0.0";
+
+    return {
+      pending: totalPending > 1000000 ? `${(totalPending / 10000000).toFixed(2)} Cr` : totalPending.toLocaleString(),
+      new: totalNew.toLocaleString(),
+      disposed: totalDisposed.toLocaleString(),
+      wait: `${avgWait} वर्ष`
+    };
+  }, [courtData]);
 
   const stats = [
     {
       title: t('totalPending'),
-      value: "4.5 Cr",
+      value: statsSummary.pending,
       change: "+5% वार्षिक",
       trend: "up",
       icon: FileText,
@@ -20,7 +51,7 @@ export function StatsOverview() {
     },
     {
       title: t('newCases'),
-      value: "68,342",
+      value: statsSummary.new,
       change: "-2% गिरावट",
       trend: "down",
       icon: Scale,
@@ -30,7 +61,7 @@ export function StatsOverview() {
     },
     {
       title: t('disposedCases'),
-      value: "42,891",
+      value: statsSummary.disposed,
       change: "+8% सुधार",
       trend: "up",
       icon: CheckCircle,
@@ -40,7 +71,7 @@ export function StatsOverview() {
     },
     {
       title: t('waitingPeriod'),
-      value: "3.2 वर्ष",
+      value: statsSummary.wait,
       change: "दक्षता सूचकांक",
       trend: "neutral",
       icon: Clock,
@@ -57,18 +88,18 @@ export function StatsOverview() {
           key={stat.title} 
           className={`relative overflow-hidden border-white/5 bg-card/60 backdrop-blur-xl group hover:border-primary/50 transition-all duration-700 hover:scale-[1.05] hover:-translate-y-2 ${stat.glow} rounded-[2.5rem]`}
         >
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-right from-transparent via-primary/20 to-transparent" />
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4 pt-6">
             <CardTitle className="text-[11px] font-black uppercase tracking-[0.3em] text-muted-foreground group-hover:text-primary transition-colors duration-500">
               {stat.title}
             </CardTitle>
             <div className={`${stat.bg} ${stat.color} p-3 rounded-2xl group-hover:rotate-[360deg] group-hover:scale-125 transition-all duration-1000 border border-current/20 shadow-lg`}>
-              <stat.icon className="h-5 w-5" />
+              {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : <stat.icon className="h-5 w-5" />}
             </div>
           </CardHeader>
           <CardContent className="pb-8">
             <div className="text-5xl font-black tracking-tighter text-white group-hover:text-primary transition-all duration-700 group-hover:drop-shadow-[0_0_15px_rgba(7,241,214,0.5)]">
-              {stat.value}
+              {isLoading ? "---" : stat.value}
             </div>
             <div className="flex items-center mt-4 bg-white/5 w-fit px-3 py-1.5 rounded-full border border-white/5 backdrop-blur-md group-hover:bg-primary/10 transition-all">
               {stat.trend === "up" ? (

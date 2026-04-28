@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -5,6 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Sparkles, Loader2, ChevronRight, AlertCircle, TrendingUp, CheckCircle2 } from "lucide-react";
 import { judicialBottleneckAnalysis, JudicialBottleneckAnalysisOutput } from "@/ai/flows/judicial-bottleneck-analysis";
+import { useCollection, useFirestore, useMemoFirebase } from "@/firebase";
+import { collection } from "firebase/firestore";
 import {
   Dialog,
   DialogContent,
@@ -18,16 +21,34 @@ export function AIBottleneckAnalysisTrigger() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<JudicialBottleneckAnalysisOutput | null>(null);
   const [open, setOpen] = useState(false);
+  const db = useFirestore();
+
+  const courtsQuery = useMemoFirebase(() => {
+    if (!db) return null;
+    return collection(db, "courts");
+  }, [db]);
+
+  const { data: courtData } = useCollection(courtsQuery);
 
   const handleAnalysis = async () => {
     setLoading(true);
     try {
+      // Use live data from Firestore if available, else fallback to mock
+      const liveCourtData = courtData ? courtData.map(c => ({
+        courtName: c.name,
+        pendingCases: c.totalPendingCases,
+        newCasesThisYear: c.newCasesThisYear,
+        disposedCasesThisYear: c.disposedCasesThisYear,
+        totalSanctionedJudgePosts: c.sanctionedJudgePosts,
+        vacantJudgePosts: c.vacantJudgePosts,
+        disposalRate: c.disposalRatePercentage
+      })) : [
+        { courtName: "Supreme Court", pendingCases: 78342, newCasesThisYear: 8234, disposedCasesThisYear: 7891, totalSanctionedJudgePosts: 34, vacantJudgePosts: 0, disposalRate: 95 },
+        { courtName: "Allahabad High Court", pendingCases: 892345, newCasesThisYear: 123456, disposedCasesThisYear: 98234, totalSanctionedJudgePosts: 160, vacantJudgePosts: 40, disposalRate: 79 },
+      ];
+
       const input = {
-        courtData: [
-          { courtName: "Supreme Court", pendingCases: 78342, newCasesThisYear: 8234, disposedCasesThisYear: 7891, totalSanctionedJudgePosts: 34, vacantJudgePosts: 0, disposalRate: 95 },
-          { courtName: "Allahabad High Court", pendingCases: 892345, newCasesThisYear: 123456, disposedCasesThisYear: 98234, totalSanctionedJudgePosts: 160, vacantJudgePosts: 40, disposalRate: 79 },
-          { courtName: "Madras High Court", pendingCases: 456789, newCasesThisYear: 67890, disposedCasesThisYear: 56789, totalSanctionedJudgePosts: 100, vacantJudgePosts: 15, disposalRate: 83 },
-        ],
+        courtData: liveCourtData,
         overallPendingCaseTrend: [
           { year: 2024, pendingCasesCount: 43000000 },
           { year: 2025, pendingCasesCount: 44000000 },
@@ -63,12 +84,12 @@ export function AIBottleneckAnalysisTrigger() {
         <CardHeader>
           <CardTitle className="text-lg flex items-center gap-2 text-primary">
             <Sparkles className="h-5 w-5 animate-pulse text-primary" />
-            AI बाधा विश्लेषण टूल
+            AI बाधा विश्लेषण टूल (Firebase Sync)
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <p className="text-sm text-muted-foreground leading-relaxed">
-            न्यायिक आंकड़ों का गहरा विश्लेषण करें और प्रणालीगत बाधाओं की पहचान कर सुधार के लिए सक्रिय AI सिफारिशें प्राप्त करें।
+            क्लाउड डेटाबेस से रीयल-टाइम डेटा का विश्लेषण करें और प्रणालीगत बाधाओं की पहचान कर सुधार के लिए सक्रिय AI सिफारिशें प्राप्त करें।
           </p>
           <Button 
             onClick={handleAnalysis} 
@@ -76,7 +97,7 @@ export function AIBottleneckAnalysisTrigger() {
             className="w-full bg-primary hover:bg-primary/90 text-background font-black shadow-[0_0_20px_rgba(7,241,214,0.3)] transition-all duration-300 hover:scale-[1.02]"
           >
             {loading ? (
-              <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> विश्लेषण जारी है...</>
+              <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Neural Scanning...</>
             ) : (
               <>विश्लेषण शुरू करें <ChevronRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" /></>
             )}
@@ -89,10 +110,10 @@ export function AIBottleneckAnalysisTrigger() {
           <DialogHeader>
             <DialogTitle className="text-3xl font-black flex items-center gap-3 text-primary">
               <Sparkles className="h-8 w-8 text-primary animate-pulse" />
-              न्यायिक विश्लेषण रिपोर्ट
+              न्यायिक विश्लेषण रिपोर्ट (A-Z Flow)
             </DialogTitle>
             <DialogDescription className="text-muted-foreground text-lg">
-              एआई-संचालित अंतर्दृष्टि और सुधार के लिए लक्षित कार्य योजना।
+              क्लाउड नोड {courtData?.length || 0} से प्राप्त रीयल-टाइम अंतर्दृष्टि।
             </DialogDescription>
           </DialogHeader>
 
