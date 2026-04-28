@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -27,7 +26,7 @@ export default function NyayDrishtiDashboard() {
 
   useEffect(() => {
     setMounted(true);
-    const guestStatus = localStorage.getItem("nyay-guest-mode") === "true";
+    const guestStatus = typeof window !== 'undefined' ? localStorage.getItem("nyay-guest-mode") === "true" : false;
     setIsGuest(guestStatus);
 
     if (!isUserLoading && !user && !guestStatus) {
