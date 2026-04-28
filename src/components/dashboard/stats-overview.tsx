@@ -19,7 +19,6 @@ export function StatsOverview() {
 
   const { data: courtData, isLoading } = useCollection(courtsQuery);
 
-  // Aggregating live data from Firestore with full A to Z Flow Logic
   const statsSummary = useMemo(() => {
     if (!courtData || courtData.length === 0) {
       return { pending: "4.5 Cr", new: "68,342", disposed: "42,891", wait: "3.2 वर्ष" };
@@ -85,7 +84,7 @@ export function StatsOverview() {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      {stats.map((stat, idx) => (
+      {stats.map((stat) => (
         <Card 
           key={stat.title} 
           className={`relative overflow-hidden border-white/5 bg-card/60 backdrop-blur-xl group hover:border-primary/50 transition-all duration-700 hover:scale-[1.05] hover:-translate-y-2 ${stat.glow} rounded-[2.5rem]`}

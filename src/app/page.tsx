@@ -16,10 +16,6 @@ import { useLanguage } from "@/lib/language-context";
 import { Loader2, Zap, BrainCircuit, ShieldCheck, Activity, Cpu, Terminal, ShieldAlert, Globe, Radio, Network, Database } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
-/**
- * NyayDrishtiDashboard - The primary operational command center.
- * Fully Activated for A to Z System Flow and Firebase Integrated.
- */
 export default function NyayDrishtiDashboard() {
   const { user, isUserLoading } = useUser();
   const { t } = useLanguage();
@@ -38,7 +34,6 @@ export default function NyayDrishtiDashboard() {
       router.push("/login");
     }
 
-    // Advanced A to Z Neural Booting Sequence
     const interval = setInterval(() => {
       setBootProgress(prev => {
         if (prev >= 100) {
@@ -47,7 +42,7 @@ export default function NyayDrishtiDashboard() {
           return 100;
         }
         if (prev < 15) setSystemStatus("Neural Core Loading...");
-        else if (prev < 30) setSystemStatus("A to Z Link Establishing...");
+        else if (prev < 30) setSystemStatus("Firebase Link Establishing...");
         else if (prev < 45) setSystemStatus("Synchronizing Judicial Nodes...");
         else if (prev < 60) setSystemStatus("Decrypting Judicial Gateway...");
         else if (prev < 75) setSystemStatus("Scanning Regional Mainframes...");
@@ -55,7 +50,7 @@ export default function NyayDrishtiDashboard() {
         else if (prev < 100) setSystemStatus("System Online. Welcome to NyayDrishti.");
         return prev + 1;
       });
-    }, 25);
+    }, 20);
     return () => clearInterval(interval);
   }, [user, isUserLoading, router]);
 
@@ -110,7 +105,6 @@ export default function NyayDrishtiDashboard() {
       <main className="flex-1 container mx-auto px-4 py-8 space-y-20 max-w-7xl relative z-10">
         <div className="scan-line opacity-5" />
         
-        {/* Statistics Hero Section - A to Z Flow Fully Active */}
         <section className="animate-in fade-in slide-in-from-top-4 duration-1000">
           <div className="flex items-center justify-between mb-12 px-10 py-8 bg-secondary/40 rounded-[4rem] border-2 border-white/5 backdrop-blur-3xl shadow-[0_30px_100px_rgba(0,0,0,0.8)] relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-primary/10 pointer-events-none" />
@@ -153,7 +147,6 @@ export default function NyayDrishtiDashboard() {
           <StatsOverview />
         </section>
 
-        {/* Central Intelligence Grid */}
         <section className="grid grid-cols-1 lg:grid-cols-3 gap-20">
           <div className="lg:col-span-2 space-y-20 animate-in fade-in slide-in-from-left-4 duration-1000 delay-200">
             <DashboardCharts />
@@ -180,7 +173,6 @@ export default function NyayDrishtiDashboard() {
           </div>
         </section>
 
-        {/* Actionable Toolkit */}
         <section className="animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-500 bg-secondary/30 rounded-[6rem] p-20 border-2 border-white/5 relative overflow-hidden shadow-[inset_0_2px_60px_rgba(0,0,0,0.95)]">
           <div className="absolute inset-0 holographic-bg opacity-50" />
           <div className="absolute top-0 left-0 w-full h-2 bg-primary/25" />
@@ -191,7 +183,6 @@ export default function NyayDrishtiDashboard() {
         </section>
       </main>
 
-      {/* Cybernetic Footer */}
       <footer className="py-28 border-t border-white/10 bg-secondary/90 backdrop-blur-[60px] mt-auto relative overflow-hidden">
         <div className="scan-line opacity-30 top-auto bottom-0" />
         <div className="container mx-auto px-4 text-center relative z-10">
