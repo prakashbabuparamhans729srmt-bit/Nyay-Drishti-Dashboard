@@ -1,18 +1,37 @@
 
 "use client";
 
+import { useMemo } from "react";
 import { Header } from "@/components/dashboard/header";
 import { JudgeAnalysisPanel } from "@/components/dashboard/judge-analysis-panel";
-import { Users, Award, Search, ArrowLeft, Trophy, Sparkles, Cpu } from "lucide-react";
+import { Users, Award, Search, ArrowLeft, Trophy, Sparkles, Cpu, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { useLanguage } from "@/lib/language-context";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { useFirestore, useMemoFirebase, useCollection } from "@/firebase";
+import { collection } from "firebase/firestore";
 
-export default function JudgesPage() {
+export function JudgesPageContent() {
   const router = useRouter();
   const { t } = useLanguage();
+  const db = useFirestore();
+
+  const judgesQuery = useMemoFirebase(() => {
+    if (!db) return null;
+    return collection(db, "judges");
+  }, [db]);
+
+  const { data: judgesData, isLoading } = useCollection(judgesQuery);
+
+  const stats = useMemo(() => {
+    if (!judgesData) return { total: 0, avgDisposal: 0 };
+    const total = judgesData.length;
+    const totalDisposedThisYear = judgesData.reduce((acc, curr) => acc + (curr.casesDisposedThisYear || 0), 0);
+    const avgDisposal = total > 0 ? (totalDisposedThisYear / total).toFixed(1) : 0;
+    return { total, avgDisposal };
+  }, [judgesData]);
 
   return (
     <div className="min-h-screen flex flex-col bg-background relative overflow-hidden atoz-active-flow data-stream-animation">
@@ -56,7 +75,9 @@ export default function JudgesPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="p-8 rounded-[2.5rem] bg-secondary/40 border border-white/5 hover:border-primary/30 transition-all shadow-inner group/stat">
                     <h3 className="text-primary/70 font-black mb-2 uppercase tracking-widest text-xs">कुल सक्रिय न्यायाधीश</h3>
-                    <p className="text-5xl font-black group-hover:text-primary transition-colors">1,079</p>
+                    <p className="text-5xl font-black group-hover:text-primary transition-colors">
+                      {isLoading ? <Loader2 className="h-8 w-8 animate-spin" /> : stats.total}
+                    </p>
                     <div className="mt-4 flex items-center gap-2">
                       <div className="h-1 flex-1 bg-white/5 rounded-full overflow-hidden">
                         <div className="h-full bg-primary w-full animate-glow-pule" />
@@ -64,8 +85,10 @@ export default function JudgesPage() {
                     </div>
                   </div>
                   <div className="p-8 rounded-[2.5rem] bg-secondary/40 border border-white/5 hover:border-primary/30 transition-all shadow-inner group/stat">
-                    <h3 className="text-primary/70 font-black mb-2 uppercase tracking-widest text-xs">औसत निस्तारण दर</h3>
-                    <p className="text-5xl font-black group-hover:text-primary transition-colors">88.5%</p>
+                    <h3 className="text-primary/70 font-black mb-2 uppercase tracking-widest text-xs">औसत निस्तारण दर (यूनिट)</h3>
+                    <p className="text-5xl font-black group-hover:text-primary transition-colors">
+                      {isLoading ? <Loader2 className="h-8 w-8 animate-spin" /> : stats.avgDisposal}
+                    </p>
                     <div className="mt-4 flex items-center gap-2">
                       <div className="h-1 flex-1 bg-white/5 rounded-full overflow-hidden">
                         <div className="h-full bg-primary w-[88.5%] animate-glow-pule" />
@@ -87,7 +110,7 @@ export default function JudgesPage() {
                 </Card>
                 <Card className="bg-card/40 backdrop-blur-xl rounded-[2.5rem] border border-white/5 p-10 hover:border-blue-400/50 transition-all group overflow-hidden relative">
                   <div className="scan-line opacity-0 group-hover:opacity-10" />
-                  <div className="bg-blue-400/10 w-20 h-20 rounded-3xl flex items-center justify-center mb-6 border border-blue-400/20">
+                  <div className="bg-blue-400/10 w-20 h-20 rounded-3xl flex items-center justify-center mb-6 border-blue-400/20">
                     <Users className="h-10 w-10 text-blue-400 group-hover:scale-110 transition-transform" />
                   </div>
                   <h3 className="text-2xl font-black mb-3">कार्यभार प्रबंधन</h3>
@@ -110,4 +133,8 @@ export default function JudgesPage() {
       </main>
     </div>
   );
+}
+
+export default function JudgesPage() {
+  return <JudgesPageContent />;
 }

@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Header } from "@/components/dashboard/header";
 import { FileText, Search, ArrowLeft, Database, Loader2, Info, CheckCircle, AlertCircle, Sparkles, Cpu, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -10,33 +10,58 @@ import { useRouter } from "next/navigation";
 import { useLanguage } from "@/lib/language-context";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useFirestore, useMemoFirebase, useCollection } from "@/firebase";
+import { collection, query, where, getDocs, limit } from "firebase/firestore";
 
 export default function CasesPage() {
   const router = useRouter();
   const { t } = useLanguage();
+  const db = useFirestore();
   const [searching, setSearching] = useState(false);
   const [result, setResult] = useState<null | any>(null);
   const [caseNo, setCaseNo] = useState("");
 
-  const handleDeepSearch = () => {
-    if (!caseNo.trim()) return;
+  const handleDeepSearch = async () => {
+    if (!caseNo.trim() || !db) return;
     setSearching(true);
     setResult(null);
     
-    // Simulate Advanced Crawling logic
-    setTimeout(() => {
-      setResult({
-        caseId: caseNo,
-        title: "राम बनाम उत्तर प्रदेश राज्य",
-        status: "पेन्डिंग (Pending)",
-        court: "इलाहाबाद उच्च न्यायालय",
-        judge: "न्यायमूर्ति एस. के. शर्मा",
-        lastHearing: "15 मार्च 2024",
-        nextHearing: "22 अप्रैल 2024",
-        description: "संपत्ति विवाद से संबंधित संवैधानिक याचिका। न्यायदृष्टि क्रॉल इंजन द्वारा प्राप्त डेटा।",
-      });
+    try {
+      // Searching the actual Firestore 'cases' collection
+      const casesRef = collection(db, "cases");
+      const q = query(casesRef, where("caseNumber", "==", caseNo.trim()), limit(1));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        const caseData = querySnapshot.docs[0].data();
+        setResult({
+          caseId: caseData.caseNumber,
+          title: caseData.title,
+          status: caseData.status,
+          court: "Processing Node...", // In a real app, you'd fetch court name by courtId
+          judge: "Assigned Unit", // In a real app, fetch judge name by judgeId
+          lastHearing: caseData.lastHearingDate ? new Date(caseData.lastHearingDate).toLocaleDateString() : "N/A",
+          nextHearing: caseData.nextHearingDate ? new Date(caseData.nextHearingDate).toLocaleDateString() : "Scheduled",
+          description: caseData.description || "न्यायदृष्टि क्रॉल इंजन द्वारा प्राप्त डेटा।",
+        });
+      } else {
+        // Fallback or No Result
+        setResult({
+          caseId: caseNo,
+          title: "रिकॉर्ड नहीं मिला (Not Found)",
+          status: "अज्ञात (Unknown)",
+          court: "---",
+          judge: "---",
+          lastHearing: "---",
+          nextHearing: "---",
+          description: "इस केस नंबर के लिए कोई डेटा प्राप्त नहीं हुआ। कृपया सही केस आईडी दर्ज करें।",
+        });
+      }
+    } catch (error) {
+      console.error("Crawl error:", error);
+    } finally {
       setSearching(false);
-    }, 2000);
+    }
   };
 
   return (
