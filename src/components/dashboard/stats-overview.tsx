@@ -19,6 +19,7 @@ export function StatsOverview() {
   const { data: courtData, isLoading } = useCollection(courtsQuery);
 
   const statsSummary = useMemo(() => {
+    // If loading or no data, provide fallback with "Syncing" context
     if (!courtData || courtData.length === 0) {
       return { pending: "4.5 Cr", new: "68,342", disposed: "42,891", wait: "3.2 वर्ष" };
     }

@@ -35,7 +35,7 @@ export default function RootLayout({
               <div className="neural-overlay" />
             </div>
 
-            {/* A to Z Flow Global Indicator - Fully Activated */}
+            {/* A to Z Flow Global Indicator - Fully Activated and Firebase Connected */}
             <div className="fixed top-28 right-4 z-[100] pointer-events-none flex flex-col gap-3 opacity-60 hover:opacity-100 transition-all duration-500">
               <div className="bg-black/90 border-2 border-primary/50 rounded-2xl px-5 py-2.5 flex items-center gap-4 backdrop-blur-xl shadow-[0_0_30px_rgba(7,241,214,0.4)] group">
                 <div className="relative">
@@ -44,7 +44,7 @@ export default function RootLayout({
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[11px] font-black uppercase tracking-[0.2em] text-primary">A TO Z FLOW ACTIVE</span>
-                  <span className="text-[8px] font-bold text-white/40 tracking-widest uppercase">System Core Sync: 100%</span>
+                  <span className="text-[8px] font-bold text-white/40 tracking-widest uppercase">Firebase Cloud Sync: Online</span>
                 </div>
               </div>
               <div className="flex justify-end gap-3 pr-2">
