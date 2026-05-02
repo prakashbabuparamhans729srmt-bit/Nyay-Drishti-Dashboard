@@ -14,7 +14,7 @@ import { Activity, Cpu, Zap, Radio, Database } from "lucide-react";
 export const metadata: Metadata = {
   title: 'न्यायदृष्टि - न्यायिक डैशबोर्ड',
   description: 'Proactive Judicial System Monitoring and Analysis Dashboard - A to Z Neural Flow Activated',
-  manifest: '/manifest.json',
+  manifest: '/manifest.webmanifest',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
