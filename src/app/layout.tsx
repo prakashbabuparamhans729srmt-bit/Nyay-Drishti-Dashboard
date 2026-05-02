@@ -1,3 +1,4 @@
+
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
@@ -44,7 +45,7 @@ export default function RootLayout({
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[11px] font-black uppercase tracking-[0.2em] text-primary">A TO Z FLOW ACTIVE</span>
-                  <span className="text-[8px] font-bold text-white/40 tracking-widest uppercase">Firebase Cloud Sync: Online</span>
+                  <span className="text-[8px] font-bold text-white/40 tracking-widest uppercase">Firebase Cloud Sync: 100%</span>
                 </div>
               </div>
               <div className="flex justify-end gap-3 pr-2">

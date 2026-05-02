@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -41,7 +42,7 @@ export default function NyayDrishtiDashboard() {
           return 100;
         }
         if (prev < 15) setSystemStatus("Neural Core Loading...");
-        else if (prev < 30) setSystemStatus("Firebase Link Establishing...");
+        else if (prev < 30) setSystemStatus("Firebase Cloud Link Establishing...");
         else if (prev < 45) setSystemStatus("Synchronizing Judicial Nodes...");
         else if (prev < 60) setSystemStatus("Decrypting Judicial Gateway...");
         else if (prev < 75) setSystemStatus("Scanning Regional Mainframes...");
@@ -49,7 +50,7 @@ export default function NyayDrishtiDashboard() {
         else if (prev < 100) setSystemStatus("System Online. Welcome to NyayDrishti.");
         return prev + 1;
       });
-    }, 20);
+    }, 25);
     return () => clearInterval(interval);
   }, [user, isUserLoading, router]);
 
@@ -85,6 +86,7 @@ export default function NyayDrishtiDashboard() {
               </div>
               <div className="flex flex-col gap-3">
                 <p className="text-[12px] text-primary font-black uppercase tracking-[0.6em]">A to Z System Flow: {bootProgress}% Initialized</p>
+                <p className="text-[9px] text-white/30 uppercase font-bold tracking-[0.4em]">Secure Connection via Firebase Auth Node</p>
               </div>
             </div>
           </div>
@@ -125,7 +127,7 @@ export default function NyayDrishtiDashboard() {
                    <Badge variant="outline" className="border-primary/50 text-[11px] font-black uppercase text-primary px-5 py-1 bg-primary/15 shadow-xl">NODE: CENTRAL GATEWAY</Badge>
                    <div className="flex items-center gap-3 opacity-60 hover:opacity-100 transition-opacity cursor-help">
                       <Globe className="h-5 w-5 text-primary" />
-                      <span className="text-[10px] font-black uppercase tracking-widest">Global Sync Status: 100% Calibrated</span>
+                      <span className="text-[10px] font-black uppercase tracking-widest">Firebase Cloud Sync: 100% Calibrated</span>
                    </div>
                 </div>
               </div>
@@ -191,7 +193,7 @@ export default function NyayDrishtiDashboard() {
               <div className="flex items-center gap-8">
                 <div className="h-5 w-5 rounded-full bg-primary animate-pulse shadow-[0_0_30px_rgba(7,241,214,1)]" />
                 <p className="text-[16px] font-black uppercase tracking-[1.5em] text-primary text-neon">
-                  NyayDrishti Neural Framework v4.5.0 - A to Z Active Flow
+                  NyayDrishti Neural Framework v4.5.0 - A to Z Flow Fully Synced
                 </p>
                 <div className="h-5 w-5 rounded-full bg-primary animate-pulse shadow-[0_0_30px_rgba(7,241,214,1)]" />
               </div>
@@ -208,7 +210,7 @@ export default function NyayDrishtiDashboard() {
                <div className="h-1 w-12 bg-white/10 rounded-full" />
                <div className="flex items-center gap-2">
                  <Radio className="h-4 w-4 text-primary" />
-                 <span className="text-[10px] uppercase font-black tracking-widest">Uplink Active</span>
+                 <span className="text-[10px] uppercase font-black tracking-widest">Cloud Sync Active</span>
                </div>
             </div>
           </div>

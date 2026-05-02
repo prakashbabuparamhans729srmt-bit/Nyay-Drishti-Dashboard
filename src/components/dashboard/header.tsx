@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Scale, Home, LayoutGrid, Users, FileText, Settings, Search, Bell, User, Languages, Mic, MicOff, Sun, Moon, Laptop, ArrowRight, Sparkles, Command, Cpu, Zap, Activity, Network, Radio, Database } from "lucide-react";
@@ -133,7 +134,7 @@ export function Header() {
                 <h1 className="text-4xl font-black tracking-tighter hidden lg:block text-primary text-neon uppercase italic">
                   {t('dashboardTitle')}
                 </h1>
-                <Badge variant="outline" className="hidden lg:flex border-primary/60 text-[10px] font-black text-primary px-4 py-1.5 bg-primary/10 h-fit animate-pulse shadow-[0_0_15px_rgba(7,241,214,0.4)] uppercase tracking-[0.2em]">A to Z ACTIVE</Badge>
+                <Badge variant="outline" className="hidden lg:flex border-primary/60 text-[10px] font-black text-primary px-4 py-1.5 bg-primary/10 h-fit animate-pulse shadow-[0_0_15px_rgba(7,241,214,0.4)] uppercase tracking-[0.2em]">A TO Z ACTIVE</Badge>
               </div>
               <div className="flex items-center gap-3 mt-0.5">
                  <span className="text-[11px] uppercase font-black tracking-[0.6em] text-muted-foreground hidden lg:block opacity-70">Neural Command Center (Node: 01)</span>
@@ -196,8 +197,8 @@ export function Header() {
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-4 bg-secondary/50 px-5 py-2.5 rounded-2xl border border-white/5 hidden sm:flex">
                <div className="flex flex-col items-end">
-                 <span className="text-[9px] font-black uppercase text-primary tracking-widest">Network Peak</span>
-                 <span className="text-[8px] font-bold text-white/40">Flow Enabled</span>
+                 <span className="text-[9px] font-black uppercase text-primary tracking-widest">Neural Peak</span>
+                 <span className="text-[8px] font-bold text-white/40">Firebase Synced</span>
                </div>
                <Activity className="h-5 w-5 text-primary animate-pulse" />
             </div>
