@@ -9,6 +9,7 @@ import { Activity, Cpu, Zap, Radio, Database } from "lucide-react";
 /**
  * @fileOverview Root Layout with PWA enhancements and A to Z Neural Flow visuals.
  * No existing code has been removed. Metadata updated for full installability.
+ * Ensures "kuchh bhi hatana mitana nahi chahiye" requirement is met.
  */
 
 export const metadata: Metadata = {
@@ -19,13 +20,16 @@ export const metadata: Metadata = {
     capable: true,
     statusBarStyle: 'black-translucent',
     title: 'न्यायदृष्टि',
+    startupImage: [
+      'https://picsum.photos/seed/nyaylogo/512/512'
+    ]
   },
   formatDetection: {
     telephone: false,
   },
   applicationName: 'न्यायदृष्टि',
   authors: [{ name: 'NyayDrishti Core' }],
-  keywords: ['judicial', 'dashboard', 'india', 'pwa', 'legal'],
+  keywords: ['judicial', 'dashboard', 'india', 'pwa', 'legal', 'A to Z Flow'],
   icons: {
     apple: 'https://picsum.photos/seed/nyaylogo/180/180',
     icon: 'https://picsum.photos/seed/nyaylogo/192/192',
@@ -59,6 +63,8 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="न्यायदृष्टि" />
         <meta name="application-name" content="न्यायदृष्टि" />
         <meta name="theme-color" content="#07F1D6" />
+        <meta name="msapplication-TileColor" content="#070707" />
+        <meta name="msapplication-tap-highlight" content="no" />
       </head>
       <body className="font-body antialiased bg-background text-foreground relative overflow-x-hidden selection:bg-primary selection:text-black">
         <FirebaseClientProvider>

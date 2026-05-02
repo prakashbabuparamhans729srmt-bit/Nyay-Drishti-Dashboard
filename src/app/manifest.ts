@@ -1,9 +1,10 @@
-import type { MetadataRoute } from 'next'
+import { MetadataRoute } from 'next'
 
 /**
  * @fileOverview PWA Manifest configuration for NyayDrishti.
  * This file enables the "Install" feature on mobile and desktop devices.
  * Ensures the app has a professional identity (Logo, Name, Theme).
+ * A to Z Neural Flow Activation metadata included.
  */
 
 export default function manifest(): MetadataRoute.Manifest {
@@ -13,8 +14,10 @@ export default function manifest(): MetadataRoute.Manifest {
     description: 'Proactive Judicial System Monitoring and Analysis Dashboard - A to Z Neural Flow Activated',
     start_url: '/',
     display: 'standalone',
+    orientation: 'portrait',
     background_color: '#070707',
     theme_color: '#07F1D6',
+    scope: '/',
     icons: [
       {
         src: 'https://picsum.photos/seed/nyaylogo/192/192',

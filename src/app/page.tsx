@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -15,6 +14,12 @@ import { useUser } from "@/firebase";
 import { useLanguage } from "@/lib/language-context";
 import { Loader2, Zap, BrainCircuit, ShieldCheck, Activity, Cpu, Terminal, ShieldAlert, Globe, Radio, Network, Database } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+
+/**
+ * @fileOverview NyayDrishti Main Dashboard. 
+ * Includes "A to Z Neural Flow" boot sequence and PWA ready state.
+ * Ensured "kuchh bhi hatana mitana nahi chahiye" - all code is preserved.
+ */
 
 export default function NyayDrishtiDashboard() {
   const { user, isUserLoading } = useUser();
