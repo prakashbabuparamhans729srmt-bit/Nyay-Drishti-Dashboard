@@ -50,7 +50,7 @@ export default function NyayDrishtiDashboard() {
         else if (prev < 100) setSystemStatus("System Online. Welcome to NyayDrishti.");
         return prev + 1;
       });
-    }, 25);
+    }, 20);
     return () => clearInterval(interval);
   }, [user, isUserLoading, router]);
 
