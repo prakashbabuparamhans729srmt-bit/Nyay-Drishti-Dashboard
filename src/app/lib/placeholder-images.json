@@ -1,4 +1,3 @@
-
 {
   "placeholderImages": [
     {
@@ -36,6 +35,12 @@
       "description": "Neural network visualization for AI assistant",
       "imageUrl": "https://picsum.photos/seed/neural/800/800",
       "imageHint": "neural network"
+    },
+    {
+      "id": "nyay-logo",
+      "description": "NyayDrishti PWA Logo",
+      "imageUrl": "https://picsum.photos/seed/nyaylogo/512/512",
+      "imageHint": "justice logo"
     }
   ]
 }

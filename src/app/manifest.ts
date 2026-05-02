@@ -3,6 +3,7 @@ import type { MetadataRoute } from 'next'
 /**
  * @fileOverview PWA Manifest configuration for NyayDrishti.
  * This file enables the "Install" feature on mobile and desktop devices.
+ * Ensures the app has a professional identity (Logo, Name, Theme).
  */
 
 export default function manifest(): MetadataRoute.Manifest {
