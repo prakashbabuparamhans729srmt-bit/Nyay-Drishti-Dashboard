@@ -2,11 +2,12 @@
 {
   "name": "न्यायदृष्टि - न्यायिक डैशबोर्ड",
   "short_name": "न्यायदृष्टि",
-  "description": "Proactive Judicial System Monitoring and Analysis Dashboard - Advanced A to Z Neural Flow",
+  "description": "Proactive Judicial System Monitoring and Analysis Dashboard - A to Z Neural Flow Activated",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#070707",
   "theme_color": "#07F1D6",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "https://picsum.photos/seed/nyaylogo/192/192",
@@ -17,8 +18,7 @@
     {
       "src": "https://picsum.photos/seed/nyaylogo/512/512",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     }
   ]
 }

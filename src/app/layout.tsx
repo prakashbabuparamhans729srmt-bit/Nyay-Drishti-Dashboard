@@ -53,6 +53,8 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="न्यायदृष्टि" />
+        <meta name="application-name" content="न्यायदृष्टि" />
+        <meta name="theme-color" content="#07F1D6" />
       </head>
       <body className="font-body antialiased bg-background text-foreground relative overflow-x-hidden selection:bg-primary selection:text-black">
         <FirebaseClientProvider>
