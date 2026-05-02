@@ -1,8 +1,8 @@
 
 {
-  "name": "न्यायदृष्टि - NyayDrishti Neural Dashboard",
-  "short_name": "NyayDrishti",
-  "description": "A to Z Advanced Judicial Monitoring Command Center",
+  "name": "न्यायदृष्टि - न्यायिक डैशबोर्ड",
+  "short_name": "न्यायदृष्टि",
+  "description": "Proactive Judicial System Monitoring and Analysis Dashboard - A to Z Neural Flow Activated",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#070707",
@@ -20,5 +20,7 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
-  ]
+  ],
+  "orientation": "portrait-primary",
+  "categories": ["productivity", "government", "utilities"]
 }

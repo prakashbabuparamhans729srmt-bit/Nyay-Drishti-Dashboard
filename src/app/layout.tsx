@@ -13,12 +13,15 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
-    statusBarStyle: 'default',
+    statusBarStyle: 'black-translucent',
     title: 'न्यायदृष्टि',
   },
   formatDetection: {
     telephone: false,
   },
+  applicationName: 'न्यायदृष्टि',
+  authors: [{ name: 'NyayDrishti Core' }],
+  keywords: ['judicial', 'dashboard', 'india', 'pwa', 'legal'],
 };
 
 export const viewport: Viewport = {
@@ -27,6 +30,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
+  viewportFit: 'cover',
 };
 
 export default function RootLayout({
@@ -42,6 +46,9 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet" />
         <link rel="apple-touch-icon" href="https://picsum.photos/seed/nyaylogo/180/180" />
         <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="न्यायदृष्टि" />
       </head>
       <body className="font-body antialiased bg-background text-foreground relative overflow-x-hidden selection:bg-primary selection:text-black">
         <FirebaseClientProvider>
