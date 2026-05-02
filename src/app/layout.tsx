@@ -22,6 +22,9 @@ export const metadata: Metadata = {
   applicationName: 'न्यायदृष्टि',
   authors: [{ name: 'NyayDrishti Core' }],
   keywords: ['judicial', 'dashboard', 'india', 'pwa', 'legal'],
+  icons: {
+    apple: 'https://picsum.photos/seed/nyaylogo/180/180',
+  }
 };
 
 export const viewport: Viewport = {
