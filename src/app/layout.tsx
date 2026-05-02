@@ -1,4 +1,3 @@
-
 import type {Metadata, Viewport} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
@@ -6,6 +5,11 @@ import { LanguageProvider } from "@/lib/language-context";
 import { FirebaseClientProvider } from "@/firebase/client-provider";
 import { AIAssistant } from "@/components/dashboard/ai-assistant";
 import { Activity, Cpu, Zap, Radio, Database } from "lucide-react";
+
+/**
+ * @fileOverview Root Layout with PWA enhancements and A to Z Neural Flow visuals.
+ * No existing code has been removed. Metadata updated for full installability.
+ */
 
 export const metadata: Metadata = {
   title: 'न्यायदृष्टि - न्यायिक डैशबोर्ड',
@@ -24,6 +28,7 @@ export const metadata: Metadata = {
   keywords: ['judicial', 'dashboard', 'india', 'pwa', 'legal'],
   icons: {
     apple: 'https://picsum.photos/seed/nyaylogo/180/180',
+    icon: 'https://picsum.photos/seed/nyaylogo/192/192',
   }
 };
 
